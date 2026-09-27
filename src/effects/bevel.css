@@ -2,12 +2,12 @@
   border: 1px solid var(--rdk-border);
   border-top-color: var(--rdk-highlight);
   border-left-color: var(--rdk-highlight);
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 35%), 1px 2px 0 var(--rdk-shadow);
+  box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 35%), 1px 2px 0 var(--rdk-shadow);
 }
 
 .rdk-bevel-pressed {
   border: 1px solid var(--rdk-border);
   border-top-color: var(--rdk-border-dark);
   border-left-color: var(--rdk-border-dark);
-  box-shadow: inset 2px 2px 3px rgb(30 35 34 / 17%), inset -1px -1px 0 var(--rdk-highlight);
+  box-shadow: inset 2px 2px 3px rgb(var(--_rdk-press-rgb) / 17%), inset -1px -1px 0 var(--rdk-highlight);
 }

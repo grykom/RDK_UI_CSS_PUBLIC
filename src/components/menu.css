@@ -4,7 +4,7 @@
   border-left-color: var(--rdk-highlight);
   border-radius: var(--rdk-radius);
   background: var(--rdk-surface-raised);
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 40%), var(--_rdk-overlay-shadow);
+  box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 40%), var(--_rdk-overlay-shadow);
   color: var(--rdk-text);
   max-height: min(70vh, 26rem);
   overflow-y: auto;

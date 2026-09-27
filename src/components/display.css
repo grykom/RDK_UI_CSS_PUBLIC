@@ -3,12 +3,12 @@
   width: 0.65em;
   height: 0.65em;
   flex: none;
-  border: 1px solid rgb(0 0 0 / 32%);
+  border: 1px solid rgb(var(--_rdk-deep-rgb) / 32%);
   border-radius: 50%;
   background: var(--rdk-accent-green);
-  box-shadow: inset -1px -1px 2px rgb(0 0 0 / 30%), 0 0 0 2px var(--rdk-surface-recessed), 0 0 0 3px var(--rdk-border);
+  box-shadow: inset -1px -1px 2px rgb(var(--_rdk-deep-rgb) / 30%), 0 0 0 2px var(--rdk-surface-recessed), 0 0 0 3px var(--rdk-border);
 }
 .rdk-status-led[data-color="red"] { background: var(--rdk-accent-red); }
 .rdk-status-led[data-color="blue"] { background: var(--rdk-accent-blue); }
 .rdk-status-led[data-color="pink"] { background: var(--rdk-accent-pink); }
-.rdk-status-led[data-state="off"] { background: var(--rdk-lcd-off); box-shadow: inset 1px 1px 3px rgb(0 0 0 / 35%), 0 0 0 2px var(--rdk-surface-recessed), 0 0 0 3px var(--rdk-border); }
+.rdk-status-led[data-state="off"] { background: var(--rdk-lcd-off); box-shadow: inset 1px 1px 3px rgb(var(--_rdk-deep-rgb) / 35%), 0 0 0 2px var(--rdk-surface-recessed), 0 0 0 3px var(--rdk-border); }

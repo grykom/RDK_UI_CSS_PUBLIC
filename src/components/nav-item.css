@@ -14,7 +14,7 @@
   border-left-color: var(--rdk-highlight);
   border-radius: var(--rdk-radius);
   background: var(--rdk-surface-raised);
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 40%), 1px 2px 0 var(--rdk-shadow);
+  box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 40%), 1px 2px 0 var(--rdk-shadow);
   color: var(--rdk-text);
   font: 700 0.9rem/1.2 var(--rdk-font-ui);
   text-align: left;
@@ -38,7 +38,7 @@
 .rdk-nav-item:is([aria-current="page"], [aria-pressed="true"]) {
   border-color: var(--rdk-border-dark);
   background: var(--rdk-surface-recessed);
-  box-shadow: inset 2px 2px 3px rgb(30 35 34 / 22%), 0 0 0 1px var(--rdk-structure);
+  box-shadow: inset 2px 2px 3px rgb(var(--_rdk-press-rgb) / 22%), 0 0 0 1px var(--rdk-structure);
 }
 .rdk-nav-item:disabled {
   opacity: 0.52;

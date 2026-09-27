@@ -1,14 +1,14 @@
 /* Shared categorical accent contract. --_rdk-* variables are private. */
 :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range) {
   --_rdk-accent: var(--rdk-accent-blue);
-  --_rdk-accent-ink: #fff;
-  --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, #151c1d);
+  --_rdk-accent-ink: var(--_rdk-accent-on);
+  --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, var(--_rdk-accent-mix-dark));
 }
 :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="green"] { --_rdk-accent: var(--rdk-accent-green); }
 :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="red"] { --_rdk-accent: var(--rdk-accent-red); }
 :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="blue"] { --_rdk-accent: var(--rdk-accent-blue); }
 :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="pink"] { --_rdk-accent: var(--rdk-accent-pink); }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="amber"] { --_rdk-accent: var(--rdk-accent-amber); --_rdk-accent-ink: var(--rdk-text); --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, #fff); }
+:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="amber"] { --_rdk-accent: var(--rdk-accent-amber); --_rdk-accent-ink: var(--rdk-text); --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, var(--_rdk-accent-mix-light)); }
 :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="orange"] { --_rdk-accent: var(--rdk-accent-orange); }
 :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="violet"] { --_rdk-accent: var(--rdk-accent-violet); }
 :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="cyan"] { --_rdk-accent: var(--rdk-accent-cyan); }

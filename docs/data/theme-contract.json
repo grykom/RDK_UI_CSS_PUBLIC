@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "groups": {
+    "surfaces": [
+      "--rdk-case",
+      "--rdk-surface",
+      "--rdk-surface-raised",
+      "--rdk-surface-recessed",
+      "--rdk-structure",
+      "--rdk-field"
+    ],
+    "text": [
+      "--rdk-text",
+      "--rdk-text-muted",
+      "--rdk-placeholder"
+    ],
+    "borders-and-focus": [
+      "--rdk-border",
+      "--rdk-border-dark",
+      "--rdk-highlight",
+      "--rdk-shadow",
+      "--rdk-focus"
+    ],
+    "accents": [
+      "--rdk-accent-green",
+      "--rdk-accent-red",
+      "--rdk-accent-blue",
+      "--rdk-accent-pink",
+      "--rdk-accent-amber",
+      "--rdk-accent-orange",
+      "--rdk-accent-violet",
+      "--rdk-accent-cyan"
+    ],
+    "display": [
+      "--rdk-lcd",
+      "--rdk-lcd-ink",
+      "--rdk-lcd-off",
+      "--rdk-lcd-off-surface",
+      "--rdk-lcd-border",
+      "--rdk-lcd-border-dark"
+    ],
+    "shape-and-type": [
+      "--rdk-radius",
+      "--rdk-font-ui",
+      "--rdk-font-display",
+      "--rdk-font-mono"
+    ],
+    "internal-visual-primitives": [
+      "--_rdk-glint-rgb",
+      "--_rdk-inset-rgb",
+      "--_rdk-press-rgb",
+      "--_rdk-cast-rgb",
+      "--_rdk-deep-rgb",
+      "--_rdk-backdrop-rgb",
+      "--_rdk-plastic-shade-rgb",
+      "--_rdk-lcd-scan-rgb",
+      "--_rdk-lcd-inset-rgb",
+      "--_rdk-solid-press-rgb",
+      "--_rdk-accent-mix-dark",
+      "--_rdk-accent-mix-light",
+      "--_rdk-accent-shadow",
+      "--_rdk-accent-on"
+    ]
+  },
+  "systemOwned": {
+    "derivedVariables": [
+      "--_rdk-overlay-shadow",
+      "--_rdk-accent",
+      "--_rdk-accent-ink",
+      "--_rdk-accent-hover",
+      "--_rdk-vent-run"
+    ],
+    "geometry": [
+      "component dimensions",
+      "vent slot and pitch",
+      "border widths",
+      "effect opacity and gradient stops"
+    ],
+    "semantics": [
+      "eight accent IDs",
+      "success/danger/info/special roles",
+      "disabled/pressed/selected/current states"
+    ]
+  },
+  "requiredProperties": [
+    "color-scheme"
+  ]
+}

@@ -46,7 +46,7 @@ Put the CSS import in your application entry stylesheet. Ensure the built CSS an
 <html lang="en" data-rdk-theme="console-94">
 ```
 
-The theme also defines root defaults. Explicit activation makes intent clear. Console 94 uses IBM Plex Sans for UI/display and IBM Plex Mono for readouts. Keep the local font files accessible. The approved radius is R1 (`--rdk-radius`); the decorative vent is V1B.
+Use only registered public theme IDs; the current public choice is `console-94`. Components and semantic states are theme-independent: apply `data-rdk-theme` on an ancestor or root and keep the same component markup when switching. Do not hard-code Console 94 color, surface, shadow, or type values in application CSS. Console 94 uses IBM Plex Sans for UI/display and IBM Plex Mono for readouts; keep its local font files accessible. Its radius is R1 (`--rdk-radius`) and its decorative vent is V1B. Tailwind/application CSS owns layout; the RDK theme owns visual identity.
 
 ## 6. Tailwind + RDK responsibility split
 
@@ -103,7 +103,7 @@ Exactly eight categorical accents are supported: `green`, `red`, `blue`, `pink`,
 
 ## 10. Public CSS variables
 
-Stable Console 94 tokens are:
+The public tokens shared by every registered theme are:
 
 - Surfaces/structure: `--rdk-case`, `--rdk-surface`, `--rdk-surface-raised`, `--rdk-surface-recessed`, `--rdk-structure`, `--rdk-border`, `--rdk-border-dark`, `--rdk-highlight`, `--rdk-shadow`.
 - Text/type: `--rdk-text`, `--rdk-text-muted`, `--rdk-font-ui`, `--rdk-font-display`, `--rdk-font-mono`.
@@ -111,7 +111,7 @@ Stable Console 94 tokens are:
 - LCD/fields: `--rdk-lcd`, `--rdk-lcd-ink`, `--rdk-lcd-off`, `--rdk-lcd-off-surface`, `--rdk-lcd-border`, `--rdk-lcd-border-dark`, `--rdk-field`, `--rdk-placeholder`.
 - Radius: `--rdk-radius`.
 
-These are theme tokens; inspect `/docs/reference/variables/` for values and context. `--_rdk-*` variables are internal implementation details. Select documented component variants instead of overriding implementation variables.
+These are theme tokens; inspect `/docs/reference/themes/` for available IDs and `/docs/reference/variables/` for values and context. `--_rdk-*` variables are internal implementation details. Select documented component variants instead of overriding implementation variables.
 
 ## 11. Layout and responsive rules
 

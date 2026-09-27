@@ -7,7 +7,7 @@
 }
 .rdk-disclosure[open] {
   background: var(--rdk-surface-recessed);
-  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 13%);
+  box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 13%);
 }
 .rdk-disclosure-summary {
   display: flex;
@@ -32,7 +32,7 @@
 .rdk-disclosure[open] > .rdk-disclosure-summary::before {
   transform: rotate(90deg);
 }
-.rdk-disclosure-summary:hover { background: rgb(255 255 255 / 18%); }
+.rdk-disclosure-summary:hover { background: rgb(var(--_rdk-glint-rgb) / 18%); }
 .rdk-disclosure-body {
   border-top: 1px solid var(--rdk-border);
   padding: 0.85rem;

@@ -1,0 +1,13 @@
+{
+  "storageKey": "rdk-theme",
+  "themes": [
+    {
+      "id": "console-94",
+      "label": "Console 94",
+      "status": "stable",
+      "default": true,
+      "public": true,
+      "source": "src/themes/console-94.css"
+    }
+  ]
+}

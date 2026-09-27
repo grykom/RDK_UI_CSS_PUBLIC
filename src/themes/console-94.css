@@ -32,5 +32,20 @@
   --rdk-radius: 0.29rem;
   --rdk-font-ui: "RDK IBM Plex Sans", "Segoe UI", Arial, sans-serif;
   --rdk-font-display: "RDK IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  /* Internal color channels preserve Console 94 while allowing other themes to change lighting. */
+  --_rdk-glint-rgb: 255 255 255;
+  --_rdk-inset-rgb: 37 45 46;
+  --_rdk-press-rgb: 30 35 34;
+  --_rdk-cast-rgb: 81 86 82;
+  --_rdk-deep-rgb: 0 0 0;
+  --_rdk-backdrop-rgb: 30 38 36;
+  --_rdk-plastic-shade-rgb: 38 44 42;
+  --_rdk-lcd-scan-rgb: 37 63 49;
+  --_rdk-lcd-inset-rgb: 39 57 35;
+  --_rdk-solid-press-rgb: 20 23 23;
+  --_rdk-accent-mix-dark: #151c1d;
+  --_rdk-accent-mix-light: #fff;
+  --_rdk-accent-shadow: #303737;
+  --_rdk-accent-on: #fff;
   --rdk-font-mono: "RDK IBM Plex Mono", Consolas, "Courier New", monospace;
 }

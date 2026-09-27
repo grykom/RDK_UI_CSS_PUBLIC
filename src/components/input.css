@@ -6,11 +6,11 @@
   border-left-color: var(--rdk-border-dark);
   border-radius: calc(var(--rdk-radius) - 0.1rem);
   background: var(--rdk-field);
-  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%);
+  box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%);
   color: var(--rdk-text);
   font: inherit;
 }
 .rdk-input::placeholder { color: var(--rdk-placeholder); }
 .rdk-input:disabled { background: var(--rdk-surface-recessed); color: var(--rdk-text-muted); cursor: not-allowed; }
 .rdk-input:read-only:not(:disabled) { background: var(--rdk-surface-raised); color: var(--rdk-text); }
-.rdk-input[aria-invalid="true"] { border-color: var(--rdk-accent-red); box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%), 0 0 0 1px var(--rdk-accent-red); }
+.rdk-input[aria-invalid="true"] { border-color: var(--rdk-accent-red); box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%), 0 0 0 1px var(--rdk-accent-red); }

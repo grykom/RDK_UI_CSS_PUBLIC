@@ -25,7 +25,7 @@ Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract. Explore th
 
 ## Documentation and demos
 
-GitHub Pages: [https://grykom.github.io/RDK_UI_CSS_PUBLIC/](https://grykom.github.io/RDK_UI_CSS_PUBLIC/) (available after the owner enables Pages from `main:/docs`). The site includes [components](https://grykom.github.io/RDK_UI_CSS_PUBLIC/components/), [Playground](https://grykom.github.io/RDK_UI_CSS_PUBLIC/playground/), [Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/), [Vanilla demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/vanilla/), and [Tailwind demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/tailwind/). CSS should be bundled or copied into each application; GitHub Pages is documentation and demos, not the production CSS delivery contract.
+GitHub Pages: [https://grykom.github.io/RDK_UI_CSS_PUBLIC/](https://grykom.github.io/RDK_UI_CSS_PUBLIC/) (available after the owner enables Pages from `main:/docs`). The site includes [components](https://grykom.github.io/RDK_UI_CSS_PUBLIC/components/), [Playground](https://grykom.github.io/RDK_UI_CSS_PUBLIC/playground/), [Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/), [Themes](https://grykom.github.io/RDK_UI_CSS_PUBLIC/reference/themes/), [Vanilla demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/vanilla/), and [Tailwind demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/tailwind/). CSS should be bundled or copied into each application; GitHub Pages is documentation and demos, not the production CSS delivery contract.
 
 The package is not published to the public npm registry. Tested browser targets: Chrome and Firefox on Windows at desktop, tablet, and mobile widths. Safari, iOS, and Android remain untested.
 

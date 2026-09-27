@@ -9,7 +9,7 @@
   border: 1px solid var(--rdk-border-dark);
   border-radius: var(--rdk-radius);
   background: var(--rdk-surface-recessed);
-  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 20%), inset -1px -1px 0 var(--rdk-highlight);
+  box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 20%), inset -1px -1px 0 var(--rdk-highlight);
   vertical-align: middle;
   cursor: pointer;
 }

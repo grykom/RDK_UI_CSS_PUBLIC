@@ -3,5 +3,5 @@
   border: 1px solid var(--rdk-border);
   border-top-color: var(--rdk-border-dark);
   border-left-color: var(--rdk-border-dark);
-  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 15%), inset -1px -1px 0 rgb(255 255 255 / 65%);
+  box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 15%), inset -1px -1px 0 rgb(var(--_rdk-glint-rgb) / 65%);
 }

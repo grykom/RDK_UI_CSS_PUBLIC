@@ -9,11 +9,11 @@
   background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
   background-size: 5px 5px;
   background-repeat: no-repeat;
-  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%);
+  box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%);
   color: var(--rdk-text);
   font: inherit;
   padding-right: 2rem;
   cursor: pointer;
 }
 .rdk-select:disabled { background-color: var(--rdk-surface-recessed); color: var(--rdk-text-muted); cursor: not-allowed; }
-.rdk-select[aria-invalid="true"] { border-color: var(--rdk-accent-red); box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%), 0 0 0 1px var(--rdk-accent-red); }
+.rdk-select[aria-invalid="true"] { border-color: var(--rdk-accent-red); box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%), 0 0 0 1px var(--rdk-accent-red); }

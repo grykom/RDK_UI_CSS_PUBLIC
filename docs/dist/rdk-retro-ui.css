@@ -32,6 +32,20 @@
   --rdk-radius: 0.29rem;
   --rdk-font-ui: "RDK IBM Plex Sans", "Segoe UI", Arial, sans-serif;
   --rdk-font-display: "RDK IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  --_rdk-glint-rgb: 255 255 255;
+  --_rdk-inset-rgb: 37 45 46;
+  --_rdk-press-rgb: 30 35 34;
+  --_rdk-cast-rgb: 81 86 82;
+  --_rdk-deep-rgb: 0 0 0;
+  --_rdk-backdrop-rgb: 30 38 36;
+  --_rdk-plastic-shade-rgb: 38 44 42;
+  --_rdk-lcd-scan-rgb: 37 63 49;
+  --_rdk-lcd-inset-rgb: 39 57 35;
+  --_rdk-solid-press-rgb: 20 23 23;
+  --_rdk-accent-mix-dark: #151c1d;
+  --_rdk-accent-mix-light: #fff;
+  --_rdk-accent-shadow: #303737;
+  --_rdk-accent-on: #fff;
   --rdk-font-mono: "RDK IBM Plex Mono", Consolas, "Courier New", monospace;
 }
 @layer base {
@@ -52,7 +66,7 @@
     }
   }
   :where([data-rdk-theme]) {
-    --_rdk-overlay-shadow: 0 10px 22px rgb(37 45 46 / 23%), 0 2px 5px rgb(37 45 46 / 17%);
+    --_rdk-overlay-shadow: 0 10px 22px rgb(var(--_rdk-inset-rgb) / 23%), 0 2px 5px rgb(var(--_rdk-inset-rgb) / 17%);
   }
 }
 @layer components {
@@ -74,10 +88,10 @@
   }
   :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range) {
     --_rdk-accent: var(--rdk-accent-blue);
-    --_rdk-accent-ink: #fff;
+    --_rdk-accent-ink: var(--_rdk-accent-on);
     --_rdk-accent-hover: var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, #151c1d);
+      --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, var(--_rdk-accent-mix-dark));
     }
   }
   :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="green"] {
@@ -97,7 +111,7 @@
     --_rdk-accent-ink: var(--rdk-text);
     --_rdk-accent-hover: var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, #fff);
+      --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, var(--_rdk-accent-mix-light));
     }
   }
   :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="orange"] {
@@ -113,24 +127,24 @@
     border: 1px solid var(--rdk-border);
     border-top-color: var(--rdk-highlight);
     border-left-color: var(--rdk-highlight);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 35%), 1px 2px 0 var(--rdk-shadow);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 35%), 1px 2px 0 var(--rdk-shadow);
   }
   .rdk-bevel-pressed {
     border: 1px solid var(--rdk-border);
     border-top-color: var(--rdk-border-dark);
     border-left-color: var(--rdk-border-dark);
-    box-shadow: inset 2px 2px 3px rgb(30 35 34 / 17%), inset -1px -1px 0 var(--rdk-highlight);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-press-rgb) / 17%), inset -1px -1px 0 var(--rdk-highlight);
   }
   .rdk-recessed {
     background: var(--rdk-surface-recessed);
     border: 1px solid var(--rdk-border);
     border-top-color: var(--rdk-border-dark);
     border-left-color: var(--rdk-border-dark);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 15%), inset -1px -1px 0 rgb(255 255 255 / 65%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 15%), inset -1px -1px 0 rgb(var(--_rdk-glint-rgb) / 65%);
   }
   .rdk-plastic {
     background-color: var(--rdk-surface);
-    background-image: linear-gradient(145deg, rgb(255 255 255 / 25%), transparent 38%, rgb(38 44 42 / 3%));
+    background-image: linear-gradient(145deg, rgb(var(--_rdk-glint-rgb) / 25%), transparent 38%, rgb(var(--_rdk-plastic-shade-rgb) / 3%));
   }
   .rdk-vent {
     --_rdk-vent-slot: 8px;
@@ -140,7 +154,7 @@
     overflow: hidden;
     border-radius: 3px;
     background: linear-gradient(180deg, var(--rdk-shadow), var(--rdk-surface-recessed));
-    box-shadow: inset 0 0 0 1px var(--rdk-border), inset 2px 2px 3px rgb(30 38 36 / 22%), inset -1px -1px 0 var(--rdk-highlight);
+    box-shadow: inset 0 0 0 1px var(--rdk-border), inset 2px 2px 3px rgb(var(--_rdk-backdrop-rgb) / 22%), inset -1px -1px 0 var(--rdk-highlight);
   }
   .rdk-vent::before {
     content: "";
@@ -164,8 +178,8 @@
     border-left-color: var(--rdk-lcd-border-dark);
     border-radius: calc(var(--rdk-radius) - 0.15rem);
     background-color: var(--rdk-lcd);
-    background-image: linear-gradient(160deg, rgb(255 255 255 / 24%), transparent 35%), repeating-linear-gradient(0deg, transparent 0 3px, rgb(37 63 49 / 3%) 3px 4px);
-    box-shadow: inset 2px 3px 5px rgb(39 57 35 / 23%), inset -1px -1px 0 rgb(255 255 255 / 40%);
+    background-image: linear-gradient(160deg, rgb(var(--_rdk-glint-rgb) / 24%), transparent 35%), repeating-linear-gradient(0deg, transparent 0 3px, rgb(var(--_rdk-lcd-scan-rgb) / 3%) 3px 4px);
+    box-shadow: inset 2px 3px 5px rgb(var(--_rdk-lcd-inset-rgb) / 23%), inset -1px -1px 0 rgb(var(--_rdk-glint-rgb) / 40%);
     font-family: var(--rdk-font-mono);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.045em;
@@ -188,7 +202,7 @@
     border-left-color: var(--rdk-highlight);
     border-radius: var(--rdk-radius);
     background: linear-gradient(180deg, var(--rdk-surface-raised), var(--rdk-surface));
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 40%), 1px 2px 0 var(--rdk-shadow);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 40%), 1px 2px 0 var(--rdk-shadow);
     color: var(--rdk-btn-ink);
     font-family: var(--rdk-font-display);
     font-weight: 700;
@@ -204,7 +218,7 @@
     height: 0.5em;
     border-radius: 50%;
     background: var(--rdk-btn-marker);
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 23%), 0 1px 0 var(--rdk-highlight);
+    box-shadow: inset 0 1px 1px rgb(var(--_rdk-deep-rgb) / 23%), 0 1px 0 var(--rdk-highlight);
   }
   .rdk-btn-primary {
     --rdk-btn-marker: var(--rdk-accent-blue);
@@ -222,20 +236,20 @@
     --rdk-btn-marker: var(--_rdk-accent-ink);
     border-color: var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      border-color: color-mix(in srgb, var(--_rdk-accent) 66%, #151c1d);
+      border-color: color-mix(in srgb, var(--_rdk-accent) 66%, var(--_rdk-accent-mix-dark));
     }
     border-top-color: var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      border-top-color: color-mix(in srgb, var(--_rdk-accent) 68%, #fff);
+      border-top-color: color-mix(in srgb, var(--_rdk-accent) 68%, var(--_rdk-accent-mix-light));
     }
     border-left-color: var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      border-left-color: color-mix(in srgb, var(--_rdk-accent) 68%, #fff);
+      border-left-color: color-mix(in srgb, var(--_rdk-accent) 68%, var(--_rdk-accent-mix-light));
     }
     background: var(--_rdk-accent);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 24%), 1px 2px 0 var(--_rdk-accent);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 24%), 1px 2px 0 var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      box-shadow: inset 1px 1px 0 rgb(255 255 255 / 24%), 1px 2px 0 color-mix(in srgb, var(--_rdk-accent) 45%, #303737);
+      box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 24%), 1px 2px 0 color-mix(in srgb, var(--_rdk-accent) 45%, var(--_rdk-accent-shadow));
     }
     color: var(--_rdk-accent-ink);
   }
@@ -245,21 +259,21 @@
   .rdk-btn.rdk-btn-solid:is(:active:not(:disabled), [aria-pressed="true"]) {
     border-top-color: var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      border-top-color: color-mix(in srgb, var(--_rdk-accent) 55%, #151c1d);
+      border-top-color: color-mix(in srgb, var(--_rdk-accent) 55%, var(--_rdk-accent-mix-dark));
     }
     border-left-color: var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      border-left-color: color-mix(in srgb, var(--_rdk-accent) 55%, #151c1d);
+      border-left-color: color-mix(in srgb, var(--_rdk-accent) 55%, var(--_rdk-accent-mix-dark));
     }
-    box-shadow: inset 2px 2px 3px rgb(20 23 23 / 33%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-solid-press-rgb) / 33%);
   }
   .rdk-btn.rdk-btn-outline {
     --rdk-btn-marker: var(--_rdk-accent);
     border-right-color: var(--_rdk-accent);
     border-bottom-color: var(--_rdk-accent);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 40%), 1px 2px 0 var(--_rdk-accent);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 40%), 1px 2px 0 var(--_rdk-accent);
     @supports (color: color-mix(in lab, red, red)) {
-      box-shadow: inset 1px 1px 0 rgb(255 255 255 / 40%), 1px 2px 0 color-mix(in srgb, var(--_rdk-accent) 45%, var(--rdk-shadow));
+      box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 40%), 1px 2px 0 color-mix(in srgb, var(--_rdk-accent) 45%, var(--rdk-shadow));
     }
   }
   .rdk-btn.rdk-btn-outline:hover:not(:disabled) {
@@ -271,7 +285,7 @@
   .rdk-btn.rdk-btn-outline:is(:active:not(:disabled), [aria-pressed="true"]) {
     border-top-color: var(--_rdk-accent);
     border-left-color: var(--_rdk-accent);
-    box-shadow: inset 2px 2px 3px rgb(30 35 34 / 17%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-press-rgb) / 17%);
   }
   .rdk-btn:hover:not(:disabled) {
     background: var(--rdk-surface-raised);
@@ -280,7 +294,7 @@
     transform: translateY(1px);
     border-top-color: var(--rdk-border-dark);
     border-left-color: var(--rdk-border-dark);
-    box-shadow: inset 2px 2px 3px rgb(30 35 34 / 17%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-press-rgb) / 17%);
   }
   .rdk-btn:disabled {
     color: var(--rdk-text-muted);
@@ -304,7 +318,7 @@
     border-left-color: var(--rdk-highlight);
     border-radius: var(--rdk-radius);
     background: var(--rdk-surface-raised);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 40%), 1px 2px 0 var(--rdk-shadow);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 40%), 1px 2px 0 var(--rdk-shadow);
     color: var(--rdk-text);
     font: 700 0.9rem/1.2 var(--rdk-font-ui);
     text-align: left;
@@ -335,7 +349,7 @@
   .rdk-nav-item:is([aria-current="page"], [aria-pressed="true"]) {
     border-color: var(--rdk-border-dark);
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 2px 2px 3px rgb(30 35 34 / 22%), 0 0 0 1px var(--rdk-structure);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-press-rgb) / 22%), 0 0 0 1px var(--rdk-structure);
   }
   .rdk-nav-item:disabled {
     opacity: 0.52;
@@ -366,14 +380,14 @@
     border-left-color: var(--rdk-highlight);
     border-radius: calc(var(--rdk-radius) + 0.1rem);
     background: var(--rdk-surface);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 48%), 2px 3px 0 rgb(81 86 82 / 16%);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 48%), 2px 3px 0 rgb(var(--_rdk-cast-rgb) / 16%);
     color: var(--rdk-text);
   }
   .rdk-panel-recessed {
     border-top-color: var(--rdk-border-dark);
     border-left-color: var(--rdk-border-dark);
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 14%), inset -1px -1px 0 var(--rdk-highlight);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 14%), inset -1px -1px 0 var(--rdk-highlight);
   }
   .rdk-input {
     appearance: none;
@@ -383,7 +397,7 @@
     border-left-color: var(--rdk-border-dark);
     border-radius: calc(var(--rdk-radius) - 0.1rem);
     background: var(--rdk-field);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%);
     color: var(--rdk-text);
     font: inherit;
   }
@@ -401,7 +415,7 @@
   }
   .rdk-input[aria-invalid="true"] {
     border-color: var(--rdk-accent-red);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%), 0 0 0 1px var(--rdk-accent-red);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%), 0 0 0 1px var(--rdk-accent-red);
   }
   .rdk-select {
     appearance: none;
@@ -414,7 +428,7 @@
     background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
     background-size: 5px 5px;
     background-repeat: no-repeat;
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%);
     color: var(--rdk-text);
     font: inherit;
     padding-right: 2rem;
@@ -427,17 +441,17 @@
   }
   .rdk-select[aria-invalid="true"] {
     border-color: var(--rdk-accent-red);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%), 0 0 0 1px var(--rdk-accent-red);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%), 0 0 0 1px var(--rdk-accent-red);
   }
   .rdk-status-led {
     display: inline-block;
     width: 0.65em;
     height: 0.65em;
     flex: none;
-    border: 1px solid rgb(0 0 0 / 32%);
+    border: 1px solid rgb(var(--_rdk-deep-rgb) / 32%);
     border-radius: 50%;
     background: var(--rdk-accent-green);
-    box-shadow: inset -1px -1px 2px rgb(0 0 0 / 30%), 0 0 0 2px var(--rdk-surface-recessed), 0 0 0 3px var(--rdk-border);
+    box-shadow: inset -1px -1px 2px rgb(var(--_rdk-deep-rgb) / 30%), 0 0 0 2px var(--rdk-surface-recessed), 0 0 0 3px var(--rdk-border);
   }
   .rdk-status-led[data-color="red"] {
     background: var(--rdk-accent-red);
@@ -450,7 +464,7 @@
   }
   .rdk-status-led[data-state="off"] {
     background: var(--rdk-lcd-off);
-    box-shadow: inset 1px 1px 3px rgb(0 0 0 / 35%), 0 0 0 2px var(--rdk-surface-recessed), 0 0 0 3px var(--rdk-border);
+    box-shadow: inset 1px 1px 3px rgb(var(--_rdk-deep-rgb) / 35%), 0 0 0 2px var(--rdk-surface-recessed), 0 0 0 3px var(--rdk-border);
   }
   .rdk-textarea {
     appearance: none;
@@ -460,7 +474,7 @@
     border-left-color: var(--rdk-border-dark);
     border-radius: calc(var(--rdk-radius) - 0.1rem);
     background: var(--rdk-field);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%);
     color: var(--rdk-text);
     font: inherit;
   }
@@ -478,7 +492,7 @@
   }
   .rdk-textarea[aria-invalid="true"], .rdk-textarea:invalid:not(:placeholder-shown) {
     border-color: var(--rdk-accent-red);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%), 0 0 0 1px var(--rdk-accent-red);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 11%), 0 0 0 1px var(--rdk-accent-red);
   }
   .rdk-checkbox {
     appearance: none;
@@ -493,7 +507,7 @@
     border-left-color: var(--rdk-border-dark);
     border-radius: calc(var(--rdk-radius) - 0.13rem);
     background: var(--rdk-field);
-    box-shadow: inset 1px 1px 2px rgb(37 45 46 / 18%), 0 1px 0 var(--rdk-highlight);
+    box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 18%), 0 1px 0 var(--rdk-highlight);
     color: var(--rdk-accent-blue);
     vertical-align: middle;
     cursor: pointer;
@@ -519,7 +533,7 @@
   .rdk-checkbox:disabled {
     background: var(--rdk-surface-recessed);
     color: var(--rdk-text-muted);
-    box-shadow: inset 1px 1px 2px rgb(37 45 46 / 10%);
+    box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 10%);
     cursor: not-allowed;
   }
   .rdk-radio {
@@ -535,7 +549,7 @@
     border-left-color: var(--rdk-border-dark);
     border-radius: 50%;
     background: var(--rdk-field);
-    box-shadow: inset 1px 1px 2px rgb(37 45 46 / 18%), 0 1px 0 var(--rdk-highlight);
+    box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 18%), 0 1px 0 var(--rdk-highlight);
     color: var(--rdk-accent-blue);
     vertical-align: middle;
     cursor: pointer;
@@ -546,7 +560,7 @@
     height: 0.56em;
     border-radius: 50%;
     background: currentColor;
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 18%);
+    box-shadow: inset 0 1px 1px rgb(var(--_rdk-deep-rgb) / 18%);
     transform: scale(0);
   }
   .rdk-radio:checked::before {
@@ -555,7 +569,7 @@
   .rdk-radio:disabled {
     background: var(--rdk-surface-recessed);
     color: var(--rdk-text-muted);
-    box-shadow: inset 1px 1px 2px rgb(37 45 46 / 10%);
+    box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 10%);
     cursor: not-allowed;
   }
   .rdk-toggle {
@@ -569,7 +583,7 @@
     border: 1px solid var(--rdk-border-dark);
     border-radius: var(--rdk-radius);
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 20%), inset -1px -1px 0 var(--rdk-highlight);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 20%), inset -1px -1px 0 var(--rdk-highlight);
     vertical-align: middle;
     cursor: pointer;
   }
@@ -645,7 +659,7 @@
     border-left-color: var(--rdk-highlight);
     border-radius: var(--rdk-radius);
     background: var(--rdk-surface-raised);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 38%), 1px 2px 0 rgb(81 86 82 / 12%);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 38%), 1px 2px 0 rgb(var(--_rdk-cast-rgb) / 12%);
     color: var(--rdk-text);
   }
   .rdk-card-interactive {
@@ -659,7 +673,7 @@
     border-top-color: var(--rdk-border-dark);
     border-left-color: var(--rdk-border-dark);
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 14%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 14%);
   }
   .rdk-card-interactive[aria-pressed="true"], .rdk-card-interactive[aria-current="true"] {
     border-color: var(--rdk-accent-blue);
@@ -711,7 +725,7 @@
     border: 1px solid var(--rdk-border-dark);
     border-radius: calc(var(--rdk-radius) - 0.1rem);
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 17%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 17%);
     color: var(--_rdk-accent);
   }
   .rdk-progress::-webkit-progress-bar {
@@ -719,11 +733,11 @@
   }
   .rdk-progress::-webkit-progress-value {
     background: var(--_rdk-accent);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 25%);
+    box-shadow: inset 0 1px 0 rgb(var(--_rdk-glint-rgb) / 25%);
   }
   .rdk-progress::-moz-progress-bar {
     background: var(--_rdk-accent);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 25%);
+    box-shadow: inset 0 1px 0 rgb(var(--_rdk-glint-rgb) / 25%);
   }
   .rdk-progress:indeterminate {
     background: repeating-linear-gradient(110deg, var(--rdk-surface-recessed) 0 10px, var(--rdk-border) 10px 16px);
@@ -747,7 +761,7 @@
   }
   .rdk-disclosure[open] {
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 2px 2px 3px rgb(37 45 46 / 13%);
+    box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 13%);
   }
   .rdk-disclosure-summary {
     display: flex;
@@ -775,7 +789,7 @@
     transform: rotate(90deg);
   }
   .rdk-disclosure-summary:hover {
-    background: rgb(255 255 255 / 18%);
+    background: rgb(var(--_rdk-glint-rgb) / 18%);
   }
   .rdk-disclosure-body {
     border-top: 1px solid var(--rdk-border);
@@ -796,14 +810,14 @@
     border: 1px solid var(--rdk-border-dark);
     border-radius: 2px;
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 1px 1px 2px rgb(37 45 46 / 22%);
+    box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 22%);
   }
   .rdk-range::-moz-range-track {
     height: 0.375rem;
     border: 1px solid var(--rdk-border-dark);
     border-radius: 2px;
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 1px 1px 2px rgb(37 45 46 / 22%);
+    box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 22%);
   }
   .rdk-range::-webkit-slider-thumb {
     appearance: none;
@@ -813,7 +827,7 @@
     border: 1px solid var(--rdk-border-dark);
     border-radius: 2px;
     background: var(--_rdk-accent);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 38%), 1px 1px 1px rgb(37 45 46 / 28%);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 38%), 1px 1px 1px rgb(var(--_rdk-inset-rgb) / 28%);
   }
   .rdk-range::-moz-range-thumb {
     width: 1.125rem;
@@ -821,7 +835,7 @@
     border: 1px solid var(--rdk-border-dark);
     border-radius: 2px;
     background: var(--_rdk-accent);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 38%), 1px 1px 1px rgb(37 45 46 / 28%);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 38%), 1px 1px 1px rgb(var(--_rdk-inset-rgb) / 28%);
   }
   .rdk-range:hover:not(:disabled)::-webkit-slider-thumb {
     background: var(--_rdk-accent-hover);
@@ -830,10 +844,10 @@
     background: var(--_rdk-accent-hover);
   }
   .rdk-range:active:not(:disabled)::-webkit-slider-thumb {
-    box-shadow: inset 2px 2px 2px rgb(37 45 46 / 40%);
+    box-shadow: inset 2px 2px 2px rgb(var(--_rdk-inset-rgb) / 40%);
   }
   .rdk-range:active:not(:disabled)::-moz-range-thumb {
-    box-shadow: inset 2px 2px 2px rgb(37 45 46 / 40%);
+    box-shadow: inset 2px 2px 2px rgb(var(--_rdk-inset-rgb) / 40%);
   }
   .rdk-range:focus-visible {
     outline-offset: 2px;
@@ -898,12 +912,12 @@
     border: 1px solid var(--rdk-border);
     border-radius: 2px;
     background: var(--rdk-surface-recessed);
-    box-shadow: inset 1px 1px 2px rgb(37 45 46 / 17%);
+    box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 17%);
   }
   .rdk-segments > span[data-active] {
     border-color: var(--_rdk-accent);
     background: var(--_rdk-accent);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 25%);
+    box-shadow: inset 0 1px 0 rgb(var(--_rdk-glint-rgb) / 25%);
   }
   .rdk-table {
     border: 1px solid var(--rdk-border);
@@ -952,7 +966,7 @@
     border-left-color: var(--rdk-highlight);
     border-radius: var(--rdk-radius);
     background: var(--rdk-surface-raised);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 40%), var(--_rdk-overlay-shadow);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 40%), var(--_rdk-overlay-shadow);
     color: var(--rdk-text);
     max-height: min(70vh, 26rem);
     overflow-y: auto;
@@ -1009,11 +1023,11 @@
     border-left-color: var(--rdk-highlight);
     border-radius: calc(var(--rdk-radius) + 0.1rem);
     background: var(--rdk-surface);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 45%), var(--_rdk-overlay-shadow);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 45%), var(--_rdk-overlay-shadow);
     color: var(--rdk-text);
   }
   .rdk-dialog::backdrop {
-    background: rgb(30 38 36 / 43%);
+    background: rgb(var(--_rdk-backdrop-rgb) / 43%);
   }
   .rdk-dialog-header {
     border-bottom: 1px solid var(--rdk-border);
@@ -1074,7 +1088,7 @@
     border-left: 4px solid var(--_rdk-toast-accent);
     border-radius: var(--rdk-radius);
     background: var(--rdk-surface-raised);
-    box-shadow: inset 1px 1px 0 rgb(255 255 255 / 38%), var(--_rdk-overlay-shadow);
+    box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 38%), var(--_rdk-overlay-shadow);
     color: var(--rdk-text);
   }
   .rdk-toast-neutral {

@@ -11,7 +11,7 @@
   border-left-color: var(--rdk-border-dark);
   border-radius: 50%;
   background: var(--rdk-field);
-  box-shadow: inset 1px 1px 2px rgb(37 45 46 / 18%), 0 1px 0 var(--rdk-highlight);
+  box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 18%), 0 1px 0 var(--rdk-highlight);
   color: var(--rdk-accent-blue);
   vertical-align: middle;
   cursor: pointer;
@@ -22,8 +22,8 @@
   height: 0.56em;
   border-radius: 50%;
   background: currentColor;
-  box-shadow: inset 0 1px 1px rgb(0 0 0 / 18%);
+  box-shadow: inset 0 1px 1px rgb(var(--_rdk-deep-rgb) / 18%);
   transform: scale(0);
 }
 .rdk-radio:checked::before { transform: scale(1); }
-.rdk-radio:disabled { background: var(--rdk-surface-recessed); color: var(--rdk-text-muted); box-shadow: inset 1px 1px 2px rgb(37 45 46 / 10%); cursor: not-allowed; }
+.rdk-radio:disabled { background: var(--rdk-surface-recessed); color: var(--rdk-text-muted); box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 10%); cursor: not-allowed; }

@@ -5,6 +5,7 @@ Consumer CSS guide for Console 94.
 - [Agent guide](./agent.md)
 - [Installation](./installation/)
 - [Components](./components/)
+- [Themes](./reference/themes/)
 - [Playground](./playground/)
 - [Showcase](./showcase/)
 - [Examples](./examples/)

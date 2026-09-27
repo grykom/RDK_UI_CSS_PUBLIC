@@ -11,7 +11,7 @@
   border-left-color: var(--rdk-border-dark);
   border-radius: calc(var(--rdk-radius) - 0.13rem);
   background: var(--rdk-field);
-  box-shadow: inset 1px 1px 2px rgb(37 45 46 / 18%), 0 1px 0 var(--rdk-highlight);
+  box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 18%), 0 1px 0 var(--rdk-highlight);
   color: var(--rdk-accent-blue);
   vertical-align: middle;
   cursor: pointer;
@@ -32,4 +32,4 @@
   border-top: 0.17em solid currentColor;
   transform: none;
 }
-.rdk-checkbox:disabled { background: var(--rdk-surface-recessed); color: var(--rdk-text-muted); box-shadow: inset 1px 1px 2px rgb(37 45 46 / 10%); cursor: not-allowed; }
+.rdk-checkbox:disabled { background: var(--rdk-surface-recessed); color: var(--rdk-text-muted); box-shadow: inset 1px 1px 2px rgb(var(--_rdk-inset-rgb) / 10%); cursor: not-allowed; }

@@ -4,7 +4,7 @@
   border-left-color: var(--rdk-highlight);
   border-radius: calc(var(--rdk-radius) + 0.1rem);
   background: var(--rdk-surface);
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 48%), 2px 3px 0 rgb(81 86 82 / 16%);
+  box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 48%), 2px 3px 0 rgb(var(--_rdk-cast-rgb) / 16%);
   color: var(--rdk-text);
 }
 
@@ -12,5 +12,5 @@
   border-top-color: var(--rdk-border-dark);
   border-left-color: var(--rdk-border-dark);
   background: var(--rdk-surface-recessed);
-  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 14%), inset -1px -1px 0 var(--rdk-highlight);
+  box-shadow: inset 2px 2px 3px rgb(var(--_rdk-inset-rgb) / 14%), inset -1px -1px 0 var(--rdk-highlight);
 }

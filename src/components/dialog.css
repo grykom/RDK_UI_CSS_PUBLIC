@@ -7,10 +7,10 @@
   border-left-color: var(--rdk-highlight);
   border-radius: calc(var(--rdk-radius) + 0.1rem);
   background: var(--rdk-surface);
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 45%), var(--_rdk-overlay-shadow);
+  box-shadow: inset 1px 1px 0 rgb(var(--_rdk-glint-rgb) / 45%), var(--_rdk-overlay-shadow);
   color: var(--rdk-text);
 }
-.rdk-dialog::backdrop { background: rgb(30 38 36 / 43%); }
+.rdk-dialog::backdrop { background: rgb(var(--_rdk-backdrop-rgb) / 43%); }
 .rdk-dialog-header { border-bottom: 1px solid var(--rdk-border); background: var(--rdk-surface-raised); }
 .rdk-dialog-body { background: var(--rdk-surface); }
 .rdk-dialog-footer { border-top: 1px solid var(--rdk-border); background: var(--rdk-surface-raised); }
