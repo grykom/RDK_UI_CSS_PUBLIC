@@ -18,7 +18,7 @@ RDK is a framework-agnostic, CSS-first visual layer inspired by physical control
 
 ## 3. Installation modes
 
-The package is private and is **not** available from the public npm registry. The owner runs `npm run release:prepare` in the RDK checkout and shares `release/rdk-retro-ui-<version>.tgz` directly. In your own project, install the supplied file with `npm install ./path/to/rdk-retro-ui-VERSION.tgz` after replacing the path and version.
+The package is **not** available from the public npm registry. The public consumer mirror is RDK_UI_CSS_PUBLIC. The owner runs `npm run release:prepare` in the RDK checkout and shares `release/rdk-retro-ui-<version>.tgz` directly. In your own project, install the supplied file with `npm install ./path/to/rdk-retro-ui-VERSION.tgz` after replacing the path and version.
 
 **Installed tarball + Tailwind v4 source:**
 
@@ -34,7 +34,7 @@ Point `@source` at all templates/components containing utility class names. This
 
 **Repository/local source:** after Tailwind, import the local `src/index.css` from the RDK checkout by its real relative path. This is useful while developing RDK.
 
-**Optional owner-hosted CSS:** a separate static host may offer versioned CSS only after private deployment. Do not assume any such URL is live. Applications should keep their own copy of the CSS and sibling font files instead of depending on the documentation site.
+**Public consumer mirror:** clone or download RDK_UI_CSS_PUBLIC for source CSS, built CSS, fonts, examples, and documentation. Bundle or copy CSS and sibling fonts into your application; GitHub Pages is for documentation and demos.
 
 ## 4. Minimal setup
 
@@ -56,11 +56,11 @@ Use Tailwind or application CSS for grid/flex, width, spacing, padding, type siz
 
 Foundations/primitives: Label, Display Title, Bevel, Pressed Bevel, Recessed, Plastic, Vent.
 
-Forms/actions: Button, Input, Select, Textarea, Checkbox, Radio, Toggle.
+Forms/actions: Button, Input, Select, Textarea, Checkbox, Radio, Toggle, Range.
 
-Content/status: Panel, Card, Badge, LCD, Status LED, Progress, Segments.
+Content/status: Panel, Card, Badge, LCD, Status LED, Progress, Segments, Disclosure.
 
-Navigation/data: Navigation Item, Tabs, Table.
+Navigation/data: Navigation Item, Tabs, Table, Breadcrumbs.
 
 Layers/feedback: Menu, Dialog, Tooltip, Notice, Toast.
 
@@ -85,6 +85,9 @@ Layers/feedback: Menu, Dialog, Tooltip, Notice, Toast.
 | Status LED | `rdk-status-led` | Output/status indicator; supports `data-color="red|blue|pink"` and `data-state="off"`. Give an accessible status name nearby or on the element. |
 | Progress | `rdk-progress` | Use native `<progress value max>` and a label; accepts `data-accent`. Omit `value` for indeterminate. |
 | Segments | `rdk-segments` | Segmented status/value; child `<span data-active>` marks active cells. Give the group a textual name/value such as `role="progressbar"` with ARIA values. Accepts `data-accent`. |
+| Disclosure | `rdk-disclosure`, `rdk-disclosure-summary`, `rdk-disclosure-body` | Use native `<details>` with a first-child `<summary>`. Browser owns `open`, click, Enter/Space and focus. Neutral styling; no accent or required JS. |
+| Range | `rdk-range` | Use labeled native `<input type="range">`. Supports eight `data-accent` values on the thumb; neutral track in Chrome and Firefox. Browser owns keyboard/drag/disabled. App may show the current value in text. |
+| Breadcrumbs | `rdk-breadcrumbs`, `rdk-breadcrumb` | Use named `<nav>` with `<ol>/<li>`. Put `aria-current="page"` on the plain-text current item. CSS separators are decorative; links and layout remain native. |
 | Navigation Item | `rdk-nav-item`, `rdk-nav-item-icon`, `rdk-nav-item-label`, `rdk-nav-item-meta` | Use `<a>` for navigation with `aria-current="page"`; use `<button>` and `aria-pressed` for local selection. Accepts `data-accent`. |
 | Tabs | `rdk-tabs`, `rdk-tab` | App manages `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, focus, `hidden`, and arrow/Home/End keys. |
 | Table | `rdk-table` | Use real table/caption/headers. `data-align="numeric"` aligns numbers; `tr[data-state="warning"]` adds a warning rail. |
@@ -96,7 +99,7 @@ Layers/feedback: Menu, Dialog, Tooltip, Notice, Toast.
 
 ## 9. Accent system
 
-Exactly eight categorical accents are supported: `green`, `red`, `blue`, `pink`, `amber`, `orange`, `violet`, `cyan`. Use `data-accent="blue"` only on Navigation Item, Solid Button, Outline Button, Progress, or Segments. Blue is the default for these. Semantic variants such as `rdk-notice-danger` and `rdk-badge-success` carry meaning; do not replace them with arbitrary categorical accents. Status LED has its narrower `data-color` contract, not `data-accent`.
+Exactly eight categorical accents are supported: `green`, `red`, `blue`, `pink`, `amber`, `orange`, `violet`, `cyan`. Use `data-accent="blue"` only on Navigation Item, Solid Button, Outline Button, Progress, Segments, or Range. Blue is the default for these. Semantic variants such as `rdk-notice-danger` and `rdk-badge-success` carry meaning; do not replace them with arbitrary categorical accents. Status LED has its narrower `data-color` contract, not `data-accent`.
 
 ## 10. Public CSS variables
 
@@ -120,7 +123,7 @@ Use native controls, labels, fieldsets, caption/header cells, and visible focus.
 
 ## 13. Interactive behavior ownership
 
-RDK is not a JavaScript framework. Native Button, Input, Checkbox, Radio, Toggle, Select, and Progress keep their browser behavior. RDK styles Menu, Tabs, Toast, Tooltip, Dialog, and Navigation Item, but your application owns opening, selection, keyboard handling, state updates, focus management, and lifecycle. Prefer native `<dialog>.showModal()` for modal behavior. Scripts in the docs are demos, not package APIs; do not copy them blindly.
+RDK is not a JavaScript framework. Native Button, Input, Checkbox, Radio, Toggle, Select, Progress, Range, and Disclosure keep their browser behavior. RDK styles Menu, Tabs, Toast, Tooltip, Dialog, and Navigation Item, but your application owns opening, selection, keyboard handling, state updates, focus management, and lifecycle. Prefer native `<dialog>.showModal()` for modal behavior. Scripts in the docs are demos, not package APIs; do not copy them blindly.
 
 ## 14. Copy-ready examples
 
@@ -161,6 +164,33 @@ RDK is not a JavaScript framework. Native Button, Input, Checkbox, Radio, Toggle
 
 ```html
 <label class="grid gap-2">Calibration · 68%<progress class="rdk-progress w-full" data-accent="cyan" value="68" max="100">68%</progress></label>
+```
+
+### Disclosure
+
+```html
+<details class="rdk-disclosure">
+  <summary class="rdk-disclosure-summary">Calibration details</summary>
+  <div class="rdk-disclosure-body">Sensor A4 is ready.</div>
+</details>
+```
+
+### Range
+
+```html
+<label for="gain">Gain</label>
+<input id="gain" type="range" class="rdk-range w-full" data-accent="cyan" min="0" max="100" value="68">
+```
+
+### Breadcrumbs
+
+```html
+<nav aria-label="Breadcrumb">
+  <ol class="rdk-breadcrumbs">
+    <li class="rdk-breadcrumb"><a href="/">Library</a></li>
+    <li class="rdk-breadcrumb" aria-current="page">Calibration</li>
+  </ol>
+</nav>
 ```
 
 ### Data table wrapper
@@ -215,7 +245,7 @@ Compose components according to meaning: a form groups labeled native fields and
 - Do not replace native controls with generic `<div>` elements.
 - Do not assume documentation demo JavaScript ships in the package.
 - Do not modify public RDK classes inside a consuming project.
-- Do not use a public npm install command or assume an optional owner host is live.
+- Do not use a public npm install command or use GitHub Pages as a production CSS CDN.
 
 ## 17. Decision checklist before generating UI
 
@@ -234,4 +264,4 @@ The documentation has `installation/`, `components/`, `reference/classes/`, `ref
 
 ## 19. Version / compatibility
 
-This guide describes RDK `0.1.0-alpha.1` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
+This guide describes RDK `0.1.0-alpha.2` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.

@@ -1,6 +1,6 @@
 # RDK Retro UI
 
-Consumer distribution mirror for **RDK Retro UI 0.1.0-alpha.1**, a framework-agnostic CSS visual layer. Console 94 uses warm device surfaces, IBM Plex typography, restrained bevels, and LCD readouts. Development happens in a separate canonical repository.
+Consumer distribution mirror for **RDK Retro UI 0.1.0-alpha.2**, a framework-agnostic CSS visual layer. Console 94 uses warm device surfaces, IBM Plex typography, restrained bevels, and LCD readouts. Development happens in a separate canonical repository.
 
 **Tailwind or application CSS controls geometry. RDK controls visual identity.**
 
