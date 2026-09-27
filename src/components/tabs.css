@@ -1,0 +1,22 @@
+.rdk-tabs {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--rdk-border-dark);
+  scrollbar-width: thin;
+}
+.rdk-tab {
+  appearance: none;
+  flex: none;
+  border: 1px solid var(--rdk-border);
+  border-bottom: 3px solid transparent;
+  border-radius: var(--rdk-radius) var(--rdk-radius) 0 0;
+  background: var(--rdk-surface);
+  color: var(--rdk-text-muted);
+  font-family: var(--rdk-font-display);
+  font-weight: 700;
+  cursor: pointer;
+}
+.rdk-tab:hover { background: var(--rdk-surface-raised); color: var(--rdk-text); }
+.rdk-tab[aria-selected="true"] { border-bottom-color: var(--rdk-accent-blue); background: var(--rdk-surface-raised); color: var(--rdk-text); }
+.rdk-tab:disabled { background: var(--rdk-surface-recessed); color: var(--rdk-text-muted); cursor: not-allowed; }

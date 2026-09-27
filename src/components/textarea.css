@@ -1,0 +1,17 @@
+.rdk-textarea {
+  appearance: none;
+  min-width: 0;
+  border: 1px solid var(--rdk-border);
+  border-top-color: var(--rdk-border-dark);
+  border-left-color: var(--rdk-border-dark);
+  border-radius: calc(var(--rdk-radius) - 0.1rem);
+  background: var(--rdk-field);
+  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%);
+  color: var(--rdk-text);
+  font: inherit;
+}
+.rdk-textarea::placeholder { color: var(--rdk-placeholder); }
+.rdk-textarea:disabled { background: var(--rdk-surface-recessed); color: var(--rdk-text-muted); cursor: not-allowed; }
+.rdk-textarea:read-only:not(:disabled) { background: var(--rdk-surface-raised); color: var(--rdk-text); }
+.rdk-textarea[aria-invalid="true"],
+.rdk-textarea:invalid:not(:placeholder-shown) { border-color: var(--rdk-accent-red); box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%), 0 0 0 1px var(--rdk-accent-red); }

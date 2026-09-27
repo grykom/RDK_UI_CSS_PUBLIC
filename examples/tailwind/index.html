@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pl" data-rdk-theme="console-94">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moduły — RDK Tailwind v4</title>
+  <link rel="stylesheet" href="./src/app.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body class="min-h-screen">
+  <main class="mx-auto w-full max-w-6xl px-5 py-8 sm:px-8 lg:py-12">
+    <header class="mb-8 flex flex-wrap items-end justify-between gap-5">
+      <div><span class="rdk-label">RDK / OPERATIONS</span><h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Moduły stacji</h1><p class="mt-3 max-w-xl text-sm text-rdk-text-muted">Przykład aplikacji Tailwind v4 importującej źródło RDK.</p></div>
+      <div class="rdk-vent h-5 w-28" aria-hidden="true"></div>
+    </header>
+    <div class="grid min-w-0 gap-6 md:grid-cols-[15rem_minmax(0,1fr)]">
+      <nav class="grid min-w-0 content-start gap-2" aria-label="Sekcje aplikacji"><span class="rdk-label mb-2">NAWIGACJA</span>
+        <a class="rdk-nav-item" data-accent="amber" href="./" aria-current="page"><span class="rdk-nav-item-icon" aria-hidden="true">▣</span><span class="rdk-nav-item-label">Przegląd</span><span class="rdk-nav-item-meta">01</span></a>
+        <a class="rdk-nav-item" data-accent="blue" href="#modules"><span class="rdk-nav-item-icon" aria-hidden="true">◇</span><span class="rdk-nav-item-label">Moduły</span><span class="rdk-nav-item-meta">03</span></a>
+        <a class="rdk-nav-item" data-accent="green" href="#report"><span class="rdk-nav-item-label">Raport</span><span class="rdk-nav-item-meta">08</span></a>
+      </nav>
+      <div class="grid min-w-0 gap-6">
+        <section class="rdk-panel grid min-w-0 gap-5 p-5 sm:p-6 lg:grid-cols-[1fr_16rem]" aria-labelledby="station-heading">
+          <div class="min-w-0"><span class="rdk-label">STACJA A4</span><h2 id="station-heading" class="mt-2 text-2xl font-bold">Panel odczytu</h2><div class="rdk-lcd mt-5 p-5 text-2xl sm:text-3xl" id="station-display">READY 94</div><label class="mt-5 grid gap-2 text-sm"><span>Kalibracja · <output id="station-percent">68%</output></span><progress id="station-progress" class="rdk-progress w-full" data-accent="cyan" value="68" max="100">68%</progress></label></div>
+          <div class="flex flex-col items-start justify-between gap-5"><div><span class="rdk-label">STATUS</span><p class="mt-3"><span class="rdk-badge rdk-badge-success px-2 py-1 text-xs">Połączono</span></p></div><button type="button" id="station-refresh" class="rdk-btn rdk-btn-solid h-10 w-full px-4 text-sm" data-accent="blue">Odśwież</button></div>
+        </section>
+        <section id="modules" class="rdk-card min-w-0 p-5 sm:p-6" aria-labelledby="modules-heading"><div class="flex flex-wrap items-center justify-between gap-3"><div><span class="rdk-label">SPRZĘT</span><h2 id="modules-heading" class="mt-2 text-xl font-bold">Moduły</h2></div><span class="rdk-badge rdk-badge-info px-2 py-1 text-xs">3 aktywne</span></div><div class="mt-5 overflow-x-auto"><table class="rdk-table min-w-[34rem] w-full text-sm"><caption>Stan modułów stacji.</caption><thead><tr><th scope="col">Moduł</th><th scope="col">Funkcja</th><th scope="col" data-align="numeric">Obciążenie</th></tr></thead><tbody><tr><th scope="row">A4</th><td>Odczyt</td><td data-align="numeric">68%</td></tr><tr><th scope="row">B2</th><td>Łączność</td><td data-align="numeric">42%</td></tr><tr><th scope="row">C3</th><td>Archiwum</td><td data-align="numeric">18%</td></tr></tbody></table></div></section>
+        <div id="report" class="rdk-notice rdk-notice-info p-4" role="status"><strong id="report-title">Dane aktualne</strong><p class="mt-1 text-sm" id="report-copy">Stacja odpowiada prawidłowo.</p></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,16 @@
+@theme inline {
+  --color-rdk-case: var(--rdk-case);
+  --color-rdk-surface: var(--rdk-surface);
+  --color-rdk-surface-raised: var(--rdk-surface-raised);
+  --color-rdk-surface-recessed: var(--rdk-surface-recessed);
+  --color-rdk-structure: var(--rdk-structure);
+  --color-rdk-text: var(--rdk-text);
+  --color-rdk-text-muted: var(--rdk-text-muted);
+  --color-rdk-accent-green: var(--rdk-accent-green);
+  --color-rdk-accent-red: var(--rdk-accent-red);
+  --color-rdk-accent-blue: var(--rdk-accent-blue);
+  --color-rdk-accent-pink: var(--rdk-accent-pink);
+  --font-rdk-ui: var(--rdk-font-ui);
+  --font-rdk-display: var(--rdk-font-display);
+  --font-rdk-mono: var(--rdk-font-mono);
+}

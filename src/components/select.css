@@ -1,0 +1,19 @@
+.rdk-select {
+  appearance: none;
+  border: 1px solid var(--rdk-border);
+  border-top-color: var(--rdk-border-dark);
+  border-left-color: var(--rdk-border-dark);
+  border-radius: calc(var(--rdk-radius) - 0.1rem);
+  background-color: var(--rdk-field);
+  background-image: linear-gradient(45deg, transparent 50%, var(--rdk-text) 50%), linear-gradient(135deg, var(--rdk-text) 50%, transparent 50%);
+  background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%);
+  color: var(--rdk-text);
+  font: inherit;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+.rdk-select:disabled { background-color: var(--rdk-surface-recessed); color: var(--rdk-text-muted); cursor: not-allowed; }
+.rdk-select[aria-invalid="true"] { border-color: var(--rdk-accent-red); box-shadow: inset 2px 2px 3px rgb(37 45 46 / 11%), 0 0 0 1px var(--rdk-accent-red); }

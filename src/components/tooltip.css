@@ -1,0 +1,14 @@
+.rdk-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  border: 1px solid var(--rdk-border-dark);
+  border-radius: calc(var(--rdk-radius) - 0.06rem);
+  background: var(--rdk-structure);
+  box-shadow: var(--_rdk-overlay-shadow);
+  color: var(--rdk-surface-raised);
+  line-height: 1.4;
+}
+:where(*:hover, *:focus-within) > .rdk-tooltip,
+.rdk-tooltip[data-open="true"] { visibility: visible; opacity: 1; }
+.rdk-tooltip[hidden] { display: none; }

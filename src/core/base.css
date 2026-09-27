@@ -1,0 +1,20 @@
+[data-rdk-theme] {
+  font-family: var(--rdk-font-ui);
+  color: var(--rdk-text);
+  background-color: var(--rdk-case);
+}
+
+:where([data-rdk-theme]) :focus-visible {
+  outline: 3px solid var(--rdk-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where([data-rdk-theme]) *,
+  :where([data-rdk-theme]) *::before,
+  :where([data-rdk-theme]) *::after {
+    scroll-behavior: auto;
+    animation-duration: 0.01ms;
+    transition-duration: 0.01ms;
+  }
+}

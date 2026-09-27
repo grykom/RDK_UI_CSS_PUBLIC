@@ -1,0 +1,17 @@
+.rdk-label {
+  color: var(--rdk-text-muted);
+  font-family: var(--rdk-font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.rdk-display-title {
+  color: var(--rdk-text);
+  font-family: var(--rdk-font-display);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}

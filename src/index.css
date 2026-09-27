@@ -1,0 +1,49 @@
+/* Import after Tailwind in consuming applications. */
+@import "./themes/console-94.css";
+@import "./core/tailwind-theme.css";
+@import "./core/base.css" layer(base);
+@import "./core/overlay-depth.css" layer(base);
+@import "./core/typography.css" layer(components);
+@import "./core/accent.css" layer(components);
+@import "./effects/bevel.css" layer(components);
+@import "./effects/recessed.css" layer(components);
+@import "./effects/plastic.css" layer(components);
+@import "./effects/vents.css" layer(components);
+@import "./effects/lcd.css" layer(components);
+@import "./components/button.css" layer(components);
+@import "./components/nav-item.css" layer(components);
+@import "./components/panel.css" layer(components);
+@import "./components/input.css" layer(components);
+@import "./components/select.css" layer(components);
+@import "./components/display.css" layer(components);
+@import "./components/textarea.css" layer(components);
+@import "./components/checkbox.css" layer(components);
+@import "./components/radio.css" layer(components);
+@import "./components/toggle.css" layer(components);
+@import "./components/badge.css" layer(components);
+@import "./components/card.css" layer(components);
+@import "./components/tabs.css" layer(components);
+@import "./components/progress.css" layer(components);
+@import "./components/segments.css" layer(components);
+@import "./components/table.css" layer(components);
+@import "./components/menu.css" layer(components);
+@import "./components/dialog.css" layer(components);
+@import "./components/tooltip.css" layer(components);
+@import "./components/notice.css" layer(components);
+@import "./components/toast.css" layer(components);
+
+@font-face {
+  font-family: "RDK IBM Plex Sans";
+  src: url("./fonts/IBMPlexSans-variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "RDK IBM Plex Mono";
+  src: url("./fonts/IBMPlexMono-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}

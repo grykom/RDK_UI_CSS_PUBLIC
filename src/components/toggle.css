@@ -1,0 +1,36 @@
+.rdk-toggle {
+  appearance: none;
+  display: inline-block;
+  position: relative;
+  width: 2.85em;
+  height: 1.48em;
+  flex: none;
+  margin: 0;
+  border: 1px solid var(--rdk-border-dark);
+  border-radius: var(--rdk-radius);
+  background: var(--rdk-surface-recessed);
+  box-shadow: inset 2px 2px 3px rgb(37 45 46 / 20%), inset -1px -1px 0 var(--rdk-highlight);
+  vertical-align: middle;
+  cursor: pointer;
+}
+.rdk-toggle::before {
+  content: "";
+  position: absolute;
+  top: 0.15em;
+  bottom: 0.15em;
+  left: 0.17em;
+  width: 1.06em;
+  border: 1px solid var(--rdk-border);
+  border-top-color: var(--rdk-highlight);
+  border-left-color: var(--rdk-highlight);
+  border-radius: calc(var(--rdk-radius) - 0.12rem);
+  background: linear-gradient(180deg, var(--rdk-surface-raised), var(--rdk-surface));
+  box-shadow: 1px 1px 1px var(--rdk-shadow);
+  transition: left 120ms ease;
+}
+.rdk-toggle:checked { background: var(--rdk-accent-blue); }
+.rdk-toggle:checked::before { left: 1.54em; }
+.rdk-toggle:disabled { background: var(--rdk-surface-recessed); cursor: not-allowed; }
+.rdk-toggle:disabled::before { background: var(--rdk-surface); box-shadow: none; }
+.rdk-toggle:checked:disabled { background: var(--rdk-border); }
+@media (prefers-reduced-motion: reduce) { .rdk-toggle::before { transition: none; } }

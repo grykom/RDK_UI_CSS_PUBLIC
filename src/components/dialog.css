@@ -1,0 +1,16 @@
+.rdk-dialog {
+  margin: auto;
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  border: 1px solid var(--rdk-border-dark);
+  border-top-color: var(--rdk-highlight);
+  border-left-color: var(--rdk-highlight);
+  border-radius: calc(var(--rdk-radius) + 0.1rem);
+  background: var(--rdk-surface);
+  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 45%), var(--_rdk-overlay-shadow);
+  color: var(--rdk-text);
+}
+.rdk-dialog::backdrop { background: rgb(30 38 36 / 43%); }
+.rdk-dialog-header { border-bottom: 1px solid var(--rdk-border); background: var(--rdk-surface-raised); }
+.rdk-dialog-body { background: var(--rdk-surface); }
+.rdk-dialog-footer { border-top: 1px solid var(--rdk-border); background: var(--rdk-surface-raised); }

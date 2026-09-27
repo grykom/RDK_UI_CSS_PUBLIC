@@ -1,0 +1,19 @@
+.rdk-badge {
+  --_rdk-badge-accent: var(--rdk-border-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  border: 1px solid var(--rdk-border);
+  border-left: 3px solid var(--_rdk-badge-accent);
+  border-radius: calc(var(--rdk-radius) - 0.1rem);
+  background: var(--rdk-surface-raised);
+  color: var(--rdk-text);
+  font-family: var(--rdk-font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.rdk-badge-neutral { --_rdk-badge-accent: var(--rdk-border-dark); }
+.rdk-badge-success { --_rdk-badge-accent: var(--rdk-accent-green); }
+.rdk-badge-danger { --_rdk-badge-accent: var(--rdk-accent-red); }
+.rdk-badge-info { --_rdk-badge-accent: var(--rdk-accent-blue); }
+.rdk-badge-special { --_rdk-badge-accent: var(--rdk-accent-pink); }

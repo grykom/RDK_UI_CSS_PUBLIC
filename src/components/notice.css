@@ -1,0 +1,13 @@
+.rdk-notice {
+  --_rdk-notice-accent: var(--rdk-border-dark);
+  border: 1px solid var(--rdk-border);
+  border-left: 4px solid var(--_rdk-notice-accent);
+  border-radius: calc(var(--rdk-radius) - 0.08rem);
+  background: var(--rdk-surface-recessed);
+  color: var(--rdk-text);
+}
+.rdk-notice-neutral { --_rdk-notice-accent: var(--rdk-border-dark); }
+.rdk-notice-success { --_rdk-notice-accent: var(--rdk-accent-green); }
+.rdk-notice-danger { --_rdk-notice-accent: var(--rdk-accent-red); }
+.rdk-notice-info { --_rdk-notice-accent: var(--rdk-accent-blue); }
+.rdk-notice-special { --_rdk-notice-accent: var(--rdk-accent-pink); }

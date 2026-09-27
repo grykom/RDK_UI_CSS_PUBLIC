@@ -1,0 +1,15 @@
+.rdk-card {
+  border: 1px solid var(--rdk-border);
+  border-top-color: var(--rdk-highlight);
+  border-left-color: var(--rdk-highlight);
+  border-radius: var(--rdk-radius);
+  background: var(--rdk-surface-raised);
+  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 38%), 1px 2px 0 rgb(81 86 82 / 12%);
+  color: var(--rdk-text);
+}
+.rdk-card-interactive { cursor: pointer; text-decoration: none; }
+.rdk-card-interactive:hover:not(:disabled) { background: var(--rdk-field); }
+.rdk-card-interactive:active:not(:disabled) { border-top-color: var(--rdk-border-dark); border-left-color: var(--rdk-border-dark); background: var(--rdk-surface-recessed); box-shadow: inset 2px 2px 3px rgb(37 45 46 / 14%); }
+.rdk-card-interactive[aria-pressed="true"],
+.rdk-card-interactive[aria-current="true"] { border-color: var(--rdk-accent-blue); box-shadow: inset 0 0 0 1px var(--rdk-accent-blue); }
+.rdk-card-interactive:disabled { color: var(--rdk-text-muted); cursor: not-allowed; box-shadow: none; }

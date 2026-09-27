@@ -1,0 +1,21 @@
+{
+  "name": "@rdk/retro-ui",
+  "version": "0.1.0-alpha.1",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "description": "RDK Retro UI consumer snapshot",
+  "files": [
+    "RDK_AGENT_GUIDE.md",
+    "src/",
+    "dist/"
+  ],
+  "exports": {
+    ".": "./src/index.css",
+    "./source.css": "./src/index.css",
+    "./dist.css": "./dist/rdk-retro-ui.css",
+    "./dist.min.css": "./dist/rdk-retro-ui.min.css",
+    "./fonts/*": "./dist/fonts/*",
+    "./package.json": "./package.json"
+  }
+}

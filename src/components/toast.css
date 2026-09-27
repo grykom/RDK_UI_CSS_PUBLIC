@@ -1,0 +1,15 @@
+.rdk-toast {
+  --_rdk-toast-accent: var(--rdk-border-dark);
+  border: 1px solid var(--rdk-border-dark);
+  border-top-color: var(--rdk-highlight);
+  border-left: 4px solid var(--_rdk-toast-accent);
+  border-radius: var(--rdk-radius);
+  background: var(--rdk-surface-raised);
+  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 38%), var(--_rdk-overlay-shadow);
+  color: var(--rdk-text);
+}
+.rdk-toast-neutral { --_rdk-toast-accent: var(--rdk-border-dark); }
+.rdk-toast-success { --_rdk-toast-accent: var(--rdk-accent-green); }
+.rdk-toast-danger { --_rdk-toast-accent: var(--rdk-accent-red); }
+.rdk-toast-info { --_rdk-toast-accent: var(--rdk-accent-blue); }
+.rdk-toast[hidden] { display: none; }

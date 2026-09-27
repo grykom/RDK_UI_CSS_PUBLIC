@@ -1,0 +1,39 @@
+/* Application geometry only. Component appearance comes from dist/rdk-retro-ui.css. */
+* { box-sizing: border-box; }
+body { margin: 0; }
+.service-shell { width: min(100% - 2rem, 72rem); margin: 0 auto; padding: 2.5rem 0 3rem; }
+.service-header { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+.service-header h1 { margin: 0.5rem 0; font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 1; }
+.service-header p { margin: 0; color: var(--rdk-text-muted); }
+.service-vent { width: 8rem; height: 1.25rem; flex: none; }
+.service-grid { display: grid; grid-template-columns: minmax(0, 16rem) minmax(0, 1fr); align-items: start; gap: 1.5rem; }
+.service-nav { display: grid; gap: 0.65rem; min-width: 0; }
+.service-nav > .rdk-label { margin-bottom: 0.35rem; }
+.service-panel { min-width: 0; padding: 1.5rem; }
+.service-topline { display: flex; justify-content: space-between; align-items: start; gap: 1rem; }
+.service-topline h2 { margin: 0.5rem 0 0; font-size: 1.5rem; }
+.service-badge { padding: 0.35rem 0.65rem; font-size: 0.75rem; }
+.service-display { margin-top: 1.5rem; padding: 1.2rem; font-size: clamp(1.75rem, 5vw, 2.5rem); }
+.service-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.service-field { display: grid; min-width: 0; gap: 0.6rem; }
+.service-input { width: 100%; height: 2.6rem; padding: 0 0.75rem; }
+.service-field progress { width: 100%; align-self: center; }
+.service-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+.service-button { min-height: 2.6rem; padding: 0 1rem; font-size: 0.875rem; }
+.service-notice { margin-top: 1.5rem; padding: 1rem; }
+.service-notice p { margin: 0.35rem 0 0; font-size: 0.875rem; }
+.service-shell footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--rdk-border); color: var(--rdk-text-muted); font-size: 0.7rem; letter-spacing: 0.12em; }
+@media (max-width: 767px) {
+  .service-shell { padding-top: 1.5rem; }
+  .service-vent { width: 5rem; }
+  .service-grid, .service-fields { grid-template-columns: minmax(0, 1fr); }
+  .service-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .service-nav > .rdk-label { grid-column: 1 / -1; }
+  .service-nav .rdk-nav-item { padding-right: 0.45rem; }
+  .service-nav .rdk-nav-item-meta { display: none; }
+}
+@media (max-width: 480px) {
+  .service-nav { grid-template-columns: minmax(0, 1fr); }
+  .service-nav .rdk-nav-item-meta { display: block; }
+  .service-panel { padding: 1rem; }
+}
