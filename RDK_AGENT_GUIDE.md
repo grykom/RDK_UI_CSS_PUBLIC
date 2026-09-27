@@ -260,7 +260,7 @@ Compose components according to meaning: a form groups labeled native fields and
 
 ## 18. Where to find deeper documentation
 
-The documentation has `installation/`, `components/`, `reference/classes/`, `reference/variables/`, `reference/accessibility/`, `playground/`, and `examples/` under its site root. In a local development checkout, browse the same routes with `npm run dev`. This guide is sufficient for first-pass use; those pages provide detailed behavior and visuals.
+The documentation has `installation/`, `components/`, `reference/classes/`, `reference/variables/`, `reference/accessibility/`, `playground/`, `showcase/` (the complete mini-application visual example), and `examples/` under its site root. In a local development checkout, browse the same routes with `npm run dev`. This guide is sufficient for first-pass use; those pages provide detailed behavior and visuals.
 
 ## 19. Version / compatibility
 

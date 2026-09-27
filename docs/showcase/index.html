@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pl" data-rdk-theme="console-94">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#303737">
+  <meta name="description" content="RDK Archive Terminal — kompletna mini-aplikacja zbudowana z RDK Retro UI.">
+  <title>Archiwum urządzeń — RDK Retro UI</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon-JmUTfrMJ.svg">
+  <script type="module" crossorigin src="../assets/showcase-D6uEi-UO.js"></script>
+  <link rel="modulepreload" crossorigin href="../assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="stylesheet" crossorigin href="../assets/showcase-CTTokVlA.css">
+</head>
+<body class="showcase-body">
+  <script type="application/json" id="showcase-theme-registry">[{"id":"console-94","label":"Console 94","stable":true,"public":true}]</script>
+  <div class="showcase-app">
+    <header class="showcase-header rdk-plastic">
+      <div class="showcase-brand">
+        <a class="showcase-mark rdk-bevel" href="../" aria-label="RDK Retro UI — dokumentacja">RDK<span>•</span></a>
+        <div><span class="rdk-label">RDK / ARCHIVE SYSTEMS</span><p class="showcase-brand-name">ARCHIVE TERMINAL <span>94</span></p></div>
+      </div>
+      <div class="showcase-header-status">
+        <span id="showcase-led" class="rdk-status-led" role="img" aria-label="System połączony"></span>
+        <span class="showcase-online">SYSTEM ONLINE <small>Węzeł Północ / 01</small></span>
+      </div>
+      <div class="showcase-theme"><label class="rdk-label" for="showcase-theme">MOTYW INTERFEJSU</label><select id="showcase-theme" class="rdk-select" aria-label="Motyw interfejsu"><option value="console-94">Console 94</option></select></div>
+      <a class="showcase-doc-link" href="../">Dokumentacja <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <div class="showcase-shell">
+      <aside class="showcase-sidebar rdk-plastic" aria-label="Nawigacja aplikacji">
+        <div class="showcase-side-intro"><span class="rdk-label">MODUŁ / A-01</span><p class="showcase-side-title">Indeks archiwum</p><p>Inwentarz urządzeń z lat 1987–1998</p></div>
+        <div class="rdk-vent showcase-side-vent" aria-hidden="true"></div>
+        <nav class="showcase-nav" aria-label="Sekcje archiwum">
+          <button id="showcase-nav-catalog" type="button" class="rdk-nav-item" data-section="catalog" data-accent="blue" aria-pressed="true"><span class="rdk-nav-item-icon" aria-hidden="true">▦</span><span class="rdk-nav-item-label">Katalog</span><span class="rdk-nav-item-meta">06</span></button>
+          <button type="button" class="rdk-nav-item" data-section="service" data-accent="amber" aria-pressed="false"><span class="rdk-nav-item-icon" aria-hidden="true">⚙</span><span class="rdk-nav-item-label">Serwis</span><span class="rdk-nav-item-meta">03</span></button>
+          <button type="button" class="rdk-nav-item" data-section="inventory" data-accent="green" aria-pressed="false"><span class="rdk-nav-item-icon" aria-hidden="true">≡</span><span class="rdk-nav-item-label">Inwentarz</span><span class="rdk-nav-item-meta">06</span></button>
+        </nav>
+        <div class="showcase-side-bottom rdk-recessed"><span class="rdk-label">ARCHIWUM / ODCZYT</span><strong>006</strong><span>rekordów w systemie</span><div class="showcase-small-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>
+      </aside>
+
+      <main id="main" class="showcase-main">
+        <nav id="showcase-breadcrumbs" aria-label="Ścieżka archiwum"><ol class="rdk-breadcrumbs"><li class="rdk-breadcrumb"><a href="../">RDK</a></li><li class="rdk-breadcrumb"><span>Archiwum</span></li><li class="rdk-breadcrumb" aria-current="page"><span id="showcase-crumb-current">Katalog</span></li></ol></nav>
+        <section class="showcase-hero rdk-panel" aria-labelledby="showcase-heading">
+          <div class="showcase-hero-copy"><span class="rdk-label">ZBIORY TECHNICZNE / WĘZEŁ 01</span><h1 id="showcase-heading" class="rdk-display-title">Archiwum<br>urządzeń<span class="showcase-hero-dot">.</span></h1><p>Historia sprzętu, który nadal ma coś do powiedzenia. Przeglądaj zbiory, sprawdzaj stan i zapisuj notatki serwisowe.</p><div class="showcase-hero-actions"><button id="showcase-refresh" type="button" class="rdk-btn rdk-btn-solid" data-accent="blue">Odśwież katalog <span aria-hidden="true">↗</span></button><span class="showcase-sync">OSTATNIA SYNCHRONIZACJA / <time datetime="2026-09-27T09:42">09:42</time></span></div></div>
+          <div class="showcase-hero-machine rdk-bevel"><span class="rdk-label">MONITOR / ARCHIVE 94</span><div id="showcase-lcd" class="rdk-lcd" aria-label="Status: 006 rekordów, system gotowy"><span>ARCHIVE: 006</span><strong>READY<span class="showcase-cursor">_</span></strong></div><div class="showcase-hero-machine-foot"><span><i class="rdk-status-led" aria-hidden="true"></i> ODCZYT AKTYWNY</span><span>RDK—94</span></div><div class="rdk-vent showcase-machine-vent" aria-hidden="true"></div></div>
+        </section>
+
+        <div class="showcase-content">
+          <section class="showcase-catalog" aria-labelledby="catalog-heading">
+            <div class="showcase-section-heading"><div><span class="rdk-label">01 / EKSPLORUJ ZBIORY</span><h2 id="catalog-heading">Katalog obiektów</h2></div><span id="showcase-count" class="showcase-count rdk-bevel-pressed" aria-live="polite">6 REKORDÓW</span></div>
+            <form class="showcase-filters rdk-panel" id="showcase-filters" role="search" aria-label="Filtry katalogu">
+              <div class="showcase-field showcase-search-field"><label class="rdk-label" for="showcase-search">SZUKAJ W ARCHIWUM</label><input id="showcase-search" class="rdk-input" type="search" placeholder="Nazwa, numer lub producent…" autocomplete="off"></div>
+              <div class="showcase-field"><label class="rdk-label" for="showcase-category">KATEGORIA</label><select id="showcase-category" class="rdk-select"><option value="all">Wszystkie</option><option value="audio">Audio</option><option value="computer">Komputery</option><option value="measurement">Pomiary</option></select></div>
+              <div class="showcase-field showcase-range-field"><div class="showcase-field-title"><label class="rdk-label" for="showcase-range">MIN. SPRAWNOŚĆ</label><output id="showcase-range-value" for="showcase-range">0%</output></div><input id="showcase-range" class="rdk-range" type="range" min="0" max="100" step="10" value="0"></div>
+              <div class="showcase-filter-options"><label><input id="showcase-archived" class="rdk-checkbox" type="checkbox" checked> Uwzględnij archiwalne</label><label><input id="showcase-live" class="rdk-toggle" type="checkbox" role="switch" checked> Odczyt na żywo</label></div>
+              <fieldset class="showcase-sort"><legend class="rdk-label">SORTUJ</legend><label><input id="showcase-sort-new" class="rdk-radio" type="radio" name="showcase-sort" value="new" checked> Najnowsze</label><label><input class="rdk-radio" type="radio" name="showcase-sort" value="name"> Nazwa A–Z</label></fieldset>
+            </form>
+            <div id="showcase-cards" class="showcase-cards" aria-live="polite">
+              <article id="showcase-card-a4" class="rdk-card showcase-card" data-id="a4" data-category="computer" data-condition="92" data-archived="false"><div class="showcase-card-top"><span class="rdk-label">KOMPUTERY / 1994</span><span class="rdk-badge rdk-badge-success">Sprawny</span></div><div class="showcase-object showcase-object-computer" aria-hidden="true"><span></span><i></i></div><h3>Stacja A4</h3><p>Moduł obliczeniowy · RDK Systems</p><div class="showcase-card-foot"><span>INV—001 / 92%</span><button type="button" class="rdk-btn" data-select-item="a4">Otwórz kartę <span aria-hidden="true">→</span></button></div></article>
+              <article class="rdk-card showcase-card" data-id="m7" data-category="audio" data-condition="76" data-archived="false"><div class="showcase-card-top"><span class="rdk-label">AUDIO / 1991</span><span class="rdk-badge rdk-badge-neutral">W serwisie</span></div><div class="showcase-object showcase-object-audio" aria-hidden="true"><span></span><i></i></div><h3>Magnetofon M7</h3><p>Rejestrator terenowy · Unitra</p><div class="showcase-card-foot"><span>INV—002 / 76%</span><button type="button" class="rdk-btn" data-select-item="m7">Otwórz kartę <span aria-hidden="true">→</span></button></div></article>
+              <article class="rdk-card showcase-card" data-id="p3" data-category="measurement" data-condition="84" data-archived="false"><div class="showcase-card-top"><span class="rdk-label">POMIARY / 1996</span><span class="rdk-badge rdk-badge-success">Sprawny</span></div><div class="showcase-object showcase-object-measure" aria-hidden="true"><span></span><i></i></div><h3>Miernik P3</h3><p>Analizator sygnału · Elpo</p><div class="showcase-card-foot"><span>INV—003 / 84%</span><button type="button" class="rdk-btn" data-select-item="p3">Otwórz kartę <span aria-hidden="true">→</span></button></div></article>
+              <article class="rdk-card showcase-card" data-id="c2" data-category="computer" data-condition="61" data-archived="true"><div class="showcase-card-top"><span class="rdk-label">KOMPUTERY / 1988</span><span class="rdk-badge rdk-badge-neutral">Archiwalny</span></div><div class="showcase-object showcase-object-computer" aria-hidden="true"><span></span><i></i></div><h3>Terminal C2</h3><p>Stacja operatorska · Elwro</p><div class="showcase-card-foot"><span>INV—004 / 61%</span><button type="button" class="rdk-btn" data-select-item="c2">Otwórz kartę <span aria-hidden="true">→</span></button></div></article>
+              <article class="rdk-card showcase-card" data-id="r8" data-category="audio" data-condition="88" data-archived="false"><div class="showcase-card-top"><span class="rdk-label">AUDIO / 1998</span><span class="rdk-badge rdk-badge-success">Sprawny</span></div><div class="showcase-object showcase-object-audio" aria-hidden="true"><span></span><i></i></div><h3>Odbiornik R8</h3><p>Monitor częstotliwości · Radmor</p><div class="showcase-card-foot"><span>INV—005 / 88%</span><button type="button" class="rdk-btn" data-select-item="r8">Otwórz kartę <span aria-hidden="true">→</span></button></div></article>
+              <article class="rdk-card showcase-card" data-id="t1" data-category="measurement" data-condition="44" data-archived="true"><div class="showcase-card-top"><span class="rdk-label">POMIARY / 1987</span><span class="rdk-badge rdk-badge-neutral">Archiwalny</span></div><div class="showcase-object showcase-object-measure" aria-hidden="true"><span></span><i></i></div><h3>Tester T1</h3><p>Kalibrator analogowy · Meratronik</p><div class="showcase-card-foot"><span>INV—006 / 44%</span><button type="button" class="rdk-btn" data-select-item="t1">Otwórz kartę <span aria-hidden="true">→</span></button></div></article>
+            </div>
+            <p id="showcase-empty" class="showcase-empty rdk-notice rdk-notice-info" hidden>Brak rekordów dla wybranych filtrów. Zmień kryteria wyszukiwania.</p>
+          </section>
+
+          <aside id="showcase-inspector" class="showcase-inspector rdk-panel" aria-labelledby="inspector-heading">
+            <div class="showcase-inspector-head"><span class="rdk-label">02 / KARTA OBIEKTU</span><div class="showcase-menu-wrap"><button id="showcase-menu-trigger" type="button" class="rdk-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="showcase-menu">Akcje <span aria-hidden="true">▾</span></button><div id="showcase-menu" class="rdk-menu showcase-menu" role="menu" aria-label="Akcje obiektu" hidden><span class="rdk-menu-label">KARTA OBIEKTU</span><button type="button" class="rdk-menu-item" role="menuitem" tabindex="-1" data-menu-action="edit">Edytuj notatkę</button><button type="button" class="rdk-menu-item" role="menuitem" tabindex="-1" data-menu-action="copy">Kopiuj numer</button><div class="rdk-menu-separator" role="separator"></div><button type="button" class="rdk-menu-item" role="menuitem" tabindex="-1" data-menu-action="service">Pokaż serwis</button></div></div></div>
+            <div class="showcase-inspector-intro"><div><h2 id="inspector-heading">Stacja A4</h2><p id="showcase-subtitle">Moduł obliczeniowy · RDK Systems</p></div><span id="showcase-selected-badge" class="rdk-badge rdk-badge-success">Sprawny</span></div>
+            <div class="showcase-inspector-id rdk-recessed"><span class="rdk-label">NUMER INWENTARZOWY</span><strong id="showcase-item-id">INV—001</strong></div>
+            <div id="showcase-tabs" class="rdk-tabs" role="tablist" aria-label="Informacje o obiekcie"><button id="showcase-tab-overview" type="button" class="rdk-tab" role="tab" aria-selected="true" aria-controls="showcase-panel-overview" tabindex="0">Przegląd</button><button id="showcase-tab-spec" type="button" class="rdk-tab" role="tab" aria-selected="false" aria-controls="showcase-panel-spec" tabindex="-1">Parametry</button><button id="showcase-tab-history" type="button" class="rdk-tab" role="tab" aria-selected="false" aria-controls="showcase-panel-history" tabindex="-1">Historia</button></div>
+            <div id="showcase-panel-overview" class="showcase-tab-panel" role="tabpanel" aria-labelledby="showcase-tab-overview" tabindex="0"><p id="showcase-description">Stacja do rejestracji i analizy pomiarów. Zachowany komplet modułów oraz oryginalna obudowa.</p><div class="showcase-metrics"><div><span class="rdk-label">STAN ZACHOWANIA</span><strong id="showcase-condition">92%</strong></div><div><span class="rdk-label">ROK PRODUKCJI</span><strong id="showcase-year">1994</strong></div></div><label class="showcase-progress-label" for="showcase-progress"><span>Postęp renowacji</span><strong id="showcase-progress-text">68%</strong></label><progress id="showcase-progress" class="rdk-progress" value="68" max="100">68%</progress><div class="showcase-signal"><span class="rdk-label">JAKOŚĆ SYGNAŁU</span><div id="showcase-segments" class="rdk-segments" role="progressbar" aria-label="Jakość sygnału" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4"><span data-active></span><span data-active></span><span data-active></span><span data-active></span><span></span></div><strong id="showcase-signal-text">4 / 5</strong></div></div>
+            <div id="showcase-panel-spec" class="showcase-tab-panel" role="tabpanel" aria-labelledby="showcase-tab-spec" tabindex="0" hidden><dl class="showcase-specs"><div><dt>Klasa</dt><dd id="showcase-spec-class">Komputer</dd></div><div><dt>Producent</dt><dd id="showcase-spec-maker">RDK Systems</dd></div><div><dt>Magazyn</dt><dd>Północ / Regał 04</dd></div><div><dt>Zasilanie</dt><dd>220 V · 50 Hz</dd></div></dl></div>
+            <div id="showcase-panel-history" class="showcase-tab-panel" role="tabpanel" aria-labelledby="showcase-tab-history" tabindex="0" hidden><p class="showcase-history-line"><time datetime="2026-09-21">21.09.2026</time> · Przegląd zakończony</p><p class="showcase-history-line"><time datetime="2026-08-11">11.08.2026</time> · Oczyszczono styki</p></div>
+            <details id="showcase-disclosure" class="rdk-disclosure"><summary class="rdk-disclosure-summary">Notatki serwisowe</summary><div class="rdk-disclosure-body"><p id="showcase-service-history">Oczyszczono styki modułu pamięci. Kolejny przegląd za 180 dni.</p></div></details>
+            <div class="showcase-note-field"><label class="rdk-label" for="showcase-note">NOTATKA OPERATORA</label><textarea id="showcase-note" class="rdk-textarea" rows="3" placeholder="Dodaj notatkę do bieżącej sesji…"></textarea><button id="showcase-save-note" type="button" class="rdk-btn rdk-btn-primary">Zapisz notatkę</button></div>
+          </aside>
+        </div>
+
+        <section class="showcase-ledger rdk-panel" aria-labelledby="ledger-heading"><div class="showcase-section-heading"><div><span class="rdk-label">03 / REJESTR</span><h2 id="ledger-heading">Ostatnie wpisy</h2></div><span class="showcase-ledger-meta">INWENTARZ / ODCZYT LOKALNY</span></div><div class="showcase-table-scroll"><table id="showcase-table" class="rdk-table"><caption>Ostatnie wpisy w archiwum urządzeń</caption><thead><tr><th scope="col">Numer</th><th scope="col">Obiekt</th><th scope="col">Kategoria</th><th scope="col">Status</th><th scope="col">Stan</th></tr></thead><tbody><tr><th scope="row">INV—001</th><td>Stacja A4</td><td>Komputery</td><td>Sprawny</td><td data-align="numeric">92%</td></tr><tr><th scope="row">INV—002</th><td>Magnetofon M7</td><td>Audio</td><td>W serwisie</td><td data-align="numeric">76%</td></tr><tr><th scope="row">INV—003</th><td>Miernik P3</td><td>Pomiary</td><td>Sprawny</td><td data-align="numeric">84%</td></tr></tbody></table></div></section>
+        <div id="showcase-notice" class="rdk-notice rdk-notice-info showcase-notice" role="note"><strong>Dane demonstracyjne</strong><span>Zmiany pozostają tylko do odświeżenia strony. Archiwum nie łączy się z serwerem.</span><span class="showcase-tooltip-wrap"><button type="button" class="showcase-help" aria-describedby="showcase-tooltip" aria-label="Więcej o danych demonstracyjnych">?</button><span id="showcase-tooltip" class="rdk-tooltip" role="tooltip">To fikcyjny katalog pokazujący działanie interfejsu RDK.</span></span></div>
+        <footer class="showcase-footer"><span>RDK ARCHIVE TERMINAL / CONSOLE 94</span><span>RDK RETRO UI · 0.1.0-alpha.2</span></footer>
+      </main>
+    </div>
+  </div>
+  <dialog id="showcase-dialog" class="rdk-dialog showcase-dialog" aria-labelledby="showcase-dialog-title"><div class="rdk-dialog-header"><span class="rdk-label">EDYCJA / KARTA OBIEKTU</span><h2 id="showcase-dialog-title">Zaktualizuj notatkę</h2></div><div class="rdk-dialog-body"><p>Notatka zostanie zapisana lokalnie dla wybranego obiektu.</p><label class="rdk-label" for="showcase-dialog-note">TREŚĆ NOTATKI</label><textarea id="showcase-dialog-note" class="rdk-textarea" rows="5"></textarea></div><div class="rdk-dialog-footer"><button id="showcase-dialog-cancel" type="button" class="rdk-btn">Anuluj</button><button id="showcase-dialog-save" type="button" class="rdk-btn rdk-btn-solid" data-accent="blue">Zapisz zmianę</button></div></dialog>
+  <div id="showcase-toast" class="showcase-toast-host" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

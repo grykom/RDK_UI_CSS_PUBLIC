@@ -6,6 +6,7 @@ Consumer CSS guide for Console 94.
 - [Installation](./installation/)
 - [Components](./components/)
 - [Playground](./playground/)
+- [Showcase](./showcase/)
 - [Examples](./examples/)
 - [CSS classes](./reference/classes/)
 - [Accessibility](./reference/accessibility/)
