@@ -13,7 +13,7 @@ Clone or download this mirror. In a Tailwind v4 project, import Tailwind and [th
 @import "./path/to/RDK/src/index.css";
 ```
 
-For an app without Tailwind, copy [the built CSS](dist/rdk-retro-ui.css) and its sibling [fonts](dist/fonts/) into your app. Add `data-rdk-theme="console-94"` and combine RDK appearance classes with your own layout CSS:
+For an app without Tailwind, copy [the built CSS](dist/rdk-retro-ui.css) and its sibling [fonts](dist/fonts/) into your app. Choose `console-94` or `terminal-os` with `data-rdk-theme`, then combine RDK appearance classes with your own layout CSS. This example uses Console 94:
 
 ```html
 <html data-rdk-theme="console-94">
@@ -25,7 +25,7 @@ Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract and [releas
 
 ## Documentation and demos
 
-GitHub Pages: [https://grykom.github.io/RDK_UI_CSS_PUBLIC/](https://grykom.github.io/RDK_UI_CSS_PUBLIC/) (available after the owner enables Pages from `main:/docs`). The site includes [components](https://grykom.github.io/RDK_UI_CSS_PUBLIC/components/), [Playground](https://grykom.github.io/RDK_UI_CSS_PUBLIC/playground/), [Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/), [Themes](https://grykom.github.io/RDK_UI_CSS_PUBLIC/reference/themes/), [Support Matrix](https://grykom.github.io/RDK_UI_CSS_PUBLIC/support/), [Terminal OS Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/terminal-os/), [Vanilla demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/vanilla/), and [Tailwind demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/tailwind/). CSS should be bundled or copied into each application; GitHub Pages is documentation and demos, not the production CSS delivery contract.
+GitHub Pages: [https://grykom.github.io/RDK_UI_CSS_PUBLIC/](https://grykom.github.io/RDK_UI_CSS_PUBLIC/) (available after the owner enables Pages from `main:/docs`). The site includes [components](https://grykom.github.io/RDK_UI_CSS_PUBLIC/components/), [Playground](https://grykom.github.io/RDK_UI_CSS_PUBLIC/playground/), [Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/), [Compatibility Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/shared/), [Themes](https://grykom.github.io/RDK_UI_CSS_PUBLIC/reference/themes/), [Support Matrix](https://grykom.github.io/RDK_UI_CSS_PUBLIC/support/), [Terminal OS Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/terminal-os/), [Vanilla demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/vanilla/), and [Tailwind demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/tailwind/). CSS should be bundled or copied into each application; GitHub Pages is documentation and demos, not the production CSS delivery contract.
 
 The package is not published to the public npm registry. Tested browser targets: Chrome and Firefox on Windows at desktop, tablet, and mobile widths. Safari, iOS, and Android remain untested.
 

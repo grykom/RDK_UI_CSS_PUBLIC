@@ -38,7 +38,7 @@ Point `@source` at all templates/components containing utility class names. This
 
 ## 4. Minimal setup
 
-Put the CSS import in your application entry stylesheet. Ensure the built CSS and `fonts/` retain their sibling relationship if copying files. Add `data-rdk-theme="console-94"` to `<html>` or a containing element. Then combine semantic HTML, RDK appearance classes, and your layout utilities.
+Put the CSS import in your application entry stylesheet. Ensure the built CSS and `fonts/` retain their sibling relationship if copying files. Choose `console-94` or `terminal-os` with `data-rdk-theme` on `<html>` or a containing element. The example below uses Console 94. Then combine semantic HTML, RDK appearance classes, and your layout utilities.
 
 ## 5. Theme activation
 
@@ -46,7 +46,7 @@ Put the CSS import in your application entry stylesheet. Ensure the built CSS an
 <html lang="en" data-rdk-theme="console-94">
 ```
 
-Use only registered public theme IDs; the public choices are `console-94` (stable identity) and `terminal-os` (alpha identity). Components and semantic states are theme-independent: apply `data-rdk-theme` on an ancestor or root and keep the same component markup when switching. Do not hard-code Console 94 color, surface, shadow, or type values in application CSS. Console 94 uses IBM Plex Sans for UI/display and IBM Plex Mono for readouts; keep its local font files accessible. Its radius is R1 (`--rdk-radius`) and its decorative vent is V1B. Tailwind/application CSS owns layout; the RDK theme owns visual identity.
+Use only registered public theme IDs; the public choices are `console-94` (stable identity) and `terminal-os` (alpha identity). Component class names and semantic states are shared, but capability varies by theme: apply `data-rdk-theme` on an ancestor or root, check the Support Matrix, and choose supported patterns for native compositions. Do not hard-code Console 94 color, surface, shadow, or type values in application CSS. Console 94 uses IBM Plex Sans for UI/display and IBM Plex Mono for readouts; keep its local font files accessible. Its radius is R1 (`--rdk-radius`) and its decorative vent is V1B. Tailwind/application CSS owns layout; the RDK theme owns visual identity.
 
 ## 6. Tailwind + RDK responsibility split
 
@@ -260,7 +260,7 @@ Compose components according to meaning: a form groups labeled native fields and
 
 ## 18. Where to find deeper documentation
 
-The documentation has `installation/`, `components/`, `reference/classes/`, `reference/variables/`, `reference/accessibility/`, `playground/`, `showcase/` (the complete mini-application visual example), and `examples/` under its site root. In a local development checkout, browse the same routes with `npm run dev`. This guide is sufficient for first-pass use; those pages provide detailed behavior and visuals.
+The documentation has `installation/`, `components/`, `reference/classes/`, `reference/variables/`, `reference/accessibility/`, `playground/`, `showcase/` (the active theme Native Showcase), `showcase/shared/` (Compatibility Showcase), and `examples/` under its site root. In a local development checkout, browse the same routes with `npm run dev`. This guide is sufficient for first-pass use; those pages provide detailed behavior and visuals.
 
 ## 19. Version / compatibility
 
@@ -274,4 +274,4 @@ Read the canonical [Support Matrix](docs/support/) and [Terminal OS theme page](
 
 Shared components such as Button, Input, Table, and Dialog keep their semantic HTML API across themes. A theme-specific primitive belongs to one theme and need not be ported to another. Terminal OS owns Terminal Window: `rdk-terminal-window`, `rdk-terminal-window-bar`, and `rdk-terminal-window-body`. These classes are only styled under `data-rdk-theme="terminal-os"`. They create a window frame, title bar, and content inset; application CSS or Tailwind still owns placement, widths, and page layout. The colored window dots are decoration. Prompts, log lines, timestamps, `[ OK ]`, and `[ WARN ]` are ordinary HTML content, not separate RDK components.
 
-The [Terminal OS Native Showcase](docs/showcase/terminal-os/) is the canonical Terminal OS composition. The [Shared Showcase](docs/showcase/) demonstrates compatibility of common markup across themes and remains the Console 94 native reference. Choose components from the Support Matrix, use the theme page for theme-specific primitives, and keep native semantics and application behavior in your app.
+The [Terminal OS Native Showcase](docs/showcase/terminal-os/) and [Console 94 Native Showcase](docs/showcase/console-94/) are canonical theme compositions. The [Compatibility Showcase](docs/showcase/shared/) compares common markup across themes. The [Showcase entry](docs/showcase/) opens the active theme Native Showcase. Choose components from the Support Matrix, use the theme page for theme-specific primitives, and keep native semantics and application behavior in your app.

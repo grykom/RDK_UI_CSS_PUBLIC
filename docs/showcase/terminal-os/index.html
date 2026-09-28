@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl" data-rdk-theme="console-94"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0b101c"><title>Terminal Session / Terminal OS</title><meta name="description" content="Terminal OS alpha Native Showcase"><script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"console-94","label":"Console 94","status":"stable","default":true,"public":true,"source":"src/themes/console-94.css"},{"id":"terminal-os","label":"Terminal OS","status":"alpha","default":false,"public":true,"source":"src/themes/terminal-os.css"}]}</script><script>try{localStorage.setItem("rdk-theme","terminal-os")}catch{}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
+<!doctype html><html lang="pl" data-rdk-theme="console-94"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0b101c"><title>Terminal Session / Terminal OS</title><meta name="description" content="Terminal OS alpha Native Showcase"><script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"console-94","label":"Console 94","status":"stable","default":true,"public":true,"source":"src/themes/console-94.css","docsRoute":"reference/themes/console-94/","nativeShowcase":"showcase/console-94/","description":"Warm equipment surfaces, IBM Plex typography, subtle bevels and LCD readouts."},{"id":"terminal-os","label":"Terminal OS","status":"alpha","default":false,"public":true,"source":"src/themes/terminal-os.css","docsRoute":"reference/themes/terminal-os/","nativeShowcase":"showcase/terminal-os/","description":"Terminal-inspired interface on a blue-black, navy and graphite base. Green signals prompts, success and actions."}],"basePath":"../../","forcedTheme":"terminal-os"}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
 (function () {
   "use strict";
   const configNode = document.getElementById("rdk-theme-config");
@@ -33,12 +33,30 @@
       node.textContent = style.getPropertyValue(node.dataset.themeToken).trim() || "—";
     });
   }
+  function routeUrl(route) {
+    return new URL(config.basePath + route, location.href).href;
+  }
+  function syncThemeContext(id) {
+    document.querySelectorAll("[data-rdk-theme-context]").forEach((node) => {
+      node.hidden = node.dataset.rdkThemeContext !== id;
+    });
+    document.querySelectorAll("[data-rdk-theme-support-list]").forEach((list) => {
+      const active = [...list.children].find((item) => item.dataset.theme === id);
+      if (active) list.prepend(active);
+      [...list.children].forEach((item) => {
+        if (item.dataset.theme) item.dataset.activeTheme = String(item === active);
+      });
+    });
+    document.querySelectorAll("[data-rdk-active-theme-label]").forEach((node) => {
+      node.textContent = themes.find((theme) => theme.id === id)?.label || id;
+    });
+  }
   function applyTheme(id, persist = true) {
     const resolved = isValidTheme(id) ? id : defaultTheme.id;
     document.documentElement.setAttribute("data-rdk-theme", resolved);
     if (persist) storeTheme(resolved);
     syncSelects(resolved);
-    if (document.readyState !== "loading") syncTokenValues();
+    if (document.readyState !== "loading") { syncTokenValues(); syncThemeContext(resolved); }
     document.dispatchEvent(new CustomEvent("rdk-theme-change", { detail: { id: resolved } }));
     return resolved;
   }
@@ -50,14 +68,24 @@
       return option;
     }));
     select.value = document.documentElement.getAttribute("data-rdk-theme");
-    select.addEventListener("change", () => applyTheme(select.value));
+    select.addEventListener("change", () => {
+      const id = applyTheme(select.value);
+      const theme = publicThemes.find((item) => item.id === id);
+      if (document.body?.hasAttribute("data-rdk-theme-page") && theme?.docsRoute) location.assign(routeUrl(theme.docsRoute));
+      else if (document.body?.hasAttribute("data-rdk-native-showcase") && theme?.nativeShowcase) location.assign(routeUrl(theme.nativeShowcase));
+    });
   }
   const stored = getStoredTheme();
   if (stored && !isValidTheme(stored)) clearStoredTheme();
-  applyTheme(stored || defaultTheme.id, false);
+  applyTheme(config.forcedTheme || stored || defaultTheme.id, Boolean(config.forcedTheme));
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("[data-rdk-theme-select]").forEach(populateThemeSelect);
     syncTokenValues();
+    syncThemeContext(document.documentElement.getAttribute("data-rdk-theme"));
+    if (document.body?.hasAttribute("data-rdk-showcase-landing")) {
+      const theme = publicThemes.find((item) => item.id === document.documentElement.getAttribute("data-rdk-theme"));
+      if (theme?.nativeShowcase) location.replace(routeUrl(theme.nativeShowcase));
+    }
   }, { once: true });
   window.RDKTheme = Object.freeze({
     getThemeRegistry, getDefaultTheme, isValidTheme, getStoredTheme,
@@ -67,8 +95,8 @@
 
 </script><link rel="icon" type="image/svg+xml" href="../../assets/favicon-JmUTfrMJ.svg">  <script type="module" crossorigin src="../../assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
   <script type="module" crossorigin src="../../assets/phase3-CDpBbhqq.js"></script>
-  <link rel="stylesheet" crossorigin href="../../assets/app-Ccgss4KR.css">
-</head><body class="terminal-native-body"><a class="terminal-skip-link" href="#main">Skip to session</a><div class="terminal-native-page"><header class="terminal-native-topbar"><a class="terminal-native-brand" href="../../reference/themes/terminal-os/">RDK / TERMINAL OS</a><label class="terminal-native-theme-control"><span>Theme</span><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="console-94">Console 94</option><option value="terminal-os">Terminal OS</option></select></label></header><main id="main" class="terminal-native-main"><p class="terminal-native-meta">TERMINAL OS / ALPHA / COMPACT-FIRST</p><h1>Terminal Session</h1><p class="terminal-native-intro">Operate node-01 from a compact terminal-inspired interface.</p><section class="terminal-native mt-8" aria-label="Terminal Session recipe">
+  <link rel="stylesheet" crossorigin href="../../assets/app-CFyzIbt3.css">
+</head><body class="terminal-native-body" data-rdk-native-showcase><a class="terminal-skip-link" href="#main">Skip to session</a><div class="terminal-native-page"><header class="terminal-native-topbar"><a class="terminal-native-brand" href="../../reference/themes/terminal-os/">RDK / TERMINAL OS</a><label class="terminal-native-theme-control"><span>Theme</span><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="console-94">Console 94</option><option value="terminal-os">Terminal OS</option></select></label></header><main id="main" class="terminal-native-main"><p class="terminal-native-meta">TERMINAL OS / ALPHA / COMPACT-FIRST</p><h1>Terminal Session</h1><p class="terminal-native-intro">Operate node-01 from a compact terminal-inspired interface.</p><section class="terminal-native mt-8" aria-label="Terminal Session recipe">
   <section class="rdk-terminal-window" aria-label="Terminal Session window">
     <header class="rdk-terminal-window-bar"><span>gaming@omv:~ / session 01</span></header>
     <div class="rdk-terminal-window-body">
@@ -87,4 +115,4 @@
     </div>
   </section>
 </section>
-<nav class="terminal-native-related" aria-label="Theme links"><a href="../../reference/themes/terminal-os/">Terminal OS theme</a><a href="../../support/">Support Matrix</a><a href="../../showcase/">Shared compatibility Showcase</a></nav></main><footer class="terminal-native-footer"><span>NODE-01 / SESSION READY</span><span>RDK Retro UI 0.1.0-alpha.3</span></footer></div><div data-toast-host class="fixed bottom-5 right-5 z-50 w-[min(22rem,calc(100vw-2.5rem))]"></div></body></html>
+<nav class="terminal-native-related" aria-label="Theme links"><a href="../../reference/themes/terminal-os/">Terminal OS theme</a><a href="../../support/">Support Matrix</a><a href="../../showcase/shared/">Compatibility Showcase</a></nav></main><footer class="terminal-native-footer"><span>NODE-01 / SESSION READY</span><span>RDK Retro UI 0.1.0-alpha.3</span></footer></div><div data-toast-host class="fixed bottom-5 right-5 z-50 w-[min(22rem,calc(100vw-2.5rem))]"></div></body></html>

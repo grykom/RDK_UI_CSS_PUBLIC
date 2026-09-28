@@ -7,7 +7,10 @@
       "status": "stable",
       "default": true,
       "public": true,
-      "source": "src/themes/console-94.css"
+      "source": "src/themes/console-94.css",
+      "docsRoute": "reference/themes/console-94/",
+      "nativeShowcase": "showcase/console-94/",
+      "description": "Warm equipment surfaces, IBM Plex typography, subtle bevels and LCD readouts."
     },
     {
       "id": "terminal-os",
@@ -15,7 +18,10 @@
       "status": "alpha",
       "default": false,
       "public": true,
-      "source": "src/themes/terminal-os.css"
+      "source": "src/themes/terminal-os.css",
+      "docsRoute": "reference/themes/terminal-os/",
+      "nativeShowcase": "showcase/terminal-os/",
+      "description": "Terminal-inspired interface on a blue-black, navy and graphite base. Green signals prompts, success and actions."
     }
   ]
 }

@@ -38,8 +38,12 @@
         "notice": "supported",
         "toast": "supported"
       },
-      "themeSpecific": [],
-      "recipes": []
+      "themeSpecific": {},
+      "recipes": [],
+      "qa": {
+        "desktop": "Verified in Chrome and Firefox",
+        "realDevice": "General responsive compatibility"
+      }
     },
     {
       "id": "terminal-os",
@@ -80,12 +84,35 @@
         "notice": "supported",
         "toast": "supported"
       },
-      "themeSpecific": [
-        "terminal-window"
-      ],
+      "themeSpecific": {
+        "terminal-window": {
+          "label": "Terminal Window",
+          "classes": [
+            "rdk-terminal-window",
+            "rdk-terminal-window-bar",
+            "rdk-terminal-window-body"
+          ],
+          "description": "A scoped window for a terminal session. Colored dots are decoration; prompts, logs, timestamps and status text remain ordinary HTML. Application CSS owns page layout.",
+          "markup": "<section class=\"rdk-terminal-window\" aria-label=\"Terminal session\"><header class=\"rdk-terminal-window-bar\">Session</header><div class=\"rdk-terminal-window-body\"><p>node-01:~$ status</p></div></section>"
+        }
+      },
       "recipes": [
         "terminal-session"
-      ]
+      ],
+      "recommendations": {
+        "toggle": "Use Checkbox for a native boolean choice.",
+        "badge": "Use text status or Notice for key states.",
+        "card": "Use Panel for a native grouped surface.",
+        "progress": "Use a textual progress value when possible.",
+        "tooltip": "Prefer persistent helper text or Notice.",
+        "segments": "Prefer text progress or a Table.",
+        "lcd": "Use ordinary text inside a Panel or Terminal Window.",
+        "status-led": "Use explicit text status."
+      },
+      "qa": {
+        "desktop": "Verified in Chrome and Firefox at emulated 390, 430, 768 and 1440 px",
+        "realDevice": "Android Chrome and iOS Safari real-device QA pending; not mobile-stable."
+      }
     }
   ]
 }
