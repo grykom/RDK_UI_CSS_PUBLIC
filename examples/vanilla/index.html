@@ -1,9 +1,9 @@
-<!doctype html>
-<html lang="pl" data-rdk-theme="console-94">
+﻿<!doctype html>
+<html lang="en" data-rdk-theme="console-94">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stacja A4 — RDK Vanilla</title>
+  <title>Station A4 — RDK Vanilla</title>
   <link rel="stylesheet" href="../../dist/rdk-retro-ui.css">
   <link rel="stylesheet" href="./example.css">
   <script type="module" src="./app.js"></script>
@@ -11,25 +11,25 @@
 <body>
   <main class="service-shell">
     <header class="service-header">
-      <div><span class="rdk-label">RDK / SERVICE STATION</span><h1>Stacja A4</h1><p>Przykład Vanilla: gotowy CSS RDK i własny układ aplikacji.</p></div>
+      <div><span class="rdk-label">RDK / SERVICE STATION</span><h1>Station A4</h1><p>Vanilla example: built RDK CSS with custom application layout.</p></div>
       <div class="rdk-vent service-vent" aria-hidden="true"></div>
     </header>
     <div class="service-grid">
-      <nav class="service-nav" aria-label="Sekcje stacji">
-        <span class="rdk-label">SEKCJE</span>
-        <button class="rdk-nav-item" type="button" data-accent="amber" aria-pressed="true" data-section="Odczyt"><span class="rdk-nav-item-icon" aria-hidden="true">▣</span><span class="rdk-nav-item-label">Odczyt</span><span class="rdk-nav-item-meta">01</span></button>
-        <button class="rdk-nav-item" type="button" data-accent="blue" aria-pressed="false" data-section="Kalibracja"><span class="rdk-nav-item-icon" aria-hidden="true">◇</span><span class="rdk-nav-item-label">Kalibracja</span><span class="rdk-nav-item-meta">02</span></button>
-        <button class="rdk-nav-item" type="button" data-accent="green" aria-pressed="false" data-section="Dziennik"><span class="rdk-nav-item-label">Dziennik</span><span class="rdk-nav-item-meta">08</span></button>
+      <nav class="service-nav" aria-label="Station sections">
+        <span class="rdk-label">SECTIONS</span>
+        <button class="rdk-nav-item" type="button" data-accent="amber" aria-pressed="true" data-section="Readout"><span class="rdk-nav-item-icon" aria-hidden="true">▣</span><span class="rdk-nav-item-label">Readout</span><span class="rdk-nav-item-meta">01</span></button>
+        <button class="rdk-nav-item" type="button" data-accent="blue" aria-pressed="false" data-section="Calibration"><span class="rdk-nav-item-icon" aria-hidden="true">◇</span><span class="rdk-nav-item-label">Calibration</span><span class="rdk-nav-item-meta">02</span></button>
+        <button class="rdk-nav-item" type="button" data-accent="green" aria-pressed="false" data-section="Log"><span class="rdk-nav-item-label">Log</span><span class="rdk-nav-item-meta">08</span></button>
       </nav>
       <section class="rdk-panel service-panel" aria-labelledby="service-title">
-        <div class="service-topline"><div><span class="rdk-label">MODUŁ / A4</span><h2 id="service-title">Panel serwisowy</h2></div><span class="rdk-badge rdk-badge-success service-badge">Połączono</span></div>
+        <div class="service-topline"><div><span class="rdk-label">MODULE / A4</span><h2 id="service-title">Service panel</h2></div><span class="rdk-badge rdk-badge-success service-badge">Connected</span></div>
         <div class="rdk-lcd service-display" id="service-display">READY 94</div>
         <div class="service-fields">
-          <label class="service-field" for="station-name"><span class="rdk-label">Nazwa stacji</span><input id="station-name" class="rdk-input service-input" value="Stacja A4"></label>
-          <label class="service-field" for="service-progress"><span class="rdk-label">Kalibracja <output id="service-percent">68%</output></span><progress id="service-progress" class="rdk-progress" data-accent="blue" value="68" max="100">68%</progress></label>
+          <label class="service-field" for="station-name"><span class="rdk-label">Station name</span><input id="station-name" class="rdk-input service-input" value="Station A4"></label>
+          <label class="service-field" for="service-progress"><span class="rdk-label">Calibration <output id="service-percent">68%</output></span><progress id="service-progress" class="rdk-progress" data-accent="blue" value="68" max="100">68%</progress></label>
         </div>
-        <div class="service-actions"><button id="service-run" class="rdk-btn rdk-btn-solid service-button" data-accent="blue" type="button">Ponów odczyt</button><button id="service-reset" class="rdk-btn rdk-btn-outline service-button" data-accent="red" type="button">Resetuj</button></div>
-        <div class="rdk-notice rdk-notice-info service-notice" role="status" id="service-status"><strong>Odczyt stabilny</strong><p>Ostatni pomiar wykonano lokalnie.</p></div>
+        <div class="service-actions"><button id="service-run" class="rdk-btn rdk-btn-solid service-button" data-accent="blue" type="button">Refresh readout</button><button id="service-reset" class="rdk-btn rdk-btn-outline service-button" data-accent="red" type="button">Reset</button></div>
+        <div class="rdk-notice rdk-notice-info service-notice" role="status" id="service-status"><strong>Readout stable</strong><p>Last reading was taken locally.</p></div>
       </section>
     </div>
     <footer>RDK RETRO UI · VANILLA EXAMPLE</footer>
