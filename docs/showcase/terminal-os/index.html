@@ -1,0 +1,90 @@
+<!doctype html><html lang="pl" data-rdk-theme="console-94"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0b101c"><title>Terminal Session / Terminal OS</title><meta name="description" content="Terminal OS alpha Native Showcase"><script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"console-94","label":"Console 94","status":"stable","default":true,"public":true,"source":"src/themes/console-94.css"},{"id":"terminal-os","label":"Terminal OS","status":"alpha","default":false,"public":true,"source":"src/themes/terminal-os.css"}]}</script><script>try{localStorage.setItem("rdk-theme","terminal-os")}catch{}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
+(function () {
+  "use strict";
+  const configNode = document.getElementById("rdk-theme-config");
+  if (!configNode) throw new Error("RDK theme configuration is missing");
+  const config = JSON.parse(configNode.textContent);
+  const publicThemes = config.themes.filter((theme) => theme.public && ["stable", "alpha"].includes(theme.status));
+  const testTheme = window.__RDK_THEME_TEST__;
+  const themes = testTheme && testTheme.status === "fixture" && testTheme.public === false
+    ? [...publicThemes, testTheme] : publicThemes;
+  const defaultTheme = publicThemes.find((theme) => theme.default);
+  if (!defaultTheme) throw new Error("RDK default theme is missing");
+  const storageKey = config.storageKey;
+  const isValidTheme = (id) => themes.some((theme) => theme.id === id);
+  const getThemeRegistry = () => themes.map((theme) => ({ ...theme }));
+  const getDefaultTheme = () => ({ ...defaultTheme });
+  function getStoredTheme() {
+    try { return localStorage.getItem(storageKey); }
+    catch { return null; }
+  }
+  function storeTheme(id) {
+    try { localStorage.setItem(storageKey, id); } catch { /* storage may be blocked */ }
+  }
+  function clearStoredTheme() {
+    try { localStorage.removeItem(storageKey); } catch { /* storage may be blocked */ }
+  }
+  function syncSelects(id) {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach((select) => { select.value = id; });
+  }
+  function syncTokenValues() {
+    const style = getComputedStyle(document.documentElement);
+    document.querySelectorAll("[data-theme-token]").forEach((node) => {
+      node.textContent = style.getPropertyValue(node.dataset.themeToken).trim() || "—";
+    });
+  }
+  function applyTheme(id, persist = true) {
+    const resolved = isValidTheme(id) ? id : defaultTheme.id;
+    document.documentElement.setAttribute("data-rdk-theme", resolved);
+    if (persist) storeTheme(resolved);
+    syncSelects(resolved);
+    if (document.readyState !== "loading") syncTokenValues();
+    document.dispatchEvent(new CustomEvent("rdk-theme-change", { detail: { id: resolved } }));
+    return resolved;
+  }
+  function populateThemeSelect(select) {
+    select.replaceChildren(...themes.map((theme) => {
+      const option = document.createElement("option");
+      option.value = theme.id;
+      option.textContent = theme.label;
+      return option;
+    }));
+    select.value = document.documentElement.getAttribute("data-rdk-theme");
+    select.addEventListener("change", () => applyTheme(select.value));
+  }
+  const stored = getStoredTheme();
+  if (stored && !isValidTheme(stored)) clearStoredTheme();
+  applyTheme(stored || defaultTheme.id, false);
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach(populateThemeSelect);
+    syncTokenValues();
+  }, { once: true });
+  window.RDKTheme = Object.freeze({
+    getThemeRegistry, getDefaultTheme, isValidTheme, getStoredTheme,
+    applyTheme, storeTheme, populateThemeSelect
+  });
+})();
+
+</script><link rel="icon" type="image/svg+xml" href="../../assets/favicon-JmUTfrMJ.svg">  <script type="module" crossorigin src="../../assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="../../assets/phase3-CDpBbhqq.js"></script>
+  <link rel="stylesheet" crossorigin href="../../assets/app-Ccgss4KR.css">
+</head><body class="terminal-native-body"><a class="terminal-skip-link" href="#main">Skip to session</a><div class="terminal-native-page"><header class="terminal-native-topbar"><a class="terminal-native-brand" href="../../reference/themes/terminal-os/">RDK / TERMINAL OS</a><label class="terminal-native-theme-control"><span>Theme</span><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="console-94">Console 94</option><option value="terminal-os">Terminal OS</option></select></label></header><main id="main" class="terminal-native-main"><p class="terminal-native-meta">TERMINAL OS / ALPHA / COMPACT-FIRST</p><h1>Terminal Session</h1><p class="terminal-native-intro">Operate node-01 from a compact terminal-inspired interface.</p><section class="terminal-native mt-8" aria-label="Terminal Session recipe">
+  <section class="rdk-terminal-window" aria-label="Terminal Session window">
+    <header class="rdk-terminal-window-bar"><span>gaming@omv:~ / session 01</span></header>
+    <div class="rdk-terminal-window-body">
+      <p class="prompt">gaming@omv:~$ ./launcher --status</p>
+      <p class="mt-2 text-rdk-text-muted">Connected to node-01. Select an operation.</p>
+      <nav class="mt-7 grid gap-1" aria-label="Session operations">
+        <div class="terminal-choice flex flex-wrap items-center justify-between gap-2 py-3"><span><span class="prompt">01 &gt;</span> Wake game station</span><button type="button" class="rdk-btn rdk-btn-primary min-h-11 px-3" data-toast-show data-toast-tone="success" data-toast-title="[ OK ] Wake-on-LAN" data-toast-message="Signal sent to station A4.">Execute</button></div>
+        <div class="terminal-choice flex flex-wrap items-center justify-between gap-2 py-3"><span><span class="prompt">02 &gt;</span> Read session log</span><a href="#session-log" class="rdk-btn min-h-11 px-3">Open log</a></div>
+      </nav>
+      <div id="session-log" class="mt-9" aria-label="Recent session log">
+        <p><span class="log-time">20:15:28</span> <span class="log-ok">[ OK ]</span> Wake-on-LAN signal sent.</p>
+        <p><span class="log-time">20:15:29</span> <span class="log-wait">[ ... ]</span> Waiting for node-01.</p>
+        <p><span class="log-time">20:15:34</span> <span class="log-warn">[ WARN ]</span> Last response 5 seconds ago.</p>
+      </div>
+      <p class="prompt mt-8">gaming@omv:~$ <span aria-hidden="true">_</span></p>
+    </div>
+  </section>
+</section>
+<nav class="terminal-native-related" aria-label="Theme links"><a href="../../reference/themes/terminal-os/">Terminal OS theme</a><a href="../../support/">Support Matrix</a><a href="../../showcase/">Shared compatibility Showcase</a></nav></main><footer class="terminal-native-footer"><span>NODE-01 / SESSION READY</span><span>RDK Retro UI 0.1.0-alpha.3</span></footer></div><div data-toast-host class="fixed bottom-5 right-5 z-50 w-[min(22rem,calc(100vw-2.5rem))]"></div></body></html>

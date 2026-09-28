@@ -1,6 +1,6 @@
 # RDK Retro UI
 
-Consumer distribution mirror for **RDK Retro UI 0.1.0-alpha.2**, a framework-agnostic CSS visual layer. Console 94 uses warm device surfaces, IBM Plex typography, restrained bevels, and LCD readouts. Development happens in a separate canonical repository.
+Consumer distribution mirror for **RDK Retro UI 0.1.0-alpha.3**, a framework-agnostic CSS visual layer. Console 94 uses warm equipment surfaces. Terminal OS is an official compact-first alpha theme. Development happens in a separate canonical repository.
 
 **Tailwind or application CSS controls geometry. RDK controls visual identity.**
 
@@ -21,11 +21,11 @@ For an app without Tailwind, copy [the built CSS](dist/rdk-retro-ui.css) and its
 </html>
 ```
 
-Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract. Explore the [Vanilla example](examples/vanilla/README.md) and [Tailwind example](examples/tailwind/README.md).
+Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract and [release notes](RELEASE_NOTES.md) for alpha.3. Explore the [Vanilla example](examples/vanilla/README.md) and [Tailwind example](examples/tailwind/README.md).
 
 ## Documentation and demos
 
-GitHub Pages: [https://grykom.github.io/RDK_UI_CSS_PUBLIC/](https://grykom.github.io/RDK_UI_CSS_PUBLIC/) (available after the owner enables Pages from `main:/docs`). The site includes [components](https://grykom.github.io/RDK_UI_CSS_PUBLIC/components/), [Playground](https://grykom.github.io/RDK_UI_CSS_PUBLIC/playground/), [Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/), [Themes](https://grykom.github.io/RDK_UI_CSS_PUBLIC/reference/themes/), [Vanilla demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/vanilla/), and [Tailwind demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/tailwind/). CSS should be bundled or copied into each application; GitHub Pages is documentation and demos, not the production CSS delivery contract.
+GitHub Pages: [https://grykom.github.io/RDK_UI_CSS_PUBLIC/](https://grykom.github.io/RDK_UI_CSS_PUBLIC/) (available after the owner enables Pages from `main:/docs`). The site includes [components](https://grykom.github.io/RDK_UI_CSS_PUBLIC/components/), [Playground](https://grykom.github.io/RDK_UI_CSS_PUBLIC/playground/), [Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/), [Themes](https://grykom.github.io/RDK_UI_CSS_PUBLIC/reference/themes/), [Support Matrix](https://grykom.github.io/RDK_UI_CSS_PUBLIC/support/), [Terminal OS Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/terminal-os/), [Vanilla demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/vanilla/), and [Tailwind demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/tailwind/). CSS should be bundled or copied into each application; GitHub Pages is documentation and demos, not the production CSS delivery contract.
 
 The package is not published to the public npm registry. Tested browser targets: Chrome and Firefox on Windows at desktop, tablet, and mobile widths. Safari, iOS, and Android remain untested.
 

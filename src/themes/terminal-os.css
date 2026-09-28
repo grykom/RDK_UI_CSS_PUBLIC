@@ -1,0 +1,313 @@
+﻿/* Terminal OS alpha theme. Component and Window styles are scoped to this theme. */
+[data-rdk-theme="terminal-os"] {
+  color-scheme: dark;
+  --rdk-case: #0b101c;
+  --rdk-surface: #141c2b;
+  --rdk-surface-raised: #1c2636;
+  --rdk-surface-recessed: #090e19;
+  --rdk-structure: #243146;
+  --rdk-field: #101827;
+  --rdk-text: #e7edf7;
+  --rdk-text-muted: #aab9cf;
+  --rdk-placeholder: #8999b2;
+  --rdk-border: #40516c;
+  --rdk-border-dark: #526987;
+  --rdk-highlight: #526987;
+  --rdk-shadow: #040814;
+  --rdk-focus: #77d8ff;
+  --rdk-accent-green: #50fa7b;
+  --rdk-accent-red: #ff8177;
+  --rdk-accent-blue: #7fb9ff;
+  --rdk-accent-pink: #f58abc;
+  --rdk-accent-amber: #e6bb52;
+  --rdk-accent-orange: #ffa057;
+  --rdk-accent-violet: #bda6ff;
+  --rdk-accent-cyan: #72e2dc;
+  --rdk-lcd: #0a1424;
+  --rdk-lcd-ink: #d7ecf7;
+  --rdk-lcd-off: #9badc0;
+  --rdk-lcd-off-surface: #10192a;
+  --rdk-lcd-border: #40516c;
+  --rdk-lcd-border-dark: #40516c;
+  --rdk-radius: 0;
+  --rdk-font-ui: "RDK IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  --rdk-font-display: "RDK IBM Plex Mono", Consolas, "Courier New", monospace;
+  --rdk-font-mono: "RDK IBM Plex Mono", Consolas, "Courier New", monospace;
+  --_rdk-glint-rgb: 76 103 140;
+  --_rdk-inset-rgb: 5 10 21;
+  --_rdk-press-rgb: 4 9 20;
+  --_rdk-cast-rgb: 4 8 19;
+  --_rdk-deep-rgb: 3 7 17;
+  --_rdk-backdrop-rgb: 0 0 0;
+  --_rdk-plastic-shade-rgb: 8 16 32;
+  --_rdk-lcd-scan-rgb: 48 91 137;
+  --_rdk-lcd-inset-rgb: 5 10 21;
+  --_rdk-solid-press-rgb: 5 14 29;
+  --_rdk-accent-mix-dark: #172236;
+  --_rdk-accent-mix-light: #eff5ff;
+  --_rdk-accent-shadow: #071322;
+  --_rdk-accent-on: #091522;
+}
+
+/* A: a shell uses light, rules, and text hierarchy instead of molded plastic. */
+[data-rdk-theme="terminal-os"] .rdk-plastic { background-image: none; box-shadow: none; }
+[data-rdk-theme="terminal-os"] .rdk-recessed { border: 0; background: transparent; box-shadow: none; }
+[data-rdk-theme="terminal-os"] .rdk-bevel,
+[data-rdk-theme="terminal-os"] .rdk-bevel-pressed { border: 0; box-shadow: none; }
+[data-rdk-theme="terminal-os"] .rdk-vent { border: 0; background: transparent; box-shadow: none; }
+
+/* B: command density, marker grammar, and a green command identity. */
+[data-rdk-theme="terminal-os"] .rdk-btn {
+  --rdk-btn-marker: var(--rdk-text-muted);
+  min-height: 2.4rem;
+  padding: .45em .75em;
+  gap: .5em;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font: 600 .84rem/1.2 var(--rdk-font-mono);
+  letter-spacing: .02em;
+  transform: none;
+  color: var(--rdk-text);
+}
+[data-rdk-theme="terminal-os"] .rdk-btn::before {
+  content: "[";
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--rdk-btn-marker);
+}
+[data-rdk-theme="terminal-os"] .rdk-btn::after { content: "]"; color: var(--rdk-btn-marker); }
+[data-rdk-theme="terminal-os"] .rdk-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--rdk-text) 7%, transparent); }
+[data-rdk-theme="terminal-os"] .rdk-btn:focus-visible { border-color: var(--rdk-focus); background: color-mix(in srgb, var(--rdk-focus) 9%, transparent); }
+[data-rdk-theme="terminal-os"] .rdk-btn:is(:active:not(:disabled), [aria-pressed="true"]) {
+  transform: none;
+  border-color: var(--rdk-text-muted);
+  background: color-mix(in srgb, var(--rdk-text) 12%, transparent);
+  box-shadow: none;
+  color: var(--rdk-text);
+}
+[data-rdk-theme="terminal-os"] .rdk-btn-primary {
+  --rdk-btn-marker: var(--rdk-accent-green);
+  border: 1px solid var(--rdk-accent-green);
+  background: color-mix(in srgb, var(--rdk-accent-green) 7%, transparent);
+  color: var(--rdk-accent-green);
+}
+[data-rdk-theme="terminal-os"] .rdk-btn-primary:hover:not(:disabled) { background: color-mix(in srgb, var(--rdk-accent-green) 14%, transparent); }
+[data-rdk-theme="terminal-os"] .rdk-btn-primary:is(:active:not(:disabled), [aria-pressed="true"]) {
+  border-color: var(--rdk-accent-green);
+  background: color-mix(in srgb, var(--rdk-accent-green) 20%, transparent);
+  color: var(--rdk-accent-green);
+}
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-solid,
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-outline {
+  --rdk-btn-marker: var(--_rdk-accent);
+  border: 1px solid var(--_rdk-accent);
+  background: transparent;
+  box-shadow: none;
+  color: var(--_rdk-accent);
+}
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-solid:is(:hover:not(:disabled), :active:not(:disabled), [aria-pressed="true"]),
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-outline:is(:hover:not(:disabled), :active:not(:disabled), [aria-pressed="true"]) {
+  border-color: var(--_rdk-accent);
+  background: color-mix(in srgb, var(--_rdk-accent) 13%, transparent);
+  box-shadow: none;
+  color: var(--_rdk-accent);
+}
+[data-rdk-theme="terminal-os"] .rdk-btn:disabled { opacity: .45; }
+
+[data-rdk-theme="terminal-os"] .showcase-nav,
+[data-rdk-theme="terminal-os"] [data-nav-group] { counter-reset: rdk-nav; }
+[data-rdk-theme="terminal-os"] .rdk-nav-item {
+  counter-increment: rdk-nav;
+  min-height: 3rem;
+  padding: .72rem .7rem .72rem 2.9rem;
+  gap: .55rem;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--rdk-border) 48%, transparent);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font: 600 .9rem/1.35 var(--rdk-font-mono);
+  color: var(--rdk-text);
+  transform: none;
+}
+[data-rdk-theme="terminal-os"] .rdk-nav-item::before {
+  content: "[" counter(rdk-nav) "]";
+  position: absolute;
+  left: .8rem;
+  top: 50%;
+  bottom: auto;
+  width: auto;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: translateY(-50%);
+  font: 500 .8rem/1 var(--rdk-font-mono);
+  letter-spacing: .02em;
+  color: var(--rdk-text-muted);
+}
+[data-rdk-theme="terminal-os"] .rdk-nav-item:hover:not(:disabled) { background: color-mix(in srgb, var(--rdk-text) 6%, transparent); color: var(--rdk-text); }
+[data-rdk-theme="terminal-os"] .rdk-nav-item:active:not(:disabled) { transform: none; }
+[data-rdk-theme="terminal-os"] .rdk-nav-item:is([aria-current="page"], [aria-pressed="true"]) {
+  border-bottom-color: var(--rdk-border);
+  background: color-mix(in srgb, var(--rdk-text) 6%, transparent);
+  box-shadow: none;
+  color: var(--rdk-text);
+}
+[data-rdk-theme="terminal-os"] .rdk-nav-item:is([aria-current="page"], [aria-pressed="true"])::before { content: ">"; color: var(--rdk-accent-green); }
+[data-rdk-theme="terminal-os"] .rdk-nav-item-icon { display: none; }
+[data-rdk-theme="terminal-os"] .rdk-nav-item-meta { font-weight: 500; color: var(--rdk-text-muted); }
+
+/* B: surface framing becomes a logical section, not a device enclosure. */
+[data-rdk-theme="terminal-os"] .rdk-panel {
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--rdk-border) 80%, transparent);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+[data-rdk-theme="terminal-os"] .rdk-panel-recessed {
+  border: 0;
+  border-left: 2px solid var(--rdk-accent-green);
+  background: var(--rdk-surface-recessed);
+  box-shadow: none;
+}
+[data-rdk-theme="terminal-os"] .rdk-tabs { gap: 1rem; border-color: var(--rdk-border); }
+[data-rdk-theme="terminal-os"] .rdk-tab {
+  padding-block: .55rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  font: 600 .8rem/1.3 var(--rdk-font-mono);
+  color: var(--rdk-text-muted);
+}
+[data-rdk-theme="terminal-os"] .rdk-tab:hover { background: transparent; color: var(--rdk-text); }
+[data-rdk-theme="terminal-os"] .rdk-tab[aria-selected="true"] { border-bottom-color: var(--rdk-accent-green); background: transparent; color: var(--rdk-accent-green); }
+[data-rdk-theme="terminal-os"] .rdk-table {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font: .83rem/1.4 var(--rdk-font-mono);
+}
+[data-rdk-theme="terminal-os"] .rdk-table th,
+[data-rdk-theme="terminal-os"] .rdk-table td { padding: .56em .7em; }
+[data-rdk-theme="terminal-os"] .rdk-table thead th { border-bottom: 1px solid var(--rdk-border); background: transparent; color: var(--rdk-text-muted); font-weight: 600; }
+[data-rdk-theme="terminal-os"] .rdk-table tbody tr:not(:last-child) > * { border-bottom-color: var(--rdk-border); }
+[data-rdk-theme="terminal-os"] .rdk-table tbody tr:hover > * { background: color-mix(in srgb, var(--rdk-accent-green) 6%, transparent); }
+[data-rdk-theme="terminal-os"] .rdk-table tbody tr[data-state="warning"] > :first-child { border-left: 2px solid var(--rdk-accent-amber); }
+
+/* A: status is a line of operational text, with a visible token. */
+[data-rdk-theme="terminal-os"] .rdk-notice {
+  border: 0;
+  border-top: 1px solid var(--rdk-border);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--rdk-font-mono);
+}
+[data-rdk-theme="terminal-os"] .rdk-notice strong { color: var(--_rdk-notice-accent); font-weight: 600; }
+[data-rdk-theme="terminal-os"] .rdk-badge {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--_rdk-badge-accent);
+  font-weight: 600;
+}
+[data-rdk-theme="terminal-os"] .rdk-badge::before { content: "["; }
+[data-rdk-theme="terminal-os"] .rdk-badge::after { content: "]"; }
+[data-rdk-theme="terminal-os"] .rdk-disclosure,
+[data-rdk-theme="terminal-os"] .rdk-disclosure[open] { border: 0; border-top: 1px solid var(--rdk-border); border-radius: 0; background: transparent; box-shadow: none; }
+[data-rdk-theme="terminal-os"] .rdk-disclosure-summary { font-family: var(--rdk-font-mono); }
+[data-rdk-theme="terminal-os"] .rdk-disclosure-summary::before { border: 0; width: auto; height: auto; content: ">"; color: var(--rdk-accent-green); }
+[data-rdk-theme="terminal-os"] .rdk-disclosure[open] > .rdk-disclosure-summary::before { transform: rotate(90deg); }
+[data-rdk-theme="terminal-os"] .rdk-disclosure-body { border-top-color: var(--rdk-border); background: var(--rdk-surface-recessed); }
+
+/* A: only transient operations receive elevation. */
+[data-rdk-theme="terminal-os"] .rdk-dialog {
+  border: 1px solid var(--rdk-border);
+  border-top: 2px solid var(--rdk-accent-green);
+  border-radius: 0;
+  background: var(--rdk-surface);
+  box-shadow: 0 20px 70px rgb(var(--_rdk-backdrop-rgb) / 80%);
+}
+[data-rdk-theme="terminal-os"] .rdk-dialog-header,
+[data-rdk-theme="terminal-os"] .rdk-dialog-footer { background: transparent; }
+[data-rdk-theme="terminal-os"] .rdk-dialog-header { border-bottom-color: var(--rdk-border); }
+[data-rdk-theme="terminal-os"] .rdk-dialog-footer { border-top-color: var(--rdk-border); }
+[data-rdk-theme="terminal-os"] .rdk-toast {
+  border: 0;
+  border-top: 1px solid var(--_rdk-toast-accent);
+  border-radius: 0;
+  background: var(--rdk-surface);
+  box-shadow: 0 10px 28px rgb(var(--_rdk-backdrop-rgb) / 65%);
+  font-family: var(--rdk-font-mono);
+}
+[data-rdk-theme="terminal-os"] .rdk-toast strong { color: var(--_rdk-toast-accent); }
+
+/* A: a card reads as a thin-bordered terminal record, not a plastic block. */
+[data-rdk-theme="terminal-os"] .rdk-card {
+  border: 1px solid color-mix(in srgb, var(--rdk-border) 72%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--rdk-surface) 55%, transparent);
+  box-shadow: none;
+}
+[data-rdk-theme="terminal-os"] .rdk-menu { border: 1px solid var(--rdk-border); border-radius: 0; background: var(--rdk-surface); box-shadow: 0 12px 35px rgb(var(--_rdk-backdrop-rgb) / 65%); }
+[data-rdk-theme="terminal-os"] .rdk-menu-item { border-radius: 0; font-family: var(--rdk-font-mono); }
+
+/* B: use the existing phone breakpoint for larger command targets. */
+@media (max-width: 500px) {
+  [data-rdk-theme="terminal-os"] .rdk-btn,
+  [data-rdk-theme="terminal-os"] .rdk-nav-item,
+  [data-rdk-theme="terminal-os"] .rdk-tab { min-height: 2.75rem; }
+}
+
+/* Iteration 04.2: reusable public theme-specific window shell. */
+[data-rdk-theme="terminal-os"] .rdk-terminal-window {
+  min-width: 0; overflow: hidden; border: 1px solid var(--rdk-border);
+  border-radius: 6px; background: var(--rdk-surface-recessed);
+  box-shadow: 0 22px 52px rgb(0 0 0 / 28%);
+  color: var(--rdk-text);
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-window-bar {
+  display: flex; align-items: center; gap: .75rem; min-height: 2.8rem;
+  padding: .55rem .9rem; border-bottom: 1px solid var(--rdk-border);
+  background: var(--rdk-surface); color: var(--rdk-text-muted);
+  font: 600 .76rem/1.35 var(--rdk-font-mono);
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-window-bar::before {
+  content: ""; flex: none; width: 48px; height: 11px;
+  background: radial-gradient(circle at 6px 5.5px,#ff6968 0 4.5px,transparent 5px),
+    radial-gradient(circle at 24px 5.5px,#e7b95b 0 4.5px,transparent 5px),
+    radial-gradient(circle at 42px 5.5px,#58c978 0 4.5px,transparent 5px);
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-window-bar > * { min-width: 0; overflow-wrap: anywhere; }
+[data-rdk-theme="terminal-os"] .rdk-terminal-window-body {
+  min-width: 0; padding: clamp(1rem, 3vw, 1.5rem);
+  font: .86rem/1.65 var(--rdk-font-mono); overflow-wrap: anywhere;
+}
+
+/* 04.3 compact-first control hit areas; component sizing, never page geometry. */
+@media (max-width: 500px) {
+  [data-rdk-theme="terminal-os"] .rdk-input,
+  [data-rdk-theme="terminal-os"] .rdk-select,
+  [data-rdk-theme="terminal-os"] .rdk-range,
+  [data-rdk-theme="terminal-os"] .rdk-disclosure-summary,
+  [data-rdk-theme="terminal-os"] .rdk-menu-item { min-height: 2.75rem; }
+  [data-rdk-theme="terminal-os"] .rdk-breadcrumb a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+  [data-rdk-theme="terminal-os"] label:has(> .rdk-checkbox),
+  [data-rdk-theme="terminal-os"] label:has(> .rdk-radio),
+  [data-rdk-theme="terminal-os"] label:has(> .rdk-toggle) { min-height: 2.75rem; }
+}
+
+/* Fallback tooltip must remain legible on a dark surface. */
+[data-rdk-theme="terminal-os"] .rdk-tooltip {
+  border-color: var(--rdk-border);
+  background: var(--rdk-surface-raised);
+  box-shadow: none;
+  color: var(--rdk-text);
+}
+

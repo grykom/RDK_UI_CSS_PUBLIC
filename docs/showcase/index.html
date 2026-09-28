@@ -6,13 +6,13 @@
   <meta name="theme-color" content="#303737">
   <meta name="description" content="RDK Archive Terminal — kompletna mini-aplikacja zbudowana z RDK Retro UI.">
   <title>Archiwum urządzeń — RDK Retro UI</title>
-  <script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"console-94","label":"Console 94","status":"stable","default":true,"public":true,"source":"src/themes/console-94.css"}]}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
+  <script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"console-94","label":"Console 94","status":"stable","default":true,"public":true,"source":"src/themes/console-94.css"},{"id":"terminal-os","label":"Terminal OS","status":"alpha","default":false,"public":true,"source":"src/themes/terminal-os.css"}]}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
 (function () {
   "use strict";
   const configNode = document.getElementById("rdk-theme-config");
   if (!configNode) throw new Error("RDK theme configuration is missing");
   const config = JSON.parse(configNode.textContent);
-  const publicThemes = config.themes.filter((theme) => theme.public && theme.status === "stable");
+  const publicThemes = config.themes.filter((theme) => theme.public && ["stable", "alpha"].includes(theme.status));
   const testTheme = window.__RDK_THEME_TEST__;
   const themes = testTheme && testTheme.status === "fixture" && testTheme.public === false
     ? [...publicThemes, testTheme] : publicThemes;
@@ -75,9 +75,9 @@
 
 </script>
   <link rel="icon" type="image/svg+xml" href="../assets/favicon-JmUTfrMJ.svg">
-  <script type="module" crossorigin src="../assets/showcase-BQXSbb7U.js"></script>
-  <link rel="modulepreload" crossorigin href="../assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="stylesheet" crossorigin href="../assets/showcase-A24-yUNg.css">
+  <script type="module" crossorigin src="../assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="../assets/showcase-BjosAtnX.js"></script>
+  <link rel="stylesheet" crossorigin href="../assets/showcase-B3bNejD0.css">
 </head>
 <body class="showcase-body">
   <div class="showcase-app">
@@ -90,7 +90,7 @@
         <span id="showcase-led" class="rdk-status-led" role="img" aria-label="System połączony"></span>
         <span class="showcase-online">SYSTEM ONLINE <small>Węzeł Północ / 01</small></span>
       </div>
-      <div class="showcase-theme"><label class="rdk-label" for="showcase-theme">MOTYW INTERFEJSU</label><select id="showcase-theme" class="rdk-select" data-rdk-theme-select aria-label="Motyw interfejsu"><option value="console-94">Console 94</option></select></div>
+      <div class="showcase-theme"><label class="rdk-label" for="showcase-theme">MOTYW INTERFEJSU</label><select id="showcase-theme" class="rdk-select" data-rdk-theme-select aria-label="Motyw interfejsu"><option value="console-94">Console 94</option><option value="terminal-os">Terminal OS</option></select></div>
       <a class="showcase-doc-link" href="../">Dokumentacja <span aria-hidden="true">↗</span></a>
     </header>
 
@@ -149,7 +149,7 @@
 
         <section class="showcase-ledger rdk-panel" aria-labelledby="ledger-heading"><div class="showcase-section-heading"><div><span class="rdk-label">03 / REJESTR</span><h2 id="ledger-heading">Ostatnie wpisy</h2></div><span class="showcase-ledger-meta">INWENTARZ / ODCZYT LOKALNY</span></div><div class="showcase-table-scroll"><table id="showcase-table" class="rdk-table"><caption>Ostatnie wpisy w archiwum urządzeń</caption><thead><tr><th scope="col">Numer</th><th scope="col">Obiekt</th><th scope="col">Kategoria</th><th scope="col">Status</th><th scope="col">Stan</th></tr></thead><tbody><tr><th scope="row">INV—001</th><td>Stacja A4</td><td>Komputery</td><td>Sprawny</td><td data-align="numeric">92%</td></tr><tr><th scope="row">INV—002</th><td>Magnetofon M7</td><td>Audio</td><td>W serwisie</td><td data-align="numeric">76%</td></tr><tr><th scope="row">INV—003</th><td>Miernik P3</td><td>Pomiary</td><td>Sprawny</td><td data-align="numeric">84%</td></tr></tbody></table></div></section>
         <div id="showcase-notice" class="rdk-notice rdk-notice-info showcase-notice" role="note"><strong>Dane demonstracyjne</strong><span>Zmiany pozostają tylko do odświeżenia strony. Archiwum nie łączy się z serwerem.</span><span class="showcase-tooltip-wrap"><button type="button" class="showcase-help" aria-describedby="showcase-tooltip" aria-label="Więcej o danych demonstracyjnych">?</button><span id="showcase-tooltip" class="rdk-tooltip" role="tooltip">To fikcyjny katalog pokazujący działanie interfejsu RDK.</span></span></div>
-        <footer class="showcase-footer"><span>RDK ARCHIVE TERMINAL / CONSOLE 94</span><span>RDK RETRO UI · 0.1.0-alpha.2</span></footer>
+        <footer class="showcase-footer"><span>RDK ARCHIVE TERMINAL / CONSOLE 94</span><span>RDK RETRO UI · 0.1.0-alpha.3</span></footer>
       </main>
     </div>
   </div>

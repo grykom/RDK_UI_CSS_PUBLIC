@@ -1,10 +1,10 @@
 # RDK Retro UI — Agent Guide
 
-Read this file before building UI with RDK Retro UI / Console 94. It describes the consumer contract for RDK source CSS, built CSS, and the privately shared `@rdk/retro-ui` tarball. RDK is CSS; your application supplies layout, state, and behavior.
+Read this file before building UI with RDK Retro UI / Console 94 or Terminal OS. It describes the consumer contract for RDK source CSS, built CSS, and the privately shared `@rdk/retro-ui` tarball. RDK is CSS; your application supplies layout, state, and behavior.
 
 ## 1. What RDK is
 
-RDK is a framework-agnostic, CSS-first visual layer inspired by physical controls: warm plastic, restrained bevels, dark structure, IBM Plex type, and LCD readouts. It works with Tailwind CSS v4 or with ordinary application CSS. It does not ship a JavaScript component framework.
+RDK is a framework-agnostic, CSS-first visual layer with two public themes: Console 94 uses warm equipment surfaces, while Terminal OS uses a compact blue-black terminal language. It works with Tailwind CSS v4 or with ordinary application CSS. It does not ship a JavaScript component framework.
 
 ## 2. Golden rule
 
@@ -46,7 +46,7 @@ Put the CSS import in your application entry stylesheet. Ensure the built CSS an
 <html lang="en" data-rdk-theme="console-94">
 ```
 
-Use only registered public theme IDs; the current public choice is `console-94`. Components and semantic states are theme-independent: apply `data-rdk-theme` on an ancestor or root and keep the same component markup when switching. Do not hard-code Console 94 color, surface, shadow, or type values in application CSS. Console 94 uses IBM Plex Sans for UI/display and IBM Plex Mono for readouts; keep its local font files accessible. Its radius is R1 (`--rdk-radius`) and its decorative vent is V1B. Tailwind/application CSS owns layout; the RDK theme owns visual identity.
+Use only registered public theme IDs; the public choices are `console-94` (stable identity) and `terminal-os` (alpha identity). Components and semantic states are theme-independent: apply `data-rdk-theme` on an ancestor or root and keep the same component markup when switching. Do not hard-code Console 94 color, surface, shadow, or type values in application CSS. Console 94 uses IBM Plex Sans for UI/display and IBM Plex Mono for readouts; keep its local font files accessible. Its radius is R1 (`--rdk-radius`) and its decorative vent is V1B. Tailwind/application CSS owns layout; the RDK theme owns visual identity.
 
 ## 6. Tailwind + RDK responsibility split
 
@@ -264,4 +264,14 @@ The documentation has `installation/`, `components/`, `reference/classes/`, `ref
 
 ## 19. Version / compatibility
 
-This guide describes RDK `0.1.0-alpha.2` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
+This guide describes RDK `0.1.0-alpha.3` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
+
+## Multi-theme support and Terminal OS
+
+RDK has two public theme identities. Choose `console-94` for its warm equipment language, or `terminal-os` for a compact-first blue-black terminal language. Terminal OS is an official alpha theme, verified in desktop Chrome and Firefox at emulated 390, 430, 768, and 1440 px. Android Chrome and iOS Safari real-device QA are pending; do not describe it as mobile-stable.
+
+Read the canonical [Support Matrix](docs/support/) and [Terminal OS theme page](docs/reference/themes/terminal-os/) before selecting components. Every shared component has one of three statuses per theme: `supported` means a native pattern that passed required state QA; `fallback` means usable and accessible but not preferred for a native composition; `unsupported` means it should not be used in new interfaces for that theme. Console 94 has 25 supported shared components. Terminal OS has 17 supported, 5 fallback, and 3 unsupported. In Terminal OS, Toggle, Badge, Card, Progress, and Tooltip are fallback. Segments, LCD, and Status LED are unsupported. Prefer Checkbox for a boolean choice and text status instead of Status LED. The capability manifest is `docs/data/theme-capabilities.json` in the public mirror.
+
+Shared components such as Button, Input, Table, and Dialog keep their semantic HTML API across themes. A theme-specific primitive belongs to one theme and need not be ported to another. Terminal OS owns Terminal Window: `rdk-terminal-window`, `rdk-terminal-window-bar`, and `rdk-terminal-window-body`. These classes are only styled under `data-rdk-theme="terminal-os"`. They create a window frame, title bar, and content inset; application CSS or Tailwind still owns placement, widths, and page layout. The colored window dots are decoration. Prompts, log lines, timestamps, `[ OK ]`, and `[ WARN ]` are ordinary HTML content, not separate RDK components.
+
+The [Terminal OS Native Showcase](docs/showcase/terminal-os/) is the canonical Terminal OS composition. The [Shared Showcase](docs/showcase/) demonstrates compatibility of common markup across themes and remains the Console 94 native reference. Choose components from the Support Matrix, use the theme page for theme-specific primitives, and keep native semantics and application behavior in your app.

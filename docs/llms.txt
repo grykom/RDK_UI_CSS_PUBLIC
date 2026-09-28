@@ -1,11 +1,13 @@
-# RDK Retro UI 0.1.0-alpha.2
+# RDK Retro UI 0.1.0-alpha.3
 
-Consumer CSS guide for Console 94.
+Consumer CSS guide for Console 94 and Terminal OS.
 
 - [Agent guide](./agent.md)
 - [Installation](./installation/)
 - [Components](./components/)
 - [Themes](./reference/themes/)
+- [Support Matrix](./support/)
+- [Terminal OS Native Showcase](./showcase/terminal-os/)
 - [Playground](./playground/)
 - [Showcase](./showcase/)
 - [Examples](./examples/)

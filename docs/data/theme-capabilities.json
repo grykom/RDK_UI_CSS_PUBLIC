@@ -1,0 +1,91 @@
+{
+  "themes": [
+    {
+      "id": "console-94",
+      "status": "stable",
+      "viewportProfile": "general",
+      "viewports": {
+        "primary": [
+          1440
+        ],
+        "secondary": 768,
+        "wideCompatibility": 390
+      },
+      "components": {
+        "button": "supported",
+        "nav-item": "supported",
+        "panel": "supported",
+        "input": "supported",
+        "select": "supported",
+        "textarea": "supported",
+        "checkbox": "supported",
+        "radio": "supported",
+        "toggle": "supported",
+        "badge": "supported",
+        "card": "supported",
+        "tabs": "supported",
+        "progress": "supported",
+        "disclosure": "supported",
+        "range": "supported",
+        "breadcrumbs": "supported",
+        "segments": "supported",
+        "table": "supported",
+        "lcd": "supported",
+        "status-led": "supported",
+        "menu": "supported",
+        "dialog": "supported",
+        "tooltip": "supported",
+        "notice": "supported",
+        "toast": "supported"
+      },
+      "themeSpecific": [],
+      "recipes": []
+    },
+    {
+      "id": "terminal-os",
+      "status": "alpha",
+      "viewportProfile": "compact-first",
+      "viewports": {
+        "primary": [
+          390,
+          430
+        ],
+        "secondary": 768,
+        "wideCompatibility": 1440
+      },
+      "components": {
+        "button": "supported",
+        "nav-item": "supported",
+        "panel": "supported",
+        "input": "supported",
+        "select": "supported",
+        "textarea": "supported",
+        "checkbox": "supported",
+        "radio": "supported",
+        "toggle": "fallback",
+        "badge": "fallback",
+        "card": "fallback",
+        "tabs": "supported",
+        "progress": "fallback",
+        "disclosure": "supported",
+        "range": "supported",
+        "breadcrumbs": "supported",
+        "segments": "unsupported",
+        "table": "supported",
+        "lcd": "unsupported",
+        "status-led": "unsupported",
+        "menu": "supported",
+        "dialog": "supported",
+        "tooltip": "fallback",
+        "notice": "supported",
+        "toast": "supported"
+      },
+      "themeSpecific": [
+        "terminal-window"
+      ],
+      "recipes": [
+        "terminal-session"
+      ]
+    }
+  ]
+}

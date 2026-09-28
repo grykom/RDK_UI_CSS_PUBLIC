@@ -8,6 +8,14 @@
       "default": true,
       "public": true,
       "source": "src/themes/console-94.css"
+    },
+    {
+      "id": "terminal-os",
+      "label": "Terminal OS",
+      "status": "alpha",
+      "default": false,
+      "public": true,
+      "source": "src/themes/terminal-os.css"
     }
   ]
 }
