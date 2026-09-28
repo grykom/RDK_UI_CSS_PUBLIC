@@ -90,6 +90,19 @@
     document.querySelectorAll("[data-rdk-theme-select]").forEach(populateThemeSelect);
     syncTokenValues();
     syncThemeContext(document.documentElement.getAttribute("data-rdk-theme"));
+    if (document.querySelector("[data-site-version]")) {
+      fetch(routeUrl("site-meta.json"))
+        .then((response) => {
+          if (!response.ok) throw new Error("Site metadata unavailable");
+          return response.json();
+        })
+        .then(({ version }) => {
+          document.querySelectorAll("[data-site-version]").forEach((node) => {
+            node.textContent = version;
+          });
+        })
+        .catch((error) => console.error(error));
+    }
     if (document.body?.hasAttribute("data-rdk-showcase-landing")) {
       const theme = publicThemes.find((item) => item.id === document.documentElement.getAttribute("data-rdk-theme"));
       if (theme?.nativeShowcase) location.replace(routeUrl(theme.nativeShowcase));
@@ -103,10 +116,10 @@
 
 </script>
   <link rel="icon" type="image/svg+xml" href="../../assets/favicon-JmUTfrMJ.svg">
-  <script type="module" crossorigin src="../../assets/showcase/czarek-os-Bwi5xXAQ.js"></script>
+  <script type="module" crossorigin src="../../assets/showcase/czarek-os-D7sFaFyT.js"></script>
   <link rel="modulepreload" crossorigin href="../../assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="stylesheet" crossorigin href="../../assets/czarek-os-BOxzLeVx.css">
-  <link rel="stylesheet" crossorigin href="../../assets/app-BLgmUgiz.css">
+  <link rel="stylesheet" crossorigin href="../../assets/app-DuWoBRjT.css">
 </head>
 <body class="cz-native-body" data-rdk-native-showcase>
   <a class="cz-skip" href="#main">Skip to workspace</a>
@@ -139,7 +152,7 @@
   </svg>
   <div class="cz-app">
     <aside class="cz-sidebar" aria-label="Workspace sidebar">
-      <a class="cz-brand" href="../../reference/themes/czarek-os/" aria-label="Czarek OS theme documentation"><span class="cz-brand-mark" aria-hidden="true">CO</span><span><strong>Czarek OS</strong><small>BAKERY WORKSPACE</small></span></a>
+      <a class="cz-brand" href="../../colors/" aria-label="RDK Colors documentation"><span class="cz-brand-mark" aria-hidden="true">CO</span><span><strong>Czarek OS</strong><small>BAKERY WORKSPACE</small></span></a>
       <nav class="cz-side-nav" aria-label="Workspace navigation">
         <span class="cz-nav-caption">WORKSPACE 01</span>
         <a class="rdk-nav-item" href="#workspace-status"><span class="rdk-nav-item-icon"><svg class="cz-icon"><use href="#cz-grid"/></svg></span><span class="rdk-nav-item-label">Overview</span></a>
@@ -153,7 +166,7 @@
     <div class="cz-main-column">
       <header class="cz-topbar"><nav aria-label="Breadcrumbs"><ol class="rdk-breadcrumbs"><li class="rdk-breadcrumb"><a href="../../">Workspaces</a></li><li class="rdk-breadcrumb"><a href="#workspace-status">North bakery</a></li><li class="rdk-breadcrumb" aria-current="page">Ingredients</li></ol></nav><label class="cz-theme-picker"><span>Theme</span><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="console-94">Console 94</option><option value="terminal-os">Terminal OS</option><option value="czarek-os">Czarek OS</option></select></label></header>
       <main class="cz-main" id="main">
-        <section class="cz-patterns" id="visual-language" aria-labelledby="visual-language-heading"><div class="cz-showcase-section-head"><span class="cz-eyebrow">01 / VISUAL LANGUAGE</span><h1 id="visual-language-heading">Czarek OS Native Showcase</h1><p>Approved visual patterns from the private Stage A checkpoint, now presented with the public theme. Shared components, theme recipes, compositions, and application-owned candidates are labelled below.</p></div><nav class="cz-page-links" aria-label="Showcase sections"><a href="#visual-language">Component patterns</a><a href="#workspace-example">Workspace example</a><a href="../../reference/themes/czarek-os/">Theme details</a><a href="../../support/">Support Matrix</a></nav><div class="mc-content-grid">
+        <section class="cz-patterns" id="visual-language" aria-labelledby="visual-language-heading"><div class="cz-showcase-section-head"><span class="cz-eyebrow">01 / VISUAL LANGUAGE</span><h1 id="visual-language-heading">Czarek OS Native Showcase</h1><p>Approved visual patterns from the private Stage A checkpoint, now presented with the public theme. Shared components, theme recipes, compositions, and application-owned candidates are labelled below.</p></div><nav class="cz-page-links" aria-label="Showcase sections"><a href="#visual-language">Component patterns</a><a href="#workspace-example">Workspace example</a><a href="../../colors/">Colors</a><a href="../../components/">Components</a></nav><div class="mc-content-grid">
           <section class="mc-section mc-section-buttons" id="checkpoint-button" data-pattern="button" aria-labelledby="button-heading">
             <div class="mc-section-head"><span class="cz-pattern-kind">SHARED COMPONENT / THEME RECIPE</span><div><span class="mc-index">01 / ACTIONS</span><h2 id="button-heading">Button</h2></div><p>Slate-led actions, semantic danger, and a busy recipe.</p></div>
             <div class="mc-button-row">
@@ -221,7 +234,7 @@
           </aside>
         </div>
         <div class="cz-bottom-grid"><article class="rdk-card cz-schedule" id="production-schedule"><div class="cz-file-mark"><svg class="cz-icon" aria-hidden="true"><use href="#cz-file"/></svg></div><div><div class="cz-schedule-title"><h2>Weekly production schedule</h2><span class="rdk-badge rdk-badge-info">Archived</span></div><p>North bakery / Revision 12 / 18 formulas</p><small>Updated Sep 18, 2026 / Owner: C. Mazur / REF SCH-2048</small></div></article><div class="rdk-notice rdk-notice-success cz-ready-notice" role="note"><strong>Inventory synced</strong><span>Catalog changes are stored in this local preview until the page reloads.</span></div></div>
-        <footer class="cz-footer"><span>CZAREK OS / NATIVE SHOWCASE</span><span>RDK Retro UI 0.1.0-alpha.4</span></footer>
+        <footer class="cz-footer"><span>CZAREK OS / NATIVE SHOWCASE</span><span>RDK Retro UI <span data-site-version></span></span></footer>
         </section>
       </main>
     </div>

@@ -82,6 +82,19 @@
     document.querySelectorAll("[data-rdk-theme-select]").forEach(populateThemeSelect);
     syncTokenValues();
     syncThemeContext(document.documentElement.getAttribute("data-rdk-theme"));
+    if (document.querySelector("[data-site-version]")) {
+      fetch(routeUrl("site-meta.json"))
+        .then((response) => {
+          if (!response.ok) throw new Error("Site metadata unavailable");
+          return response.json();
+        })
+        .then(({ version }) => {
+          document.querySelectorAll("[data-site-version]").forEach((node) => {
+            node.textContent = version;
+          });
+        })
+        .catch((error) => console.error(error));
+    }
     if (document.body?.hasAttribute("data-rdk-showcase-landing")) {
       const theme = publicThemes.find((item) => item.id === document.documentElement.getAttribute("data-rdk-theme"));
       if (theme?.nativeShowcase) location.replace(routeUrl(theme.nativeShowcase));
@@ -95,8 +108,8 @@
 
 </script><link rel="icon" type="image/svg+xml" href="../../assets/favicon-JmUTfrMJ.svg">  <script type="module" crossorigin src="../../assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
   <script type="module" crossorigin src="../../assets/phase3-481dRCvM.js"></script>
-  <link rel="stylesheet" crossorigin href="../../assets/app-BLgmUgiz.css">
-</head><body class="terminal-native-body" data-rdk-native-showcase><a class="terminal-skip-link" href="#main">Skip to session</a><div class="terminal-native-page"><header class="terminal-native-topbar"><a class="terminal-native-brand" href="../../reference/themes/terminal-os/">RDK / TERMINAL OS</a><label class="terminal-native-theme-control"><span>Theme</span><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="console-94">Console 94</option><option value="terminal-os">Terminal OS</option><option value="czarek-os">Czarek OS</option></select></label></header><main id="main" class="terminal-native-main"><p class="terminal-native-meta">TERMINAL OS / ALPHA / COMPACT-FIRST</p><h1>Terminal Session</h1><p class="terminal-native-intro">Operate node-01 from a compact terminal-inspired interface.</p><section class="terminal-native mt-8" aria-label="Terminal Session recipe">
+  <link rel="stylesheet" crossorigin href="../../assets/app-DuWoBRjT.css">
+</head><body class="terminal-native-body" data-rdk-native-showcase><a class="terminal-skip-link" href="#main">Skip to session</a><div class="terminal-native-page"><header class="terminal-native-topbar"><a class="terminal-native-brand" href="../../colors/">RDK / TERMINAL OS</a><label class="terminal-native-theme-control"><span>Theme</span><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="console-94">Console 94</option><option value="terminal-os">Terminal OS</option><option value="czarek-os">Czarek OS</option></select></label></header><main id="main" class="terminal-native-main"><p class="terminal-native-meta">TERMINAL OS / ALPHA / COMPACT-FIRST</p><h1>Terminal Session</h1><p class="terminal-native-intro">Operate node-01 from a compact terminal-inspired interface.</p><section class="terminal-native mt-8" aria-label="Terminal Session recipe">
   <section class="rdk-terminal-window" aria-label="Terminal Session window">
     <header class="rdk-terminal-window-bar"><span>gaming@omv:~ / session 01</span></header>
     <div class="rdk-terminal-window-body">
@@ -115,4 +128,4 @@
     </div>
   </section>
 </section>
-<nav class="terminal-native-related" aria-label="Theme links"><a href="../../reference/themes/terminal-os/">Terminal OS theme</a><a href="../../support/">Support Matrix</a><a href="../../showcase/shared/">Compatibility Showcase</a></nav></main><footer class="terminal-native-footer"><span>NODE-01 / SESSION READY</span><span>RDK Retro UI 0.1.0-alpha.4</span></footer></div><div data-toast-host class="fixed bottom-5 right-5 z-50 w-[min(22rem,calc(100vw-2.5rem))]"></div></body></html>
+<nav class="terminal-native-related" aria-label="Theme links"><a href="../../colors/">Colors</a><a href="../../components/">Components</a><a href="../../patterns/">Patterns</a></nav></main><footer class="terminal-native-footer"><span>NODE-01 / SESSION READY</span><span>RDK Retro UI <span data-site-version></span></span></footer></div><div data-toast-host class="fixed bottom-5 right-5 z-50 w-[min(22rem,calc(100vw-2.5rem))]"></div></body></html>

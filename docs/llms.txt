@@ -1,19 +1,14 @@
 # RDK Retro UI 0.1.0-alpha.4
 
-Consumer CSS guide for Console 94, Terminal OS, and Czarek OS.
+Consumer CSS guide. Choose a theme in the docs; Demo opens its native showcase.
 
 - [Agent guide](./agent.md)
 - [Installation](./installation/)
+- [Colors](./colors/)
 - [Components](./components/)
-- [Themes](./reference/themes/)
-- [Support Matrix](./support/)
-- [Console 94 Native Showcase](./showcase/console-94/)
-- [Terminal OS Native Showcase](./showcase/terminal-os/)
-- [Czarek OS Native Showcase](./showcase/czarek-os/)
-- [Compatibility Showcase](./showcase/shared/)
+- [Patterns](./patterns/)
+- [CSS classes](./css-classes/)
+- [Console 94 demo](./showcase/console-94/)
+- [Terminal OS demo](./showcase/terminal-os/)
+- [Czarek OS demo](./showcase/czarek-os/)
 - [Adding a theme](../ADDING_A_THEME.md)
-- [Playground](./playground/)
-- [Showcase](./showcase/)
-- [Examples](./examples/)
-- [CSS classes](./reference/classes/)
-- [Accessibility](./reference/accessibility/)
