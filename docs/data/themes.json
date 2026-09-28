@@ -22,6 +22,17 @@
       "docsRoute": "reference/themes/terminal-os/",
       "nativeShowcase": "showcase/terminal-os/",
       "description": "Terminal-inspired interface on a blue-black, navy and graphite base. Green signals prompts, success and actions."
+    },
+    {
+      "id": "czarek-os",
+      "label": "Czarek OS",
+      "status": "alpha",
+      "default": false,
+      "public": true,
+      "source": "src/themes/czarek-os.css",
+      "docsRoute": "reference/themes/czarek-os/",
+      "nativeShowcase": "showcase/czarek-os/",
+      "description": "Slate-led, content-first bakery workspace with compact editable controls, semantic status colors, and calm density."
     }
   ]
 }

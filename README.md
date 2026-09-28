@@ -1,6 +1,6 @@
 # RDK Retro UI
 
-Consumer distribution mirror for **RDK Retro UI 0.1.0-alpha.3**, a framework-agnostic CSS visual layer. Console 94 uses warm equipment surfaces. Terminal OS is an official compact-first alpha theme. Development happens in a separate canonical repository.
+Consumer distribution mirror for **RDK Retro UI 0.1.0-alpha.4**, a framework-agnostic CSS visual layer. Console 94 uses warm equipment surfaces. Terminal OS is an official compact-first alpha theme. Czarek OS is a slate-led content-first alpha theme. Development happens in a separate canonical repository.
 
 **Tailwind or application CSS controls geometry. RDK controls visual identity.**
 
@@ -13,7 +13,7 @@ Clone or download this mirror. In a Tailwind v4 project, import Tailwind and [th
 @import "./path/to/RDK/src/index.css";
 ```
 
-For an app without Tailwind, copy [the built CSS](dist/rdk-retro-ui.css) and its sibling [fonts](dist/fonts/) into your app. Choose `console-94` or `terminal-os` with `data-rdk-theme`, then combine RDK appearance classes with your own layout CSS. This example uses Console 94:
+For an app without Tailwind, copy [the built CSS](dist/rdk-retro-ui.css) and its sibling [fonts](dist/fonts/) into your app. Choose `console-94`, `terminal-os`, or `czarek-os` with `data-rdk-theme`, then combine RDK appearance classes with your own layout CSS. This example uses Console 94:
 
 ```html
 <html data-rdk-theme="console-94">
@@ -21,14 +21,14 @@ For an app without Tailwind, copy [the built CSS](dist/rdk-retro-ui.css) and its
 </html>
 ```
 
-Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract and [release notes](RELEASE_NOTES.md) for alpha.3. Explore the [Vanilla example](examples/vanilla/README.md) and [Tailwind example](examples/tailwind/README.md).
+Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract and [release notes](RELEASE_NOTES.md) for alpha.4. Explore the [Vanilla example](examples/vanilla/README.md) and [Tailwind example](examples/tailwind/README.md).
 
 ## Documentation and demos
 
-GitHub Pages: [https://grykom.github.io/RDK_UI_CSS_PUBLIC/](https://grykom.github.io/RDK_UI_CSS_PUBLIC/) (available after the owner enables Pages from `main:/docs`). The site includes [components](https://grykom.github.io/RDK_UI_CSS_PUBLIC/components/), [Playground](https://grykom.github.io/RDK_UI_CSS_PUBLIC/playground/), [Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/), [Compatibility Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/shared/), [Themes](https://grykom.github.io/RDK_UI_CSS_PUBLIC/reference/themes/), [Support Matrix](https://grykom.github.io/RDK_UI_CSS_PUBLIC/support/), [Terminal OS Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/terminal-os/), [Vanilla demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/vanilla/), and [Tailwind demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/tailwind/). CSS should be bundled or copied into each application; GitHub Pages is documentation and demos, not the production CSS delivery contract.
+GitHub Pages: [https://grykom.github.io/RDK_UI_CSS_PUBLIC/](https://grykom.github.io/RDK_UI_CSS_PUBLIC/) (available after the owner enables Pages from `main:/docs`). The site includes [components](https://grykom.github.io/RDK_UI_CSS_PUBLIC/components/), [Playground](https://grykom.github.io/RDK_UI_CSS_PUBLIC/playground/), [Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/), [Compatibility Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/shared/), [Themes](https://grykom.github.io/RDK_UI_CSS_PUBLIC/reference/themes/), [Support Matrix](https://grykom.github.io/RDK_UI_CSS_PUBLIC/support/), [Terminal OS Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/terminal-os/), [Czarek OS Native Showcase](https://grykom.github.io/RDK_UI_CSS_PUBLIC/showcase/czarek-os/), [Vanilla demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/vanilla/), and [Tailwind demo](https://grykom.github.io/RDK_UI_CSS_PUBLIC/demos/tailwind/). CSS should be bundled or copied into each application; GitHub Pages is documentation and demos, not the production CSS delivery contract.
 
-The package is not published to the public npm registry. Tested browser targets: Chrome and Firefox on Windows at desktop, tablet, and mobile widths. Safari, iOS, and Android remain untested.
+The documentation shell follows the selected theme while routes and navigation stay shared. A Native Showcase shows the complete visual language; the Compatibility Showcase compares shared semantic markup. The package is not published to the public npm registry. Tested browser targets: Chrome and Firefox on Windows at desktop, tablet, and mobile widths. Safari, iOS, and Android remain untested.
 
 ## License
 
-RDK Retro UI code is available under the [MIT License](LICENSE). IBM Plex and Barlow font files retain their own OFL notices in src/fonts/, dist/fonts/, and docs/.
+RDK Retro UI code is available under the [MIT License](LICENSE). IBM Plex, Source Sans 3, and Barlow font files retain their own OFL notices in src/fonts/, dist/fonts/, and docs/.

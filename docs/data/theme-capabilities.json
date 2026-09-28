@@ -113,6 +113,86 @@
         "desktop": "Verified in Chrome and Firefox at emulated 390, 430, 768 and 1440 px",
         "realDevice": "Android Chrome and iOS Safari real-device QA pending; not mobile-stable."
       }
+    },
+    {
+      "id": "czarek-os",
+      "status": "alpha",
+      "viewportProfile": "responsive-workspace",
+      "viewports": {
+        "primary": [
+          1440,
+          768
+        ],
+        "secondary": 414,
+        "wideCompatibility": 390
+      },
+      "components": {
+        "button": "supported",
+        "nav-item": "supported",
+        "panel": "supported",
+        "input": "supported",
+        "select": "supported",
+        "textarea": "supported",
+        "checkbox": "supported",
+        "radio": "supported",
+        "toggle": "fallback",
+        "badge": "supported",
+        "card": "supported",
+        "tabs": "supported",
+        "progress": "fallback",
+        "disclosure": "supported",
+        "range": "fallback",
+        "breadcrumbs": "supported",
+        "segments": "unsupported",
+        "table": "supported",
+        "lcd": "unsupported",
+        "status-led": "unsupported",
+        "menu": "fallback",
+        "dialog": "fallback",
+        "tooltip": "fallback",
+        "notice": "supported",
+        "toast": "supported"
+      },
+      "themeSpecific": {
+        "warning-status": {
+          "label": "Warning status recipe",
+          "classes": [
+            "cz-status-warning"
+          ],
+          "description": "Czarek OS-only amber/orange treatment on an existing Badge, Notice, or Toast. Use for attention and unsaved review, not deletion or hard failure.",
+          "markup": "<span class=\"rdk-badge cz-status-warning\">Needs review</span>"
+        },
+        "icon-busy-button": {
+          "label": "Leading icon and busy button recipe",
+          "classes": [
+            "cz-btn-icon",
+            "cz-btn-leading",
+            "cz-btn-loader"
+          ],
+          "description": "Czarek OS-only icon sizing and CSS spinner. Application JavaScript sets aria-busy and disabled, then restores both when the action finishes. Supply an accessible name for icon-only buttons.",
+          "markup": "<button class=\"rdk-btn rdk-btn-primary\" type=\"button\" aria-busy=\"false\"><svg class=\"cz-btn-icon cz-btn-leading\" aria-hidden=\"true\">...</svg><svg class=\"cz-btn-icon cz-btn-loader\" aria-hidden=\"true\">...</svg><span>Save draft</span></button>"
+        }
+      },
+      "recipes": [
+        "warning-status",
+        "lucide-leading-button",
+        "busy-button"
+      ],
+      "recommendations": {
+        "toggle": "Use a native Checkbox for clear boolean settings until the switch treatment is validated.",
+        "progress": "Use text progress or a Table in dense workspaces.",
+        "range": "Use a numeric Input for precise production values.",
+        "menu": "Use visible actions or a native Select for values; Menu remains a fallback command layer.",
+        "dialog": "Use sparingly; the native Showcase keeps editing in context.",
+        "tooltip": "Prefer persistent helper text next to form controls.",
+        "segments": "Use text progress or a Table.",
+        "lcd": "Use ordinary text in a Panel or Card.",
+        "status-led": "Use explicit text and a semantic Badge."
+      },
+      "qa": {
+        "desktop": "Verified in Chrome and Firefox on Windows at 1440, 768, 414, and 390 px; native Showcase and candidate QA.",
+        "realDevice": "Android Chrome, iOS Safari, and Safari desktop remain untested."
+      }
     }
   ]
 }

@@ -4,7 +4,7 @@ Read this file before building UI with RDK Retro UI / Console 94 or Terminal OS.
 
 ## 1. What RDK is
 
-RDK is a framework-agnostic, CSS-first visual layer with two public themes: Console 94 uses warm equipment surfaces, while Terminal OS uses a compact blue-black terminal language. It works with Tailwind CSS v4 or with ordinary application CSS. It does not ship a JavaScript component framework.
+RDK is a framework-agnostic, CSS-first visual layer with three public themes: Console 94 uses warm equipment surfaces, Terminal OS uses a compact blue-black terminal language, and Czarek OS uses a slate-led content workspace. It works with Tailwind CSS v4 or with ordinary application CSS. It does not ship a JavaScript component framework.
 
 ## 2. Golden rule
 
@@ -38,7 +38,7 @@ Point `@source` at all templates/components containing utility class names. This
 
 ## 4. Minimal setup
 
-Put the CSS import in your application entry stylesheet. Ensure the built CSS and `fonts/` retain their sibling relationship if copying files. Choose `console-94` or `terminal-os` with `data-rdk-theme` on `<html>` or a containing element. The example below uses Console 94. Then combine semantic HTML, RDK appearance classes, and your layout utilities.
+Put the CSS import in your application entry stylesheet. Ensure the built CSS and `fonts/` retain their sibling relationship if copying files. Choose `console-94`, `terminal-os`, or `czarek-os` with `data-rdk-theme` on `<html>` or a containing element. The example below uses Console 94. Then combine semantic HTML, RDK appearance classes, and your layout utilities.
 
 ## 5. Theme activation
 
@@ -46,7 +46,7 @@ Put the CSS import in your application entry stylesheet. Ensure the built CSS an
 <html lang="en" data-rdk-theme="console-94">
 ```
 
-Use only registered public theme IDs; the public choices are `console-94` (stable identity) and `terminal-os` (alpha identity). Component class names and semantic states are shared, but capability varies by theme: apply `data-rdk-theme` on an ancestor or root, check the Support Matrix, and choose supported patterns for native compositions. Do not hard-code Console 94 color, surface, shadow, or type values in application CSS. Console 94 uses IBM Plex Sans for UI/display and IBM Plex Mono for readouts; keep its local font files accessible. Its radius is R1 (`--rdk-radius`) and its decorative vent is V1B. Tailwind/application CSS owns layout; the RDK theme owns visual identity.
+Use only registered public theme IDs; the public choices are `console-94` (stable), `terminal-os` (alpha), and `czarek-os` (alpha). Component class names and semantic states are shared, but capability varies by theme: apply `data-rdk-theme` on an ancestor or root, check the Support Matrix, and choose supported patterns for native compositions. Do not hard-code Console 94 color, surface, shadow, or type values in application CSS. Console 94 uses IBM Plex Sans for UI/display and IBM Plex Mono for readouts; keep its local font files accessible. Its radius is R1 (`--rdk-radius`) and its decorative vent is V1B. Tailwind/application CSS owns layout; the RDK theme owns visual identity.
 
 ## 6. Tailwind + RDK responsibility split
 
@@ -264,14 +264,26 @@ The documentation has `installation/`, `components/`, `reference/classes/`, `ref
 
 ## 19. Version / compatibility
 
-This guide describes RDK `0.1.0-alpha.3` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
+This guide describes RDK `0.1.0-alpha.4` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
 
-## Multi-theme support and Terminal OS
+## Multi-theme support
 
-RDK has two public theme identities. Choose `console-94` for its warm equipment language, or `terminal-os` for a compact-first blue-black terminal language. Terminal OS is an official alpha theme, verified in desktop Chrome and Firefox at emulated 390, 430, 768, and 1440 px. Android Chrome and iOS Safari real-device QA are pending; do not describe it as mobile-stable.
+RDK has three public theme identities. Choose `console-94` for warm equipment surfaces, `terminal-os` for a compact-first blue-black terminal language, or `czarek-os` for a slate-led, content-first workspace. Terminal OS is an official alpha theme, verified in desktop Chrome and Firefox at emulated 390, 430, 768, and 1440 px. Android Chrome and iOS Safari real-device QA are pending; do not describe it as mobile-stable.
 
-Read the canonical [Support Matrix](docs/support/) and [Terminal OS theme page](docs/reference/themes/terminal-os/) before selecting components. Every shared component has one of three statuses per theme: `supported` means a native pattern that passed required state QA; `fallback` means usable and accessible but not preferred for a native composition; `unsupported` means it should not be used in new interfaces for that theme. Console 94 has 25 supported shared components. Terminal OS has 17 supported, 5 fallback, and 3 unsupported. In Terminal OS, Toggle, Badge, Card, Progress, and Tooltip are fallback. Segments, LCD, and Status LED are unsupported. Prefer Checkbox for a boolean choice and text status instead of Status LED. The capability manifest is `docs/data/theme-capabilities.json` in the public mirror.
+Read the canonical [Support Matrix](docs/support/) and [Terminal OS theme page](docs/reference/themes/terminal-os/) before selecting components. Every shared component has one of three statuses per theme: `supported` means a native pattern that passed required state QA; `fallback` means usable and accessible but not preferred for a native composition; `unsupported` means it should not be used in new interfaces for that theme. Console 94 has 25 supported shared components. Terminal OS has 17 supported, 5 fallback, and 3 unsupported. Czarek OS has 16 supported, 6 fallback, and 3 unsupported. In Terminal OS, Toggle, Badge, Card, Progress, and Tooltip are fallback. Segments, LCD, and Status LED are unsupported. Prefer Checkbox for a boolean choice and text status instead of Status LED. The capability manifest is `docs/data/theme-capabilities.json` in the public mirror.
 
 Shared components such as Button, Input, Table, and Dialog keep their semantic HTML API across themes. A theme-specific primitive belongs to one theme and need not be ported to another. Terminal OS owns Terminal Window: `rdk-terminal-window`, `rdk-terminal-window-bar`, and `rdk-terminal-window-body`. These classes are only styled under `data-rdk-theme="terminal-os"`. They create a window frame, title bar, and content inset; application CSS or Tailwind still owns placement, widths, and page layout. The colored window dots are decoration. Prompts, log lines, timestamps, `[ OK ]`, and `[ WARN ]` are ordinary HTML content, not separate RDK components.
 
-The [Terminal OS Native Showcase](docs/showcase/terminal-os/) and [Console 94 Native Showcase](docs/showcase/console-94/) are canonical theme compositions. The [Compatibility Showcase](docs/showcase/shared/) compares common markup across themes. The [Showcase entry](docs/showcase/) opens the active theme Native Showcase. Choose components from the Support Matrix, use the theme page for theme-specific primitives, and keep native semantics and application behavior in your app.
+The [Terminal OS Native Showcase](docs/showcase/terminal-os/), [Console 94 Native Showcase](docs/showcase/console-94/), and [Czarek OS Native Showcase](docs/showcase/czarek-os/) are canonical visual presentations of their themes. A Native Showcase may include stable shared components, theme recipes, compositions, and clearly labelled candidates without changing API or capability status. The [Compatibility Showcase](docs/showcase/shared/) compares the same shared semantic markup across themes for regression. The [Showcase entry](docs/showcase/) opens the active theme Native Showcase. Choose components from the Support Matrix, use the theme page for theme-specific primitives, and keep native semantics and application behavior in your app.
+
+### Czarek OS consumer contract
+
+Start with shared semantic classes such as `rdk-btn`, `rdk-input`, `rdk-select`, `rdk-textarea`, `rdk-panel`, `rdk-card`, `rdk-tabs`, `rdk-table`, `rdk-badge`, `rdk-notice`, and `rdk-toast`. Check the [Support Matrix](docs/support/) before choosing other components. The [Czarek OS theme page](docs/reference/themes/czarek-os/) documents the visual rules; the [Czarek OS Native Showcase](docs/showcase/czarek-os/) is the canonical presentation: approved Stage A visual patterns appear first, followed by a compact bakery operations workspace. The documentation shell also follows the selected theme.
+
+Slate is the baseline for surfaces, text, navigation, focus, and primary actions. Use emerald for success, amber/orange for warning or unsaved attention, slate for neutral information, and red for destructive actions or hard failure. Do not recreate Czarek OS by scattering arbitrary Tailwind slate utilities around unrelated markup. The theme styles editable fields and enabled action buttons with restrained elevation; static Panel and Card stay flat. Enabled buttons scale subtly on hover, with reduced-motion support.
+
+Source Sans 3 is bundled locally and licensed separately under SIL OFL 1.1. Lucide outline icons are recommended, not required by RDK. A leading icon may use the Czarek OS-only `cz-btn-icon` recipe. An icon-only button needs an accessible name. A busy action keeps its label, toggles `aria-busy="true"` and `disabled` in application JavaScript, and swaps `cz-btn-leading` for the CSS-driven `cz-btn-loader`; restore both states after completion.
+
+The shared Select remains a native `<select>`; its popup is browser-owned. An exact popup match needs an application-owned enhanced Select/listbox and JavaScript. Enhanced Select and editable Combobox remain candidates, not stable shared RDK APIs. Field Group remains an application composition for a labelled editable value joined to a read-only prefix or suffix. The Native Showcase demonstrates both units, including the euro currency prefix. A Czarek OS field may use `data-dirty="true"` for an unsaved amber/orange visual state; it does not mean `aria-invalid="true"`. Error messages still need text and `aria-describedby`. The theme-specific `cz-status-warning` class styles a warning Badge, Notice, or Toast without changing shared component semantics.
+
+The Native Showcase uses application JavaScript for Enhanced Select, Combobox, filters, Tabs, dirty state, saving, and Toast. Its candidate behavior is an example, not an RDK JavaScript API. Reuse documented recipes and keep behavior in the application. Czarek OS was verified in Windows Chrome and Firefox at 1440, 768, 430, 414, and 390 px; Safari and real mobile devices remain untested.
