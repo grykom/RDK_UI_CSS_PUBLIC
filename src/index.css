@@ -47,9 +47,10 @@
 
 @font-face {
   font-family: "RDK IBM Plex Mono";
-  src: url("./fonts/IBMPlexMono-Regular.ttf") format("truetype");
+  src: url("./fonts/IBMPlexMono-variable.woff2") format("woff2"),
+       url("./fonts/IBMPlexMono-variable.ttf") format("truetype");
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100 700;
   font-display: swap;
 }
 

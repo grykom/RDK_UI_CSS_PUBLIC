@@ -2,9 +2,15 @@
 
 Read this file before building UI with RDK Retro UI in Console 94, Terminal OS, or Czarek OS. It describes the consumer contract for RDK source CSS, built CSS, and the privately shared `@rdk/retro-ui` tarball. RDK is CSS; your application supplies layout, state, and behavior.
 
+## TL;DR - Start here
+
+Choose `console-94`, `terminal-os` or `czarek-os`, then read the selected theme's support matrix in `docs/data/theme-capabilities.json`. Application HTML and Tailwind/application CSS own content, layout, responsive geometry and behavior. Use shared components for proven cross-theme roles; combine them into Patterns when a composition repeats. Use a theme-specific primitive only for that theme's reusable visual grammar. Ordinary text and one-off content can remain ordinary HTML. Customize the appearance with documented theme tokens, not copied component selectors.
+
+**Start with ordinary HTML. Promote to a Pattern when composition repeats. Promote to a theme-specific primitive when the visual grammar belongs to one theme. Promote to a shared component only after repeated cross-theme evidence.** For deeper theme guidance, see [Adding a Theme](ADDING_A_THEME.md); maintainers also use the canonical `project/iterations/THEME_ARCHITECTURE_POLICY.md`.
+
 ## 1. What RDK is
 
-RDK is a framework-agnostic, CSS-first visual layer with three public themes: Console 94 uses warm equipment surfaces, Terminal OS uses a compact blue-black terminal language, and Czarek OS uses a slate-led content workspace. It works with Tailwind CSS v4 or with ordinary application CSS. It does not ship a JavaScript component framework.
+RDK is a framework-agnostic, CSS-first visual layer with three public themes: Console 94 uses warm equipment surfaces, Terminal OS uses a compact neutral-black terminal language, and Czarek OS uses a slate-led content workspace. It works with Tailwind CSS v4 or with ordinary application CSS. It does not ship a JavaScript component framework.
 
 ## 2. Golden rule
 
@@ -27,7 +33,7 @@ RDK is a framework-agnostic, CSS-first visual layer with three public themes: Co
 
 Do not wrap every text fragment in an RDK class. Reuse an existing theme primitive instead of recreating it in application CSS. Do not force a Console 94 metaphor into another theme for parity or choose a fallback component when a supported native alternative exists. Patterns may mix RDK classes, ordinary HTML and application/Tailwind utilities. Check the selected theme's capability state before composing.
 
-In Terminal OS, Terminal Window, Prompt, Cursor and Marker are theme-specific primitives; a timestamp or log sentence is ordinary HTML; a complete launcher/session is a Pattern. Page layout and polling belong to the application. Neutral is a valid/default state such as `[ IDLE ]`; muted deliberately de-emphasizes secondary or inactive content such as an old timestamp or `[ -- ]`. The primary semantic tones are neutral, info, success, warning and danger.
+In Terminal OS, Terminal Window, Prompt, Cursor and Marker are theme-specific primitives; a timestamp or log sentence is ordinary HTML; a complete launcher/session is a Pattern. Page layout and polling belong to the application. Neutral is a valid/default state such as `[ IDLE ]`; muted deliberately de-emphasizes secondary or inactive content such as an old timestamp or `[ -- ]`. Marker tones are neutral, progress, info, success, warning, danger and muted. Progress is an active/waiting amber state; info is cyan.
 
 ## 3. Installation modes
 
@@ -124,7 +130,19 @@ The public tokens shared by every registered theme are:
 - LCD/fields: `--rdk-lcd`, `--rdk-lcd-ink`, `--rdk-lcd-off`, `--rdk-lcd-off-surface`, `--rdk-lcd-border`, `--rdk-lcd-border-dark`, `--rdk-field`, `--rdk-placeholder`.
 - Radius: `--rdk-radius`.
 
-These are theme tokens; inspect docs/data/themes.json for IDs and docs/colors/ for live values. Internal --_rdk-* variables are implementation details. Select documented component variants instead of overriding them.
+These are the supported theme customization surface; inspect docs/data/themes.json for IDs and docs/colors/ for live values. Override them on the selected theme root after importing RDK CSS. This keeps component semantics and allows an intentional departure from the Native Showcase appearance; the consuming project owns final contrast and brand QA. Variables with the private underscore prefix are implementation details. Choose documented component variants and avoid copying or rewriting `.rdk-*` selectors.
+
+```css
+:root[data-rdk-theme="terminal-os"] {
+  --rdk-case: #050607;
+  --rdk-surface: #101316;
+  --rdk-font-ui: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+  --rdk-font-display: var(--rdk-font-ui);
+  --rdk-font-mono: var(--rdk-font-ui);
+}
+```
+
+The named local fonts in this example are optional consumer-provided fonts. RDK itself bundles IBM Plex Mono locally and makes no runtime font request.
 
 ## 11. Layout and responsive rules
 
@@ -132,7 +150,7 @@ Build mobile-first. Give narrow screens one column and add `sm:`/`md:`/`lg:` col
 
 ## 12. Accessibility rules
 
-Use native controls, labels, fieldsets, caption/header cells, and visible focus. Use `aria-current` for current navigation, `aria-selected` on tabs, and `aria-pressed` only for toggled buttons. Distinguish `disabled` from `readonly`. Use native `<dialog>` when possible. Implement keyboard control for menus and tabs. Tooltips only supplement visible/available information. Label progress and expose its value textually. Color must not be the only state carrier. This guide does not claim universal WCAG certification.
+Use native controls, labels, fieldsets, caption/header cells, and visible focus. Use `aria-current` for current navigation, `aria-selected` on tabs, and `aria-pressed` only for toggled buttons. Distinguish `disabled` from `readonly`. Use native `<dialog>` when possible. Implement keyboard control for menus and tabs. Tooltips only supplement visible/available information. Label progress and expose its value textually. Color must not be the only state carrier. In Terminal OS, CSS-generated Button brackets are included in the accessible name in tested Chrome and Firefox (for example, "[ Execute ]"). This alpha release accepts the small spoken decoration without changing shared Button markup. CSS pseudo-elements cannot receive aria-hidden. If an application requires the exact name "Execute", it may set aria-label="Execute" on that button and keep the label synchronized with visible text. This guide does not claim universal WCAG certification.
 
 ## 13. Interactive behavior ownership
 
@@ -279,11 +297,11 @@ The public human documentation has Overview, Installation, Colors, Components, P
 
 ## 19. Version / compatibility
 
-This guide describes RDK `0.1.0-alpha.4` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
+This guide describes RDK `0.1.0-alpha.5` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
 
 ## Multi-theme support
 
-RDK has three public theme identities. Choose `console-94` for warm equipment surfaces, `terminal-os` for a compact-first blue-black terminal language, or `czarek-os` for a slate-led, content-first workspace. Terminal OS is an official alpha theme, verified in desktop Chrome and Firefox at emulated 390, 430, 768, and 1440 px. Android Chrome and iOS Safari real-device QA are pending; do not describe it as mobile-stable.
+RDK has three public theme identities. Choose `console-94` for warm equipment surfaces, `terminal-os` for a compact-first neutral-black terminal language, or `czarek-os` for a slate-led, content-first workspace. Terminal OS is an official alpha theme, verified in desktop Chrome and Firefox at emulated 390, 430, 768, and 1440 px. Android Chrome and iOS Safari real-device QA are pending; do not describe it as mobile-stable.
 
 Read the canonical capability manifest at docs/data/theme-capabilities.json and the human Components page at docs/components/ before selecting components. Every shared component has one of three statuses per theme: supported means a native, tested shared pattern; fallback means usable but not preferred for a native composition; unsupported means it should not be used in new interfaces for that theme. Console 94 has 25 supported shared components. Terminal OS has 17 supported, 5 fallback, and 3 unsupported. Czarek OS has 16 supported, 6 fallback, and 3 unsupported. In Terminal OS, Toggle, Badge, Card, Progress, and Tooltip are fallback. Segments, LCD, and Status LED are unsupported. Prefer Checkbox for a boolean choice and text status instead of Status LED.
 

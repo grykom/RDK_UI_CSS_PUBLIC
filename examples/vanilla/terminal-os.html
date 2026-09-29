@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-rdk-theme="terminal-os">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Terminal OS / built CSS consumer</title>
+  <link rel="stylesheet" href="../../dist/rdk-retro-ui.css">
+</head>
+<body style="margin:0">
+  <main style="display:grid;gap:1rem;max-width:42rem;margin:0 auto;padding:1rem">
+    <h1>Terminal OS / built CSS</h1>
+    <p>No Tailwind utilities or runtime font service are needed.</p>
+    <section class="rdk-terminal-window" aria-label="Session">
+      <header class="rdk-terminal-window-bar">NODE-01 / SESSION</header>
+      <div class="rdk-terminal-window-body">
+        <p><span class="rdk-terminal-prompt">node-01:~$</span> ./status</p>
+        <p><span class="rdk-terminal-marker" data-tone="neutral">[ IDLE ]</span> Queue ready</p>
+        <p><span class="rdk-terminal-marker" data-tone="progress">[ ... ]</span> Waiting for node</p>
+        <p><span class="rdk-terminal-marker" data-tone="info">[ INFO ]</span> Network detected</p>
+        <p><span class="rdk-terminal-marker" data-tone="success">[ OK ]</span> Node connected</p>
+        <p><span class="rdk-terminal-marker" data-tone="warning">[ WARN ]</span> Response delayed</p>
+        <p><span class="rdk-terminal-marker" data-tone="danger">[ FAIL ]</span> Last attempt stopped</p>
+        <p><span class="rdk-terminal-marker" data-tone="muted">[ -- ]</span> Optional relay unavailable</p>
+        <button type="button" class="rdk-btn rdk-btn-primary">Execute</button>
+        <p><span class="rdk-terminal-cursor" aria-hidden="true"></span></p>
+      </div>
+    </section>
+    <p><span data-terminal-weight="400" style="font-weight:400">Regular 400</span> <span data-terminal-weight="600" style="font-weight:600">Semibold 600</span> <span data-terminal-weight="700" style="font-weight:700">Bold 700</span></p>
+    <div class="rdk-notice rdk-notice-info"><strong>Connected</strong><p>Notice without utility padding.</p></div>
+    <div class="rdk-toast rdk-toast-success"><strong>Saved</strong><p>Toast without utility padding.</p></div>
+  </main>
+</body>
+</html>

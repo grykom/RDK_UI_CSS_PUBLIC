@@ -9,6 +9,6 @@ npm run build:css
 python -m http.server 4173
 ```
 
-Open `http://localhost:4173/examples/vanilla/`. After the CSS artifact exists, viewing the example requires only the Python static server. Serve the repository root so the relative `../../dist/` path and its `fonts/` folder resolve.
+Open `http://localhost:4173/examples/vanilla/` for Console 94 or `http://localhost:4173/examples/vanilla/terminal-os.html` for the Terminal OS built-CSS fixture. After the CSS artifact exists, viewing the example requires only the Python static server. Serve the repository root so the relative `../../dist/` path and its `fonts/` folder resolve.
 
 `example.css` owns layout, spacing, width and responsive rules. The linked RDK CSS owns the surfaces, typography, colors and component states. `app.js` implements this example's local interactions. No documentation CSS or scripts are imported.

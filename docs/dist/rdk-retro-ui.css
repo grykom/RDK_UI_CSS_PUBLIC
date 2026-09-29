@@ -50,19 +50,20 @@
 }
 [data-rdk-theme="terminal-os"] {
   color-scheme: dark;
-  --rdk-case: #0b101c;
-  --rdk-surface: #141c2b;
-  --rdk-surface-raised: #1c2636;
-  --rdk-surface-recessed: #090e19;
-  --rdk-structure: #243146;
-  --rdk-field: #101827;
-  --rdk-text: #e7edf7;
-  --rdk-text-muted: #aab9cf;
-  --rdk-placeholder: #8999b2;
-  --rdk-border: #40516c;
-  --rdk-border-dark: #526987;
-  --rdk-highlight: #526987;
-  --rdk-shadow: #040814;
+  font-synthesis-weight: none;
+  --rdk-case: #020304;
+  --rdk-surface: #0b0f14;
+  --rdk-surface-raised: #10151c;
+  --rdk-surface-recessed: #090d12;
+  --rdk-structure: #1b222a;
+  --rdk-field: #0d1218;
+  --rdk-text: #e7e9ed;
+  --rdk-text-muted: #858d96;
+  --rdk-placeholder: #777f88;
+  --rdk-border: #2c343c;
+  --rdk-border-dark: #3a424a;
+  --rdk-highlight: #424b55;
+  --rdk-shadow: #010203;
   --rdk-focus: #77d8ff;
   --rdk-accent-green: #50fa7b;
   --rdk-accent-red: #ff8177;
@@ -72,30 +73,30 @@
   --rdk-accent-orange: #ffa057;
   --rdk-accent-violet: #bda6ff;
   --rdk-accent-cyan: #72e2dc;
-  --rdk-lcd: #0a1424;
-  --rdk-lcd-ink: #d7ecf7;
-  --rdk-lcd-off: #9badc0;
-  --rdk-lcd-off-surface: #10192a;
-  --rdk-lcd-border: #40516c;
-  --rdk-lcd-border-dark: #40516c;
+  --rdk-lcd: #0b0f14;
+  --rdk-lcd-ink: #d8e1e8;
+  --rdk-lcd-off: #77818a;
+  --rdk-lcd-off-surface: #0d1218;
+  --rdk-lcd-border: #2c343c;
+  --rdk-lcd-border-dark: #3a424a;
   --rdk-radius: 0;
-  --rdk-font-ui: "RDK IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  --rdk-font-ui: "RDK IBM Plex Mono", Consolas, "Courier New", monospace;
   --rdk-font-display: "RDK IBM Plex Mono", Consolas, "Courier New", monospace;
   --rdk-font-mono: "RDK IBM Plex Mono", Consolas, "Courier New", monospace;
-  --_rdk-glint-rgb: 76 103 140;
-  --_rdk-inset-rgb: 5 10 21;
-  --_rdk-press-rgb: 4 9 20;
-  --_rdk-cast-rgb: 4 8 19;
-  --_rdk-deep-rgb: 3 7 17;
+  --_rdk-glint-rgb: 82 90 100;
+  --_rdk-inset-rgb: 8 11 15;
+  --_rdk-press-rgb: 7 10 13;
+  --_rdk-cast-rgb: 4 6 8;
+  --_rdk-deep-rgb: 2 3 4;
   --_rdk-backdrop-rgb: 0 0 0;
-  --_rdk-plastic-shade-rgb: 8 16 32;
-  --_rdk-lcd-scan-rgb: 48 91 137;
-  --_rdk-lcd-inset-rgb: 5 10 21;
-  --_rdk-solid-press-rgb: 5 14 29;
-  --_rdk-accent-mix-dark: #172236;
-  --_rdk-accent-mix-light: #eff5ff;
-  --_rdk-accent-shadow: #071322;
-  --_rdk-accent-on: #091522;
+  --_rdk-plastic-shade-rgb: 10 14 18;
+  --_rdk-lcd-scan-rgb: 55 66 74;
+  --_rdk-lcd-inset-rgb: 8 11 15;
+  --_rdk-solid-press-rgb: 10 15 19;
+  --_rdk-accent-mix-dark: #182028;
+  --_rdk-accent-mix-light: #f0f2f4;
+  --_rdk-accent-shadow: #071012;
+  --_rdk-accent-on: #0a1112;
 }
 [data-rdk-theme="terminal-os"] .rdk-plastic {
   background-image: none;
@@ -338,6 +339,7 @@
   border-left: 2px solid var(--rdk-accent-amber);
 }
 [data-rdk-theme="terminal-os"] .rdk-notice {
+  padding: .75rem 1rem;
   border: 0;
   border-top: 1px solid var(--rdk-border);
   border-radius: 0;
@@ -402,6 +404,7 @@
   border-top-color: var(--rdk-border);
 }
 [data-rdk-theme="terminal-os"] .rdk-toast {
+  padding: .75rem 1rem;
   border: 0;
   border-top: 1px solid var(--_rdk-toast-accent);
   border-radius: 0;
@@ -455,7 +458,7 @@
   min-height: 2.8rem;
   padding: .55rem .9rem;
   border-bottom: 1px solid var(--rdk-border);
-  background: var(--rdk-surface);
+  background: var(--rdk-surface-raised);
   color: var(--rdk-text-muted);
   font: 600 .76rem/1.35 var(--rdk-font-mono);
 }
@@ -494,6 +497,12 @@
   font-family: var(--rdk-font-mono);
   font-weight: 700;
   white-space: nowrap;
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="neutral"] {
+  color: var(--rdk-text);
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="progress"] {
+  color: var(--rdk-accent-amber);
 }
 [data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="info"] {
   color: var(--rdk-accent-cyan);
@@ -2024,9 +2033,9 @@
 }
 @font-face {
   font-family: "RDK IBM Plex Mono";
-  src: url("./fonts/IBMPlexMono-Regular.ttf") format("truetype");
+  src: url("./fonts/IBMPlexMono-variable.woff2") format("woff2"), url("./fonts/IBMPlexMono-variable.ttf") format("truetype");
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100 700;
   font-display: swap;
 }
 @font-face {

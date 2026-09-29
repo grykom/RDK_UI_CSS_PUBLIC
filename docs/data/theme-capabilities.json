@@ -116,7 +116,7 @@
           "classes": [
             "rdk-terminal-marker"
           ],
-          "description": "Textual status marker with neutral, info, success, warning, danger or muted tone. Keep meaningful text in HTML; muted is de-emphasis, not neutral.",
+          "description": "Textual status marker with neutral, progress, info, success, warning, danger or muted tone. Progress means active/waiting and uses amber; info stays cyan. Keep meaningful text in HTML; muted is de-emphasis, not neutral.",
           "markup": "<p><span class=\"rdk-terminal-marker\" data-tone=\"success\">[ OK ]</span> Service ready</p>"
         }
       },
@@ -134,8 +134,8 @@
         "status-led": "Use explicit text status."
       },
       "qa": {
-        "desktop": "Verified in Chrome and Firefox at emulated 390, 430, 768 and 1440 px",
-        "realDevice": "Android Chrome and iOS Safari real-device QA pending; not mobile-stable."
+        "desktop": "Compact-first; verified in desktop Chrome and Firefox at emulated 390, 430, 768 and 1440 px",
+        "realDevice": "Real Android Chrome and iOS Safari device QA pending; not real-device/mobile-stable."
       }
     },
     {

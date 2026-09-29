@@ -21,7 +21,7 @@
       "source": "src/themes/terminal-os.css",
       "docsRoute": "reference/themes/terminal-os/",
       "nativeShowcase": "showcase/terminal-os/",
-      "description": "Terminal-inspired interface on a blue-black, navy and graphite base. Green signals prompts, success and actions."
+      "description": "Compact neutral-black terminal interface with graphite surfaces. Green signals prompts, success and actions."
     },
     {
       "id": "czarek-os",
