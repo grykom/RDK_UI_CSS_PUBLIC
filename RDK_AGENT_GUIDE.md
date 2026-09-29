@@ -33,7 +33,7 @@ RDK is a framework-agnostic, CSS-first visual layer with three public themes: Co
 
 Do not wrap every text fragment in an RDK class. Reuse an existing theme primitive instead of recreating it in application CSS. Do not force a Console 94 metaphor into another theme for parity or choose a fallback component when a supported native alternative exists. Patterns may mix RDK classes, ordinary HTML and application/Tailwind utilities. Check the selected theme's capability state before composing.
 
-In Terminal OS, Terminal Window, Prompt, Cursor and Marker are theme-specific primitives; a timestamp or log sentence is ordinary HTML; a complete launcher/session is a Pattern. Page layout and polling belong to the application. Neutral is a valid/default state such as `[ IDLE ]`; muted deliberately de-emphasizes secondary or inactive content such as an old timestamp or `[ -- ]`. Marker tones are neutral, progress, info, success, warning, danger and muted. Progress is an active/waiting amber state; info is cyan.
+In Terminal OS, Terminal Window, Prompt, Cursor and Marker are theme-specific primitives; a timestamp or log sentence is ordinary HTML; a complete launcher/session is a Pattern. Page layout and polling belong to the application. Neutral is a valid/default state such as `[ IDLE ]`; muted deliberately de-emphasizes secondary or inactive content such as an old timestamp or `[ -- ]`. Marker tones are neutral, progress, info, success, warning, danger and muted. Progress is an active/waiting amber state; info is cyan. Progress and warning intentionally share amber; their visible marker text distinguishes them.
 
 ## 3. Installation modes
 
@@ -150,7 +150,7 @@ Build mobile-first. Give narrow screens one column and add `sm:`/`md:`/`lg:` col
 
 ## 12. Accessibility rules
 
-Use native controls, labels, fieldsets, caption/header cells, and visible focus. Use `aria-current` for current navigation, `aria-selected` on tabs, and `aria-pressed` only for toggled buttons. Distinguish `disabled` from `readonly`. Use native `<dialog>` when possible. Implement keyboard control for menus and tabs. Tooltips only supplement visible/available information. Label progress and expose its value textually. Color must not be the only state carrier. In Terminal OS, CSS-generated Button brackets are included in the accessible name in tested Chrome and Firefox (for example, "[ Execute ]"). This alpha release accepts the small spoken decoration without changing shared Button markup. CSS pseudo-elements cannot receive aria-hidden. If an application requires the exact name "Execute", it may set aria-label="Execute" on that button and keep the label synchronized with visible text. This guide does not claim universal WCAG certification.
+Use native controls, labels, fieldsets, caption/header cells, and visible focus. Use `aria-current` for current navigation, `aria-selected` on tabs, and `aria-pressed` only for toggled buttons. Distinguish `disabled` from `readonly`. Use native `<dialog>` when possible. Implement keyboard control for menus and tabs. Tooltips only supplement visible/available information. Label progress and expose its value textually. Color must not be the only state carrier. In Terminal OS, CSS-generated Button brackets are included in the accessible name in tested Chrome and Firefox (for example, "[ Execute ]"). This alpha release accepts the small spoken decoration without changing shared Button markup. CSS pseudo-elements cannot receive aria-hidden; removing brackets from the spoken name later may require real aria-hidden markup and a shared Button contract change. If an application requires the exact name "Execute", it may set aria-label="Execute" on that button and keep the label synchronized with visible text. This guide does not claim universal WCAG certification.
 
 ## 13. Interactive behavior ownership
 
@@ -297,7 +297,7 @@ The public human documentation has Overview, Installation, Colors, Components, P
 
 ## 19. Version / compatibility
 
-This guide describes RDK `0.1.0-alpha.5` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
+This guide describes RDK `0.1.0-alpha.6` and Tailwind CSS v4 integration. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can be used without Tailwind.
 
 ## Multi-theme support
 
