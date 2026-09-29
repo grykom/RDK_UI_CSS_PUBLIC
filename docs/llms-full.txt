@@ -51,6 +51,8 @@ Point `@source` at all templates/components containing utility class names. This
 
 **Built CSS without a Tailwind build integration:** copy `node_modules/@rdk/retro-ui/dist/rdk-retro-ui.css` (or `.min.css`) together with its sibling `dist/fonts/` into one static asset directory; load the CSS with a normal `<link>`. The package exports `@rdk/retro-ui/dist.css`, `@rdk/retro-ui/dist.min.css`, and `@rdk/retro-ui/fonts/*` for bundlers. The CSS uses relative `./fonts/` URLs. Your application CSS supplies geometry.
 
+**Choosing a built bundle:** The combined dist/rdk-retro-ui.min.css is the default for simple installation and runtime theme switching. For an application committed to one theme, use its smaller dist/rdk-retro-ui.THEME.min.css or the package export @rdk/retro-ui/themes/THEME.min.css, where THEME is a registered public ID. The standalone bundle already contains all shared core, components, effects and font declarations; load only that bundle with sibling fonts/ and set data-rdk-theme as usual. Switching to a different theme requires the combined bundle or loading the additional theme bundle. For Tailwind 3.4 with default Preflight, use the matching THEME.compat.min.css variant after compiled Tailwind CSS.
+
 **Prebuilt CSS with an existing Tailwind project:** for Tailwind 3.4 with default Preflight, copy the generated `dist/rdk-retro-ui.compat.min.css` and the sibling `dist/fonts/` directory. Load the application's compiled Tailwind CSS first, then the RDK compatibility CSS. Tailwind 3 Preflight emits an unlayered reset that overrides normal layered RDK declarations regardless of link order; the generated compatibility build keeps RDK's rules unlayered. Use the normal layered build for a project without Tailwind integration. See Installation for a complete HTML example. The package also exports `@rdk/retro-ui/compat.css` and `@rdk/retro-ui/compat.min.css`. This compatibility path is verified with Tailwind 3.4 and default Preflight.
 
 **Repository/local source:** after Tailwind, import the local `src/index.css` from the RDK checkout by its real relative path. This is useful while developing RDK.
@@ -299,7 +301,7 @@ The public human documentation has Overview, Installation, Colors, Components, P
 
 ## 19. Version / compatibility
 
-This guide describes RDK `0.1.0-alpha.8` with Tailwind v4 source and Tailwind 3.4 Preflight compatibility paths. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can also be used with an existing Tailwind pipeline.
+This guide describes RDK `0.2.0-alpha.1` with Tailwind v4 source and Tailwind 3.4 Preflight compatibility paths. `package.json` is the version source of truth. The validated Node/Vite build uses Tailwind 4.3.3 from `package-lock.json`; an optional Windows CLI download is also pinned to 4.3.3. The standalone tool is a convenience, not a package requirement. Built CSS can also be used with an existing Tailwind pipeline.
 
 ## Multi-theme support
 
