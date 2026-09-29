@@ -195,12 +195,46 @@
           ],
           "description": "Czarek OS-only icon sizing and CSS spinner. Application JavaScript sets aria-busy and disabled, then restores both when the action finishes. Supply an accessible name for icon-only buttons.",
           "markup": "<button class=\"rdk-btn rdk-btn-primary\" type=\"button\" aria-busy=\"false\"><svg class=\"cz-btn-icon cz-btn-leading\" aria-hidden=\"true\">...</svg><svg class=\"cz-btn-icon cz-btn-loader\" aria-hidden=\"true\">...</svg><span>Save draft</span></button>"
+        },
+        "enhanced-select": {
+          "label": "Enhanced Select",
+          "classes": [
+            "cz-select",
+            "cz-select-trigger",
+            "cz-select-value",
+            "cz-select-chevron",
+            "cz-select-menu",
+            "cz-select-option",
+            "cz-select-option-check"
+          ],
+          "description": "Czarek OS alpha visual primitive for an application-owned combobox/listbox. Use aria-selected for selection and data-active for keyboard highlight. Dirty means unsaved; aria-invalid visually wins over dirty. The application owns keys, focus, value, form synchronization and popup placement.",
+          "markup": "<div class=\"cz-select\"><button type=\"button\" class=\"cz-select-trigger\" role=\"combobox\" aria-haspopup=\"listbox\" aria-expanded=\"false\" aria-controls=\"mode-options\"><span class=\"cz-select-value\">Automatic (DHCP)</span><svg class=\"cz-select-chevron\" aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"m7 10 5 5 5-5\"/></svg></button><div id=\"mode-options\" class=\"cz-select-menu\" role=\"listbox\" hidden><button type=\"button\" class=\"cz-select-option\" role=\"option\" aria-selected=\"true\"><span>Automatic (DHCP)</span><span class=\"cz-select-option-check\" aria-hidden=\"true\">&#10003;</span></button></div></div>"
+        },
+        "measurement-readout": {
+          "label": "Measurement Readout",
+          "classes": [
+            "cz-readout",
+            "cz-readout-value",
+            "cz-readout-unit"
+          ],
+          "description": "Czarek OS alpha technical value surface with mono tabular numbers and a secondary unit. Use shared Badge or Notice for alarm meaning; this is not an LCD.",
+          "markup": "<div class=\"cz-readout\"><span class=\"cz-readout-value\">4.1234</span><span class=\"cz-readout-unit\">V</span></div>"
+        },
+        "section-icon": {
+          "label": "Section Icon",
+          "classes": [
+            "cz-section-icon"
+          ],
+          "description": "Czarek OS alpha decorative icon surface for an ordinary section heading. The application supplies the SVG and heading layout; the icon is not an action.",
+          "markup": "<h3><span class=\"cz-section-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\"><path d=\"M4 7h16M4 17h16\"/></svg></span> Device settings</h3>"
         }
       },
       "recipes": [
         "warning-status",
         "lucide-leading-button",
-        "busy-button"
+        "busy-button",
+        "stat-tile",
+        "field-with-unit"
       ],
       "recommendations": {
         "toggle": "Use a native Checkbox for clear boolean settings until the switch treatment is validated.",

@@ -1,6 +1,6 @@
 # RDK Retro UI
 
-Consumer distribution mirror for **RDK Retro UI 0.1.0-alpha.7**, a framework-agnostic CSS visual layer. Console 94 uses warm equipment surfaces. Terminal OS is an official compact-first alpha theme. Czarek OS is a slate-led content-first alpha theme. Development happens in a separate canonical repository.
+Consumer distribution mirror for **RDK Retro UI 0.1.0-alpha.8**, a framework-agnostic CSS visual layer. Console 94 uses warm equipment surfaces. Terminal OS is an official compact-first alpha theme. Czarek OS is a slate-led content-first alpha theme. Development happens in a separate canonical repository.
 
 **Tailwind or application CSS controls geometry. RDK controls visual identity.**
 
@@ -23,7 +23,7 @@ For an app without Tailwind build integration, copy [the built CSS](dist/rdk-ret
 
 For Tailwind 3.4 with default Preflight, load your app's compiled Tailwind CSS first and then [the generated RDK compatibility CSS](dist/rdk-retro-ui.compat.min.css), with [fonts](dist/fonts/) beside it. The normal layered CSS is for modern source integration or an app without this reset.
 
-Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract and [release notes](RELEASE_NOTES.md) for 0.1.0-alpha.7. Explore the [Vanilla example](examples/vanilla/README.md), [Terminal OS built-CSS example](examples/vanilla/terminal-os.html), and [Tailwind example](examples/tailwind/README.md).
+Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract and [release notes](RELEASE_NOTES.md) for 0.1.0-alpha.8. Explore the [Vanilla example](examples/vanilla/README.md), [Terminal OS built-CSS example](examples/vanilla/terminal-os.html), and [Tailwind example](examples/tailwind/README.md).
 
 ## Documentation and demos
 
