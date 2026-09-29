@@ -14,6 +14,7 @@
 }
 .rdk-badge-neutral { --_rdk-badge-accent: var(--rdk-border-dark); }
 .rdk-badge-success { --_rdk-badge-accent: var(--rdk-accent-green); }
+.rdk-badge-warning { --_rdk-badge-accent: var(--rdk-accent-amber); }
 .rdk-badge-danger { --_rdk-badge-accent: var(--rdk-accent-red); }
 .rdk-badge-info { --_rdk-badge-accent: var(--rdk-accent-blue); }
 .rdk-badge-special { --_rdk-badge-accent: var(--rdk-accent-pink); }

@@ -15,4 +15,4 @@
 .rdk-table tbody tr:hover > * { background: var(--rdk-surface-raised); }
 .rdk-table tbody th { font-weight: 700; }
 .rdk-table [data-align="numeric"] { font-variant-numeric: tabular-nums; text-align: right; }
-.rdk-table tbody tr[data-state="warning"] > :first-child { border-left: 3px solid var(--rdk-accent-red); }
+.rdk-table tbody tr[data-state="warning"] > :first-child { border-left: 3px solid var(--rdk-accent-amber); }

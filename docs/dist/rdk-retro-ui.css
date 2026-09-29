@@ -476,6 +476,61 @@
   font: .86rem/1.65 var(--rdk-font-mono);
   overflow-wrap: anywhere;
 }
+[data-rdk-theme="terminal-os"] .rdk-terminal-prompt {
+  color: var(--rdk-accent-green);
+  font-family: var(--rdk-font-mono);
+  font-weight: 700;
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-cursor {
+  display: inline-block;
+  width: .65ch;
+  height: 1em;
+  vertical-align: -.15em;
+  background: var(--rdk-accent-green);
+  animation: rdk-terminal-cursor-blink 1s steps(1, end) infinite;
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker {
+  color: var(--rdk-text);
+  font-family: var(--rdk-font-mono);
+  font-weight: 700;
+  white-space: nowrap;
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="info"] {
+  color: var(--rdk-accent-cyan);
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="success"] {
+  color: var(--rdk-accent-green);
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="warning"] {
+  color: var(--rdk-accent-amber);
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="danger"] {
+  color: var(--rdk-accent-red);
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="muted"] {
+  color: var(--rdk-text-muted);
+}
+@keyframes rdk-terminal-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-rdk-theme="terminal-os"] .rdk-terminal-cursor {
+    animation: none;
+    opacity: 1;
+  }
+}
+@media (prefers-contrast: more) {
+  [data-rdk-theme="terminal-os"] .rdk-terminal-marker:is([data-tone="warning"], [data-tone="danger"]) {
+    text-decoration: underline;
+    text-underline-offset: .2em;
+  }
+  [data-rdk-theme="terminal-os"] .rdk-terminal-cursor {
+    outline: 1px solid var(--rdk-text);
+    outline-offset: 1px;
+  }
+}
 @media (max-width: 500px) {
   [data-rdk-theme="terminal-os"] .rdk-input, [data-rdk-theme="terminal-os"] .rdk-select, [data-rdk-theme="terminal-os"] .rdk-range, [data-rdk-theme="terminal-os"] .rdk-disclosure-summary, [data-rdk-theme="terminal-os"] .rdk-menu-item {
     min-height: 2.75rem;
@@ -816,7 +871,7 @@
   background: #f1f5f9;
   color: #475569;
 }
-[data-rdk-theme="czarek-os"] .rdk-badge.cz-status-warning {
+[data-rdk-theme="czarek-os"] .rdk-badge-warning, [data-rdk-theme="czarek-os"] .rdk-badge.cz-status-warning {
   border-color: #fdba74;
   background: #ffedd5;
   color: #9a3412;
@@ -835,7 +890,7 @@
   border-color: #fca5a5;
   background: #fef2f2;
 }
-[data-rdk-theme="czarek-os"] .rdk-notice.cz-status-warning {
+[data-rdk-theme="czarek-os"] .rdk-notice-warning, [data-rdk-theme="czarek-os"] .rdk-notice.cz-status-warning {
   border-color: #fdba74;
   background: #fffbeb;
 }
@@ -851,7 +906,7 @@
 [data-rdk-theme="czarek-os"] .rdk-toast-danger {
   border-color: #fca5a5;
 }
-[data-rdk-theme="czarek-os"] .rdk-toast.cz-status-warning {
+[data-rdk-theme="czarek-os"] .rdk-toast-warning, [data-rdk-theme="czarek-os"] .rdk-toast.cz-status-warning {
   border-color: #fdba74;
 }
 [data-rdk-theme="czarek-os"] :is(.rdk-menu, .rdk-dialog, .rdk-tooltip) {
@@ -1488,6 +1543,9 @@
   .rdk-badge-success {
     --_rdk-badge-accent: var(--rdk-accent-green);
   }
+  .rdk-badge-warning {
+    --_rdk-badge-accent: var(--rdk-accent-amber);
+  }
   .rdk-badge-danger {
     --_rdk-badge-accent: var(--rdk-accent-red);
   }
@@ -1802,7 +1860,7 @@
     text-align: right;
   }
   .rdk-table tbody tr[data-state="warning"] > :first-child {
-    border-left: 3px solid var(--rdk-accent-red);
+    border-left: 3px solid var(--rdk-accent-amber);
   }
   .rdk-menu {
     border: 1px solid var(--rdk-border-dark);
@@ -1916,6 +1974,9 @@
   .rdk-notice-success {
     --_rdk-notice-accent: var(--rdk-accent-green);
   }
+  .rdk-notice-warning {
+    --_rdk-notice-accent: var(--rdk-accent-amber);
+  }
   .rdk-notice-danger {
     --_rdk-notice-accent: var(--rdk-accent-red);
   }
@@ -1940,6 +2001,9 @@
   }
   .rdk-toast-success {
     --_rdk-toast-accent: var(--rdk-accent-green);
+  }
+  .rdk-toast-warning {
+    --_rdk-toast-accent: var(--rdk-accent-amber);
   }
   .rdk-toast-danger {
     --_rdk-toast-accent: var(--rdk-accent-red);

@@ -8,6 +8,7 @@
 }
 .rdk-notice-neutral { --_rdk-notice-accent: var(--rdk-border-dark); }
 .rdk-notice-success { --_rdk-notice-accent: var(--rdk-accent-green); }
+.rdk-notice-warning { --_rdk-notice-accent: var(--rdk-accent-amber); }
 .rdk-notice-danger { --_rdk-notice-accent: var(--rdk-accent-red); }
 .rdk-notice-info { --_rdk-notice-accent: var(--rdk-accent-blue); }
 .rdk-notice-special { --_rdk-notice-accent: var(--rdk-accent-pink); }

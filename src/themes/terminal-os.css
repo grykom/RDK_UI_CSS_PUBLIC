@@ -290,6 +290,31 @@
   font: .86rem/1.65 var(--rdk-font-mono); overflow-wrap: anywhere;
 }
 
+/* Public Terminal OS text and signal treatments; content stays in the markup. */
+[data-rdk-theme="terminal-os"] .rdk-terminal-prompt {
+  color: var(--rdk-accent-green); font-family: var(--rdk-font-mono); font-weight: 700;
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-cursor {
+  display: inline-block; width: .65ch; height: 1em; vertical-align: -.15em;
+  background: var(--rdk-accent-green); animation: rdk-terminal-cursor-blink 1s steps(1, end) infinite;
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker {
+  color: var(--rdk-text); font-family: var(--rdk-font-mono); font-weight: 700; white-space: nowrap;
+}
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="info"] { color: var(--rdk-accent-cyan); }
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="success"] { color: var(--rdk-accent-green); }
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="warning"] { color: var(--rdk-accent-amber); }
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="danger"] { color: var(--rdk-accent-red); }
+[data-rdk-theme="terminal-os"] .rdk-terminal-marker[data-tone="muted"] { color: var(--rdk-text-muted); }
+@keyframes rdk-terminal-cursor-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-rdk-theme="terminal-os"] .rdk-terminal-cursor { animation: none; opacity: 1; }
+}
+@media (prefers-contrast: more) {
+  [data-rdk-theme="terminal-os"] .rdk-terminal-marker:is([data-tone="warning"], [data-tone="danger"]) { text-decoration: underline; text-underline-offset: .2em; }
+  [data-rdk-theme="terminal-os"] .rdk-terminal-cursor { outline: 1px solid var(--rdk-text); outline-offset: 1px; }
+}
+
 /* 04.3 compact-first control hit areas; component sizing, never page geometry. */
 @media (max-width: 500px) {
   [data-rdk-theme="terminal-os"] .rdk-input,

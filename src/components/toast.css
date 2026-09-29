@@ -10,6 +10,7 @@
 }
 .rdk-toast-neutral { --_rdk-toast-accent: var(--rdk-border-dark); }
 .rdk-toast-success { --_rdk-toast-accent: var(--rdk-accent-green); }
+.rdk-toast-warning { --_rdk-toast-accent: var(--rdk-accent-amber); }
 .rdk-toast-danger { --_rdk-toast-accent: var(--rdk-accent-red); }
 .rdk-toast-info { --_rdk-toast-accent: var(--rdk-accent-blue); }
 .rdk-toast[hidden] { display: none; }

@@ -158,14 +158,17 @@
 [data-rdk-theme="czarek-os"] .rdk-badge-success { border-color: #6ee7b7; background: #d1fae5; color: #065f46; }
 [data-rdk-theme="czarek-os"] .rdk-badge-danger { border-color: #fca5a5; background: #fef2f2; color: #991b1b; }
 [data-rdk-theme="czarek-os"] .rdk-badge-info { border-color: #cbd5e1; background: #f1f5f9; color: #475569; }
+[data-rdk-theme="czarek-os"] .rdk-badge-warning,
 [data-rdk-theme="czarek-os"] .rdk-badge.cz-status-warning { border-color: #fdba74; background: #ffedd5; color: #9a3412; }
 [data-rdk-theme="czarek-os"] .rdk-notice { border: 1px solid #cbd5e1; border-radius: .45rem; background: #f8fafc; box-shadow: none; }
 [data-rdk-theme="czarek-os"] .rdk-notice-success { border-color: #6ee7b7; background: #ecfdf5; }
 [data-rdk-theme="czarek-os"] .rdk-notice-danger { border-color: #fca5a5; background: #fef2f2; }
+[data-rdk-theme="czarek-os"] .rdk-notice-warning,
 [data-rdk-theme="czarek-os"] .rdk-notice.cz-status-warning { border-color: #fdba74; background: #fffbeb; }
 [data-rdk-theme="czarek-os"] .rdk-toast { border: 1px solid #cbd5e1; border-radius: .45rem; background: #fff; box-shadow: var(--cz-popup-elevation); }
 [data-rdk-theme="czarek-os"] .rdk-toast-success { border-color: #6ee7b7; }
 [data-rdk-theme="czarek-os"] .rdk-toast-danger { border-color: #fca5a5; }
+[data-rdk-theme="czarek-os"] .rdk-toast-warning,
 [data-rdk-theme="czarek-os"] .rdk-toast.cz-status-warning { border-color: #fdba74; }
 [data-rdk-theme="czarek-os"] :is(.rdk-menu, .rdk-dialog, .rdk-tooltip) { border-color: #cbd5e1; border-radius: .45rem; background: #fff; box-shadow: var(--cz-popup-elevation); color: #1c2128; }
 [data-rdk-theme="czarek-os"] .rdk-menu-item:hover:not(:disabled) { background: #f1f5f9; }

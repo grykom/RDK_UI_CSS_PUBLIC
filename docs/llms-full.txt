@@ -1,6 +1,6 @@
 # RDK Retro UI — Agent Guide
 
-Read this file before building UI with RDK Retro UI / Console 94 or Terminal OS. It describes the consumer contract for RDK source CSS, built CSS, and the privately shared `@rdk/retro-ui` tarball. RDK is CSS; your application supplies layout, state, and behavior.
+Read this file before building UI with RDK Retro UI in Console 94, Terminal OS, or Czarek OS. It describes the consumer contract for RDK source CSS, built CSS, and the privately shared `@rdk/retro-ui` tarball. RDK is CSS; your application supplies layout, state, and behavior.
 
 ## 1. What RDK is
 
@@ -15,6 +15,19 @@ RDK is a framework-agnostic, CSS-first visual layer with three public themes: Co
 ```
 
 `rdk-btn` and `rdk-btn-solid` provide the surface and interaction styling. `data-accent` selects its visual accent. `h-10`, `px-4`, and `text-sm` set dimensions and type size in Tailwind. Use ordinary app CSS for those dimensions when Tailwind is absent. Do not invent `rdk-flex`, `rdk-gap-4`, `rdk-w-full`, or `rdk-grid-cols-2`.
+
+### Composition before componentization
+
+| Ask | Use |
+| --- | --- |
+| Mainly content or a one-off arrangement? | Ordinary semantic HTML. |
+| Repeatable composition of existing pieces? | Pattern. |
+| Reusable visual construct meaningful in one theme? | Theme-specific primitive. |
+| Reusable semantic UI role across themes and applications? | Shared component. |
+
+Do not wrap every text fragment in an RDK class. Reuse an existing theme primitive instead of recreating it in application CSS. Do not force a Console 94 metaphor into another theme for parity or choose a fallback component when a supported native alternative exists. Patterns may mix RDK classes, ordinary HTML and application/Tailwind utilities. Check the selected theme's capability state before composing.
+
+In Terminal OS, Terminal Window, Prompt, Cursor and Marker are theme-specific primitives; a timestamp or log sentence is ordinary HTML; a complete launcher/session is a Pattern. Page layout and polling belong to the application. Neutral is a valid/default state such as `[ IDLE ]`; muted deliberately de-emphasizes secondary or inactive content such as an old timestamp or `[ -- ]`. The primary semantic tones are neutral, info, success, warning and danger.
 
 ## 3. Installation modes
 
@@ -80,7 +93,7 @@ Layers/feedback: Menu, Dialog, Tooltip, Notice, Toast.
 | Toggle | `rdk-toggle` | Native checkbox with `role="switch"` and a label; it is user input, not a status lamp. |
 | Panel | `rdk-panel`, `rdk-panel-recessed` | Static enclosure/content grouping; choose semantic container. |
 | Card | `rdk-card`, `rdk-card-interactive` | Use static article/section, or a real button/link for interactive cards. App updates `aria-pressed` or `aria-current`. |
-| Badge | `rdk-badge` with `rdk-badge-neutral`, `rdk-badge-success`, `rdk-badge-danger`, `rdk-badge-info`, `rdk-badge-special` | Informational text status, never color alone. |
+| Badge | `rdk-badge` with `rdk-badge-neutral`, `rdk-badge-success`, `rdk-badge-warning`, `rdk-badge-danger`, `rdk-badge-info`, `rdk-badge-special` | Informational text status, never color alone. |
 | LCD | `rdk-lcd` | Textual readout; `data-state="off"` is an off appearance. Keep readable text. |
 | Status LED | `rdk-status-led` | Output/status indicator; supports `data-color="red|blue|pink"` and `data-state="off"`. Give an accessible status name nearby or on the element. |
 | Progress | `rdk-progress` | Use native `<progress value max>` and a label; accepts `data-accent`. Omit `value` for indeterminate. |
@@ -94,8 +107,8 @@ Layers/feedback: Menu, Dialog, Tooltip, Notice, Toast.
 | Menu | `rdk-menu`, `rdk-menu-item`, `rdk-menu-separator`, `rdk-menu-label` | App opens/closes menu and implements focus, arrows, Escape, and item selection. Disabled item uses native `disabled` or `aria-disabled`. `data-tone="danger"` marks a danger item. |
 | Dialog | `rdk-dialog`, `rdk-dialog-header`, `rdk-dialog-body`, `rdk-dialog-footer` | Prefer native `<dialog>` and `showModal()`/`close()`; app wires triggers and return focus. |
 | Tooltip | `rdk-tooltip` | Supplemental help, never required information. CSS supports hover/focus-within or `data-open="true"`; app owns any JS positioning/show-hide. |
-| Notice | `rdk-notice` with `rdk-notice-neutral`, `rdk-notice-success`, `rdk-notice-danger`, `rdk-notice-info`, `rdk-notice-special` | Inline semantic feedback; include readable message. Variants convey meaning. |
-| Toast | `rdk-toast` with `rdk-toast-neutral`, `rdk-toast-success`, `rdk-toast-danger`, `rdk-toast-info` | Temporary feedback; app owns lifecycle, dismissal, live-region policy, and timing. |
+| Notice | `rdk-notice` with `rdk-notice-neutral`, `rdk-notice-success`, `rdk-notice-warning`, `rdk-notice-danger`, `rdk-notice-info`, `rdk-notice-special` | Inline semantic feedback; include readable message. Variants convey meaning. |
+| Toast | `rdk-toast` with `rdk-toast-neutral`, `rdk-toast-success`, `rdk-toast-warning`, `rdk-toast-danger`, `rdk-toast-info` | Temporary feedback; app owns lifecycle, dismissal, live-region policy, and timing. |
 
 ## 9. Accent system
 
@@ -124,6 +137,8 @@ Use native controls, labels, fieldsets, caption/header cells, and visible focus.
 ## 13. Interactive behavior ownership
 
 RDK is not a JavaScript framework. Native Button, Input, Checkbox, Radio, Toggle, Select, Progress, Range, and Disclosure keep their browser behavior. RDK styles Menu, Tabs, Toast, Tooltip, Dialog, and Navigation Item, but your application owns opening, selection, keyboard handling, state updates, focus management, and lifecycle. Prefer native `<dialog>.showModal()` for modal behavior. Scripts in the docs are demos, not package APIs; do not copy them blindly.
+
+Django templates, HTMX and other stacks may combine their own attributes with RDK classes. For example, `<div class="rdk-panel" hx-get="/session/status" hx-trigger="every 1s" hx-swap="outerHTML">Session ready</div>` uses application-owned `hx-*` behavior. RDK supplies no polling, timer, routing, AJAX or workflow-state behavior and has no HTMX/Django runtime dependency.
 
 ## 14. Copy-ready examples
 
@@ -234,7 +249,7 @@ Wire `open-settings` to `settings-dialog.showModal()` and `close-settings` to `.
 
 ## 15. Patterns
 
-Compose components according to meaning: a form groups labeled native fields and actions; a control panel groups status, LCD, progress, and actions; a data view wraps a semantic table; a navigation list uses anchors for routes and buttons for local selection. Keep feedback in a Notice for persistent inline messages and a Toast for transient messages. Keep overlay behavior in application code. The documentation has `patterns/form/`, `patterns/control-panel/`, `patterns/status/`, `patterns/data-table/`, `patterns/overlays/`, and `patterns/navigation-list/` under its site root.
+Compose components according to meaning: a form groups labeled native fields and actions; a control panel groups status, LCD, progress, and actions; a data view wraps a semantic table; a navigation list uses anchors for routes and buttons for local selection. Keep feedback in a Notice for persistent inline messages and a Toast for transient messages. Keep overlay behavior in application code. The documentation has `patterns/form/`, `patterns/control-panel/`, `patterns/status/`, `patterns/data-table/`, `patterns/overlays/`, and `patterns/navigation-list/` under its site root. The public Patterns page also has theme-aware Workflow / Stepper, Empty State, and Sensor / Readout recipes. Compose form rows with ordinary labels, fields, help and error text.
 
 ## 16. Things you must not do
 
@@ -272,7 +287,7 @@ RDK has three public theme identities. Choose `console-94` for warm equipment su
 
 Read the canonical capability manifest at docs/data/theme-capabilities.json and the human Components page at docs/components/ before selecting components. Every shared component has one of three statuses per theme: supported means a native, tested shared pattern; fallback means usable but not preferred for a native composition; unsupported means it should not be used in new interfaces for that theme. Console 94 has 25 supported shared components. Terminal OS has 17 supported, 5 fallback, and 3 unsupported. Czarek OS has 16 supported, 6 fallback, and 3 unsupported. In Terminal OS, Toggle, Badge, Card, Progress, and Tooltip are fallback. Segments, LCD, and Status LED are unsupported. Prefer Checkbox for a boolean choice and text status instead of Status LED.
 
-Shared components such as Button, Input, Table, and Dialog keep their semantic HTML API across themes. A theme-specific primitive belongs to one theme and need not be ported to another. Terminal OS owns Terminal Window: `rdk-terminal-window`, `rdk-terminal-window-bar`, and `rdk-terminal-window-body`. These classes are only styled under `data-rdk-theme="terminal-os"`. They create a window frame, title bar, and content inset; application CSS or Tailwind still owns placement, widths, and page layout. The colored window dots are decoration. Prompts, log lines, timestamps, `[ OK ]`, and `[ WARN ]` are ordinary HTML content, not separate RDK components.
+Shared components such as Button, Input, Table, and Dialog keep their semantic HTML API across themes. A theme-specific primitive belongs to one theme and need not be ported to another. Terminal OS owns Terminal Window (`rdk-terminal-window`, `rdk-terminal-window-bar`, `rdk-terminal-window-body`), Prompt (`rdk-terminal-prompt`), Cursor (`rdk-terminal-cursor`) and Marker (`rdk-terminal-marker`). These classes are styled only under `data-rdk-theme="terminal-os"`; they provide visual treatment, not layout or behavior. Keep prompt text and marker text in selectable HTML, for example `<span class="rdk-terminal-marker" data-tone="warning">[ WARN ]</span>`. The Cursor is decorative with `aria-hidden="true"`; it stays visible without blinking under reduced motion. Log lines, timestamps and commands remain ordinary HTML. The colored window dots are decoration.
 
 The [Terminal OS Native Showcase](docs/showcase/terminal-os/), [Console 94 Native Showcase](docs/showcase/console-94/), and [Czarek OS Native Showcase](docs/showcase/czarek-os/) are canonical visual presentations of their themes. A Native Showcase may include stable shared components, theme recipes, compositions, and clearly labelled candidates without changing API or capability status. The Compatibility Showcase remains private QA in the canonical checkout. Choose shared components from the capability manifest, use registered theme-specific primitives only in their theme, and keep native semantics and application behavior in your app.
 
@@ -284,6 +299,6 @@ Slate is the baseline for surfaces, text, navigation, focus, and primary actions
 
 Source Sans 3 is bundled locally and licensed separately under SIL OFL 1.1. Lucide outline icons are recommended, not required by RDK. A leading icon may use the Czarek OS-only `cz-btn-icon` recipe. An icon-only button needs an accessible name. A busy action keeps its label, toggles `aria-busy="true"` and `disabled` in application JavaScript, and swaps `cz-btn-leading` for the CSS-driven `cz-btn-loader`; restore both states after completion.
 
-The shared Select remains a native `<select>`; its popup is browser-owned. An exact popup match needs an application-owned enhanced Select/listbox and JavaScript. Enhanced Select and editable Combobox remain candidates, not stable shared RDK APIs. Field Group remains an application composition for a labelled editable value joined to a read-only prefix or suffix. The Native Showcase demonstrates both units, including the euro currency prefix. A Czarek OS field may use `data-dirty="true"` for an unsaved amber/orange visual state; it does not mean `aria-invalid="true"`. Error messages still need text and `aria-describedby`. The theme-specific `cz-status-warning` class styles a warning Badge, Notice, or Toast without changing shared component semantics.
+The shared Select remains a native `<select>`; its popup is browser-owned. An exact popup match needs an application-owned enhanced Select/listbox and JavaScript. Enhanced Select and editable Combobox remain candidates, not stable shared RDK APIs. Field Group remains an application composition for a labelled editable value joined to a read-only prefix or suffix. The Native Showcase demonstrates both units, including the euro currency prefix. A Czarek OS field may use `data-dirty="true"` for an unsaved amber/orange visual state; it does not mean `aria-invalid="true"`. Error messages still need text and `aria-describedby`. Use shared `rdk-badge-warning`, `rdk-notice-warning`, or `rdk-toast-warning` for new warning states. Existing Czarek OS `cz-status-warning` remains a compatible theme-specific alias.
 
 The Native Showcase uses application JavaScript for Enhanced Select, Combobox, filters, Tabs, dirty state, saving, and Toast. Its candidate behavior is an example, not an RDK JavaScript API. Reuse documented recipes and keep behavior in the application. Czarek OS was verified in Windows Chrome and Firefox at 1440, 768, 430, 414, and 390 px; Safari and real mobile devices remain untested.
