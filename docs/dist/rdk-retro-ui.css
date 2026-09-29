@@ -2026,7 +2026,7 @@
 }
 @font-face {
   font-family: "RDK IBM Plex Sans";
-  src: url("./fonts/IBMPlexSans-variable.ttf") format("truetype");
+  src: url("./fonts/IBMPlexSans-variable.woff2") format("woff2"), url("./fonts/IBMPlexSans-variable.ttf") format("truetype");
   font-style: normal;
   font-weight: 100 700;
   font-display: swap;
@@ -2040,7 +2040,7 @@
 }
 @font-face {
   font-family: "RDK Source Sans 3";
-  src: url("./fonts/SourceSans3-variable.ttf") format("truetype");
+  src: url("./fonts/SourceSans3-variable.woff2") format("woff2"), url("./fonts/SourceSans3-variable.ttf") format("truetype");
   font-style: normal;
   font-weight: 200 900;
   font-display: swap;
