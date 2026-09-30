@@ -1,6 +1,6 @@
-# Self-hosted fonts for Console 94 and Terminal OS
+# Self-hosted fonts for RDK Retro UI themes
 
-The active themes load these files locally through `src/index.css`:
+RDK themes load their fonts locally through `src/index.css`. IBM Plex supports archived Console 94 and Terminal OS typography, as well as Dark Horse readouts:
 
 - `IBMPlexSans-variable.ttf` and `IBMPlexSans-variable.woff2` — [Google Fonts / IBM Plex Sans](https://github.com/google/fonts/tree/main/ofl/ibmplexsans)
 - `IBMPlexMono-Regular.ttf` — [Google Fonts / IBM Plex Mono](https://github.com/google/fonts/tree/main/ofl/ibmplexmono) (retained for compatibility)

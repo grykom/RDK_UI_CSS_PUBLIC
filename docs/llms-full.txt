@@ -41,7 +41,7 @@ In Terminal OS, Terminal Window, Prompt, Cursor and Marker are theme-specific pr
 
 ## 3. Installation modes
 
-The package is **not** available from the public npm registry. The public consumer mirror is RDK_UI_CSS_PUBLIC. The owner runs `npm run release:prepare` in the RDK checkout and shares `release/rdk-retro-ui-<version>.tgz` directly. In your own project, install the supplied file with `npm install ./path/to/rdk-retro-ui-VERSION.tgz` after replacing the path and version.
+The package is **not** published to the public npm registry. The owner may provide a verified `.tgz` archive. Install the supplied file in your project with `npm install ./path/to/rdk-retro-ui-VERSION.tgz`, replacing the path and version with the provided values.
 
 **Installed tarball + Tailwind v4 source:**
 
@@ -126,7 +126,7 @@ Layers/feedback: Menu, Dialog, Tooltip, Notice, Toast.
 
 ## 9. Accent system
 
-Exactly eight categorical accents are supported: `green`, `red`, `blue`, `pink`, `amber`, `orange`, `violet`, `cyan`. Use `data-accent="blue"` only on Navigation Item, Solid Button, Outline Button, Progress, Segments, or Range. Blue is the default for these. Semantic variants such as `rdk-notice-danger` and `rdk-badge-success` carry meaning; do not replace them with arbitrary categorical accents. Status LED has its narrower `data-color` contract, not `data-accent`.
+Exactly eight categorical accents are supported: `green`, `red`, `blue`, `pink`, `amber`, `orange`, `violet`, `cyan`. These components accept `data-accent` when you want to choose a specific categorical accent: Navigation Item, Solid Button, Outline Button, Progress, Segments, or Range. Blue is the shared baseline accent. A theme may define its native default when `data-accent` is omitted; Dark Horse uses amber for native active/selected emphasis. Semantic variants such as `rdk-notice-danger` and `rdk-badge-success` carry meaning; do not replace them with arbitrary categorical accents. Status LED has its narrower `data-color` contract, not `data-accent`.
 
 ## 10. Public CSS variables
 
