@@ -2,3 +2,4 @@
 @source "../index.html";
 @source "./app.js";
 @import "../../../src/index.css";
+@import "../../../src/themes/console-94.css";

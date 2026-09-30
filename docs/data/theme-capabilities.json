@@ -251,6 +251,182 @@
         "desktop": "Verified in Chrome and Firefox on Windows at 1440, 768, 414, and 390 px; native Showcase and candidate QA.",
         "realDevice": "Android Chrome, iOS Safari, and Safari desktop remain untested."
       }
+    },
+    {
+      "id": "dark-horse",
+      "status": "alpha",
+      "viewportProfile": "responsive-operational",
+      "viewports": {
+        "primary": [
+          1440,
+          768
+        ],
+        "secondary": 390,
+        "wideCompatibility": 1440
+      },
+      "components": {
+        "button": "supported",
+        "nav-item": "supported",
+        "panel": "supported",
+        "input": "supported",
+        "select": "supported",
+        "textarea": "supported",
+        "checkbox": "supported",
+        "radio": "supported",
+        "toggle": "supported",
+        "badge": "supported",
+        "card": "supported",
+        "tabs": "supported",
+        "progress": "supported",
+        "disclosure": "supported",
+        "range": "supported",
+        "breadcrumbs": "supported",
+        "segments": "supported",
+        "table": "supported",
+        "lcd": "supported",
+        "status-led": "supported",
+        "menu": "supported",
+        "dialog": "supported",
+        "notice": "supported",
+        "toast": "supported",
+        "tooltip": "fallback"
+      },
+      "themeSpecific": {
+        "control-window": {
+          "label": "Control Window",
+          "classes": [
+            "rdk-dark-horse-window"
+          ],
+          "description": "Dark Horse composition for a compact, focused utility. Application CSS owns centering, width and placement.",
+          "markup": "<section class=\"rdk-dark-horse-window\" aria-labelledby=\"dh-doc-window-title\"><header><h2 class=\"font-semibold\" id=\"dh-doc-window-title\">Display Control</h2><span class=\"rdk-dark-horse-micro-status\" data-state=\"success\">Online</span></header><div class=\"grid gap-3 p-3\"><div class=\"rdk-dark-horse-status\" data-state=\"success\"><span class=\"rdk-dark-horse-status-mark\" aria-hidden=\"true\"></span><span class=\"rdk-dark-horse-status-name\">Host</span><strong class=\"rdk-dark-horse-status-value\">Station 04</strong></div><label class=\"grid gap-1\" for=\"dh-doc-window-output\"><span class=\"rdk-label\">Output</span><select id=\"dh-doc-window-output\" class=\"rdk-select w-full p-2\"><option>Desk Monitor</option><option>Studio Panel</option></select></label><div class=\"flex flex-wrap items-center justify-between gap-3\"><label class=\"flex items-center gap-2\" for=\"dh-doc-window-hdr\">HDR <input id=\"dh-doc-window-hdr\" type=\"checkbox\" class=\"rdk-toggle\" checked></label><button type=\"button\" class=\"rdk-btn rdk-btn-primary min-h-9 px-3\">Apply</button></div></div></section>"
+        },
+        "control-panel": {
+          "label": "Control Panel",
+          "classes": [
+            "rdk-dark-horse-control-panel"
+          ],
+          "description": "Dark Horse composition for a contained, medium-density operational interface. The application owns shell geometry.",
+          "markup": "<section class=\"rdk-dark-horse-control-panel\" aria-labelledby=\"dh-doc-panel-title\"><header><h2 id=\"dh-doc-panel-title\">Control Panel</h2><span class=\"rdk-dark-horse-micro-status\" data-state=\"success\">Connected</span></header><div class=\"grid gap-3 p-3 sm:grid-cols-2\"><section class=\"rdk-card grid gap-2 p-3\" aria-label=\"Host readings\"><h3 class=\"rdk-label\">Host / Station 04</h3><div class=\"rdk-dark-horse-instrument\" data-variant=\"success\" role=\"group\" aria-label=\"CPU temperature\"><div class=\"rdk-dark-horse-instrument-header\"><span class=\"rdk-dark-horse-instrument-title\">CPU temperature</span><span class=\"rdk-dark-horse-instrument-mark\" aria-hidden=\"true\"></span></div><div class=\"rdk-dark-horse-instrument-readings\"><div class=\"rdk-dark-horse-instrument-channel\"><span class=\"rdk-dark-horse-instrument-value-line\"><strong class=\"rdk-dark-horse-instrument-value\">65</strong><span class=\"rdk-dark-horse-instrument-unit\">C</span></span><span class=\"rdk-dark-horse-instrument-meta\">Within range</span></div></div></div></section><section class=\"rdk-card grid gap-2 p-3\" aria-label=\"Display output\"><h3 class=\"rdk-label\">Output</h3><button type=\"button\" class=\"rdk-card rdk-card-interactive rdk-dark-horse-device-tile\" aria-pressed=\"true\"><span class=\"rdk-dark-horse-device-tile-copy\"><strong class=\"rdk-dark-horse-device-tile-name\">Desk Monitor</strong><small class=\"rdk-dark-horse-device-tile-meta\">2560 x 1440 / 144 Hz</small></span><span class=\"rdk-dark-horse-device-tile-state\">Selected</span></button></section><section class=\"rdk-card p-3 sm:col-span-2\" aria-label=\"Network status\"><div class=\"rdk-dark-horse-status\" data-state=\"success\"><span class=\"rdk-dark-horse-status-mark\" aria-hidden=\"true\"></span><span class=\"rdk-dark-horse-status-name\">Network</span><strong class=\"rdk-dark-horse-status-value\">Connected</strong></div></section></div></section>"
+        },
+        "workspace": {
+          "label": "Workspace",
+          "classes": [
+            "rdk-dark-horse-workspace"
+          ],
+          "description": "Dark Horse composition for a larger responsive operational interface. Use only when the application needs a persistent workspace shell.",
+          "markup": "<section class=\"rdk-dark-horse-workspace\" aria-labelledby=\"dh-doc-workspace-title\"><header class=\"flex items-center justify-between gap-3 p-3\"><div><span class=\"rdk-label\">Operational workspace</span><h2 id=\"dh-doc-workspace-title\">Station 04</h2></div><span class=\"rdk-dark-horse-micro-status\" data-state=\"neutral\">Local</span></header><div class=\"grid gap-3 p-3 sm:grid-cols-[9rem_minmax(0,1fr)]\"><aside class=\"grid content-start gap-1\" aria-label=\"Workspace navigation\"><span class=\"rdk-label\">Workspace</span><a href=\"#workspace-overview\" class=\"rdk-nav-item\" aria-current=\"page\"><span class=\"rdk-nav-item-label\">Overview</span></a><a href=\"#workspace-telemetry\" class=\"rdk-nav-item\"><span class=\"rdk-nav-item-label\">Telemetry</span></a></aside><div id=\"workspace-overview\" class=\"grid min-w-0 gap-3\"><div class=\"rdk-dark-horse-instrument\" data-variant=\"accent\" role=\"group\" aria-label=\"System load\"><div class=\"rdk-dark-horse-instrument-header\"><span class=\"rdk-dark-horse-instrument-title\">System load</span><span class=\"rdk-dark-horse-instrument-mark\" aria-hidden=\"true\"></span></div><div class=\"rdk-dark-horse-instrument-readings\"><div class=\"rdk-dark-horse-instrument-channel\"><span class=\"rdk-dark-horse-instrument-value-line\"><strong class=\"rdk-dark-horse-instrument-value\">38</strong><span class=\"rdk-dark-horse-instrument-unit\">%</span></span><span class=\"rdk-dark-horse-instrument-meta\">All services online</span></div></div></div><div id=\"workspace-telemetry\" class=\"rdk-dark-horse-telemetry-row\"><span class=\"rdk-dark-horse-telemetry-label\">GPU load</span><strong class=\"rdk-dark-horse-telemetry-value\">78%</strong><span class=\"rdk-dark-horse-telemetry-state\">Active</span></div></div></div></section>"
+        },
+        "metric": {
+          "label": "Metric",
+          "classes": [
+            "rdk-dark-horse-metric",
+            "rdk-dark-horse-metric-label",
+            "rdk-dark-horse-metric-meta",
+            "rdk-dark-horse-metric-unit",
+            "rdk-dark-horse-metric-value",
+            "rdk-dark-horse-metric-value-line"
+          ],
+          "description": "Theme-specific label, value, unit and context treatment for operational measurements.",
+          "markup": "<div class=\"rdk-dark-horse-metric\"><span class=\"rdk-dark-horse-metric-label\">Refresh rate</span><span class=\"rdk-dark-horse-metric-value-line\"><strong class=\"rdk-dark-horse-metric-value\">144</strong><span class=\"rdk-dark-horse-metric-unit\">Hz</span></span><small class=\"rdk-dark-horse-metric-meta\">Current output</small></div>"
+        },
+        "status-row": {
+          "label": "Status Row",
+          "classes": [
+            "rdk-dark-horse-status",
+            "rdk-dark-horse-status-mark",
+            "rdk-dark-horse-status-name",
+            "rdk-dark-horse-status-value"
+          ],
+          "description": "Theme-specific textual state and value treatment. Keep state meaning in text; the application owns live updates.",
+          "markup": "<div class=\"rdk-dark-horse-status\"><span class=\"rdk-dark-horse-status-mark\" aria-hidden=\"true\"></span><span class=\"rdk-dark-horse-status-name\">Network</span><strong class=\"rdk-dark-horse-status-value\">Connected</strong></div>"
+        },
+        "device-output-tile": {
+          "label": "Device / Output Tile",
+          "classes": [
+            "rdk-dark-horse-device-tile",
+            "rdk-dark-horse-device-tile-copy",
+            "rdk-dark-horse-device-tile-marker",
+            "rdk-dark-horse-device-tile-meta",
+            "rdk-dark-horse-device-tile-name",
+            "rdk-dark-horse-device-tile-state"
+          ],
+          "description": "Theme-specific selectable device/output presentation. Native button semantics and selection behavior remain application-owned.",
+          "markup": "<div class=\"grid gap-2 sm:grid-cols-2\" role=\"group\" aria-label=\"Available output devices\"><button type=\"button\" class=\"rdk-card rdk-card-interactive rdk-dark-horse-device-tile\" aria-pressed=\"true\"><span class=\"rdk-dark-horse-device-tile-copy\"><strong class=\"rdk-dark-horse-device-tile-name\">Desk Monitor</strong><small class=\"rdk-dark-horse-device-tile-meta\">2560 x 1440 / 144 Hz</small></span><span class=\"rdk-dark-horse-device-tile-state\">Selected</span><span class=\"rdk-dark-horse-device-tile-marker\" aria-hidden=\"true\"></span></button><button type=\"button\" class=\"rdk-card rdk-card-interactive rdk-dark-horse-device-tile\" aria-pressed=\"false\"><span class=\"rdk-dark-horse-device-tile-copy\"><strong class=\"rdk-dark-horse-device-tile-name\">Studio Panel</strong><small class=\"rdk-dark-horse-device-tile-meta\">3840 x 2160 / 60 Hz</small></span><span class=\"rdk-dark-horse-device-tile-state\">Available</span></button></div>"
+        },
+        "telemetry-row": {
+          "label": "Telemetry Row",
+          "classes": [
+            "rdk-dark-horse-telemetry-label",
+            "rdk-dark-horse-telemetry-meter",
+            "rdk-dark-horse-telemetry-row",
+            "rdk-dark-horse-telemetry-state",
+            "rdk-dark-horse-telemetry-value"
+          ],
+          "description": "Theme-specific label, value, meter and state presentation for one telemetry reading.",
+          "markup": "<div class=\"rdk-dark-horse-telemetry-row\"><span class=\"rdk-dark-horse-telemetry-label\">CPU</span><strong class=\"rdk-dark-horse-telemetry-value\">38%</strong><span class=\"rdk-dark-horse-telemetry-state\">Nominal</span><progress class=\"rdk-progress rdk-dark-horse-telemetry-meter\" data-accent=\"blue\" value=\"38\" max=\"100\" aria-label=\"CPU load, 38 percent\">38%</progress></div>"
+        },
+        "event-log-row": {
+          "label": "Event / Log Row",
+          "classes": [
+            "rdk-dark-horse-event-copy",
+            "rdk-dark-horse-event-detail",
+            "rdk-dark-horse-event-row",
+            "rdk-dark-horse-event-state",
+            "rdk-dark-horse-event-time",
+            "rdk-dark-horse-event-title"
+          ],
+          "description": "Theme-specific timestamp, event description and state presentation. The application owns the log and ordering.",
+          "markup": "<div class=\"rdk-dark-horse-event-row\" role=\"listitem\"><time class=\"rdk-dark-horse-event-time\" datetime=\"2026-09-30T14:32:08\">14:32:08</time><span class=\"rdk-dark-horse-event-copy\"><strong class=\"rdk-dark-horse-event-title\">Host connected</strong><span class=\"rdk-dark-horse-event-detail\">Station 04 / Local network</span></span><span class=\"rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state\" data-state=\"success\">Connected</span></div>"
+        },
+        "micro-status": {
+          "label": "Micro-status",
+          "classes": [
+            "rdk-dark-horse-micro-status"
+          ],
+          "description": "Compact status tag for dense device and event summaries. Keep a textual label.",
+          "markup": "<span class=\"rdk-dark-horse-micro-status\" data-state=\"success\">Online</span>"
+        },
+        "instrument-display": {
+          "label": "Instrument Display",
+          "classes": [
+            "rdk-dark-horse-instrument",
+            "rdk-dark-horse-instrument--compact",
+            "rdk-dark-horse-instrument-channel",
+            "rdk-dark-horse-instrument-header",
+            "rdk-dark-horse-instrument-label",
+            "rdk-dark-horse-instrument-mark",
+            "rdk-dark-horse-instrument-meta",
+            "rdk-dark-horse-instrument-readings",
+            "rdk-dark-horse-instrument-title",
+            "rdk-dark-horse-instrument-unit",
+            "rdk-dark-horse-instrument-value",
+            "rdk-dark-horse-instrument-value-line",
+            "rdk-dark-horse-meter"
+          ],
+          "description": "Multi-channel operational readout for values, units and channel state. It is distinct from the shared single-value LCD.",
+          "markup": "<div class=\"rdk-dark-horse-instrument\" data-variant=\"accent\" role=\"group\" aria-label=\"Selected output refresh rate\"><div class=\"rdk-dark-horse-instrument-header\"><span class=\"rdk-dark-horse-instrument-title\">Active output</span><span class=\"rdk-dark-horse-instrument-mark\" aria-hidden=\"true\"></span></div><div class=\"rdk-dark-horse-instrument-readings\"><div class=\"rdk-dark-horse-instrument-channel\"><span class=\"rdk-dark-horse-instrument-label\">Refresh rate</span><span class=\"rdk-dark-horse-instrument-value-line\"><strong class=\"rdk-dark-horse-instrument-value\">144</strong><span class=\"rdk-dark-horse-instrument-unit\">Hz</span></span><span class=\"rdk-dark-horse-instrument-meta\">Desk Monitor / active profile</span></div></div></div>"
+        }
+      },
+      "recipes": [
+        "control-window",
+        "control-panel",
+        "workspace",
+        "metric",
+        "status-row",
+        "device-output-tile",
+        "telemetry-row",
+        "event-log-row",
+        "micro-status",
+        "instrument-display"
+      ],
+      "recommendations": {
+        "tooltip": "Fallback styling is readable and visually compatible; position it in application CSS and use it only for supplementary, non-critical information.",
+        "segments": "Supported as the existing segmented progress/readout component. It is not a selectable tabs or segmented-control API."
+      },
+      "qa": {
+        "desktop": "Verified in Chromium and Firefox at 390, 768 and 1440 px; public Native Showcase and theme bundle checks.",
+        "realDevice": "Safari, iOS Safari and Android Chrome real-device QA have not been performed."
+      }
     }
   ]
 }

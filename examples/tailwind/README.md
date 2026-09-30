@@ -1,12 +1,13 @@
 # Tailwind v4 example
 
-This is a separate Vite application that imports the real RDK source entrypoint. Its `src/app.css` contains:
+This legacy Console 94 fixture is a separate Vite application. It imports the active RDK source entrypoint and explicitly adds the archived theme source. Its `src/app.css` contains:
 
 ```css
 @import "tailwindcss";
 @source "../index.html";
 @source "./app.js";
 @import "../../../src/index.css";
+@import "../../../src/themes/console-94.css";
 ```
 
 Run from `examples/tailwind/`:

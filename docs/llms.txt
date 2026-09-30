@@ -1,4 +1,4 @@
-# RDK Retro UI 0.2.0-alpha.1
+# RDK Retro UI 0.2.0-alpha.2
 
 Consumer CSS guide. Choose a theme in the docs; Demo opens its native showcase.
 
@@ -8,7 +8,8 @@ Consumer CSS guide. Choose a theme in the docs; Demo opens its native showcase.
 - [Components](./components/)
 - [Patterns](./patterns/)
 - [CSS classes](./css-classes/)
-- [Console 94 demo](./showcase/console-94/)
-- [Terminal OS demo](./showcase/terminal-os/)
 - [Czarek OS demo](./showcase/czarek-os/)
+- [Terminal OS demo](./showcase/terminal-os/)
+- [Dark Horse demo](./showcase/dark-horse/)
+- [Console 94 archive](./archive/console-94/)
 - [Adding a theme](../ADDING_A_THEME.md)

@@ -1,0 +1,284 @@
+<!doctype html><html lang="en" data-rdk-theme="czarek-os"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#303737"><title>Dark Horse — RDK Retro UI</title><meta name="description" content="Dark Horse in the RDK Retro UI documentation"><script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"czarek-os","label":"Czarek OS","status":"alpha","default":true,"public":true,"source":"src/themes/czarek-os.css","docsRoute":"reference/themes/czarek-os/","nativeShowcase":"showcase/czarek-os/","description":"Slate-led, content-first bakery workspace with compact editable controls, semantic status colors, and calm density.","lifecycle":"active","role":"universal / content / productivity"},{"id":"terminal-os","label":"Terminal OS","status":"alpha","default":false,"public":true,"source":"src/themes/terminal-os.css","docsRoute":"reference/themes/terminal-os/","nativeShowcase":"showcase/terminal-os/","description":"Compact neutral-black terminal interface with graphite surfaces. Green signals prompts, success and actions.","lifecycle":"active","role":"compact / mobile / terminal-inspired"},{"id":"console-94","label":"Console 94","status":"stable","default":false,"public":true,"source":"src/themes/console-94.css","docsRoute":"archive/console-94/","nativeShowcase":"showcase/console-94/","description":"Warm equipment surfaces, IBM Plex typography, subtle bevels and LCD readouts.","lifecycle":"archived","role":"legacy / historical RDK theme"},{"id":"dark-horse","label":"Dark Horse","status":"alpha","lifecycle":"active","role":"control / monitoring / operational interfaces","default":false,"public":true,"source":"src/themes/dark-horse.css","docsRoute":"reference/themes/dark-horse/","nativeShowcase":"showcase/dark-horse/","description":"A dark operational UI theme for control surfaces, monitoring, dashboards and focused utility applications."}],"basePath":"../../../","forcedTheme":"dark-horse"}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
+(function () {
+  "use strict";
+  const configNode = document.getElementById("rdk-theme-config");
+  if (!configNode) throw new Error("RDK theme configuration is missing");
+  const config = JSON.parse(configNode.textContent);
+  const publicThemes = config.themes.filter((theme) => theme.public && theme.lifecycle === "active" && ["stable", "alpha"].includes(theme.status));
+  const forcedArchived = config.themes.find((theme) => theme.public && theme.lifecycle === "archived" && theme.id === config.forcedTheme);
+  const testTheme = window.__RDK_THEME_TEST__;
+  const themes = testTheme && testTheme.status === "fixture" && testTheme.public === false
+    ? [...publicThemes, testTheme] : publicThemes;
+  const defaultTheme = publicThemes.find((theme) => theme.default);
+  if (!defaultTheme) throw new Error("RDK default theme is missing");
+  const storageKey = config.storageKey;
+  const isValidTheme = (id) => themes.some((theme) => theme.id === id) || forcedArchived?.id === id;
+  const getThemeRegistry = () => themes.map((theme) => ({ ...theme }));
+  const getDefaultTheme = () => ({ ...defaultTheme });
+  function getStoredTheme() {
+    try { return localStorage.getItem(storageKey); }
+    catch { return null; }
+  }
+  function storeTheme(id) {
+    try { localStorage.setItem(storageKey, id); } catch { /* storage may be blocked */ }
+  }
+  function clearStoredTheme() {
+    try { localStorage.removeItem(storageKey); } catch { /* storage may be blocked */ }
+  }
+  function syncSelects(id) {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach((select) => { select.value = themes.some((theme) => theme.id === id) ? id : defaultTheme.id; });
+  }
+  function syncTokenValues() {
+    const style = getComputedStyle(document.documentElement);
+    document.querySelectorAll("[data-theme-token]").forEach((node) => {
+      node.textContent = style.getPropertyValue(node.dataset.themeToken).trim() || "—";
+    });
+  }
+  function routeUrl(route) {
+    return new URL(config.basePath + route, location.href).href;
+  }
+  function syncThemeContext(id) {
+    document.querySelectorAll("[data-rdk-theme-context]").forEach((node) => {
+      node.hidden = node.dataset.rdkThemeContext !== id;
+    });
+    document.querySelectorAll("[data-rdk-theme-support-list]").forEach((list) => {
+      const active = [...list.children].find((item) => item.dataset.theme === id);
+      if (active) list.prepend(active);
+      [...list.children].forEach((item) => {
+        if (item.dataset.theme) item.dataset.activeTheme = String(item === active);
+      });
+    });
+    document.querySelectorAll("[data-rdk-active-theme-label]").forEach((node) => {
+      node.textContent = themes.find((theme) => theme.id === id)?.label || id;
+    });
+  }
+  function applyTheme(id, persist = true) {
+    const resolved = isValidTheme(id) ? id : defaultTheme.id;
+    document.documentElement.setAttribute("data-rdk-theme", resolved);
+    if (persist) storeTheme(resolved);
+    syncSelects(resolved);
+    if (document.readyState !== "loading") { syncTokenValues(); syncThemeContext(resolved); }
+    document.dispatchEvent(new CustomEvent("rdk-theme-change", { detail: { id: resolved } }));
+    return resolved;
+  }
+  function populateThemeSelect(select) {
+    select.replaceChildren(...themes.map((theme) => {
+      const option = document.createElement("option");
+      option.value = theme.id;
+      option.textContent = theme.label;
+      return option;
+    }));
+    select.value = themes.some((theme) => theme.id === document.documentElement.getAttribute("data-rdk-theme"))
+      ? document.documentElement.getAttribute("data-rdk-theme") : defaultTheme.id;
+    select.addEventListener("change", () => {
+      const id = applyTheme(select.value);
+      const theme = publicThemes.find((item) => item.id === id);
+      if (document.body?.hasAttribute("data-rdk-archive-page") && theme) location.assign(routeUrl(""));
+      else if (document.body?.hasAttribute("data-rdk-theme-page") && theme?.docsRoute) location.assign(routeUrl(theme.docsRoute));
+      else if (document.body?.hasAttribute("data-rdk-native-showcase") && theme?.nativeShowcase) location.assign(routeUrl(theme.nativeShowcase));
+    });
+  }
+  const stored = getStoredTheme();
+  if (stored && !isValidTheme(stored)) clearStoredTheme();
+  applyTheme(config.forcedTheme || stored || defaultTheme.id, Boolean(config.forcedTheme) && !forcedArchived);
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach(populateThemeSelect);
+    syncTokenValues();
+    syncThemeContext(document.documentElement.getAttribute("data-rdk-theme"));
+    if (document.querySelector("[data-site-version]")) {
+      fetch(routeUrl("site-meta.json"))
+        .then((response) => {
+          if (!response.ok) throw new Error("Site metadata unavailable");
+          return response.json();
+        })
+        .then(({ version }) => {
+          document.querySelectorAll("[data-site-version]").forEach((node) => {
+            node.textContent = version;
+          });
+        })
+        .catch((error) => console.error(error));
+    }
+    if (document.body?.hasAttribute("data-rdk-showcase-landing")) {
+      const theme = publicThemes.find((item) => item.id === document.documentElement.getAttribute("data-rdk-theme"));
+      if (theme?.nativeShowcase) location.replace(routeUrl(theme.nativeShowcase));
+    }
+  }, { once: true });
+  window.RDKTheme = Object.freeze({
+    getThemeRegistry, getDefaultTheme, isValidTheme, getStoredTheme,
+    applyTheme, storeTheme, populateThemeSelect
+  });
+})();
+
+</script><link rel="icon" type="image/svg+xml" href="../../../assets/favicon-JmUTfrMJ.svg">  <script type="module" crossorigin src="../../../assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="../../../assets/main-D7Z9A8PG.js"></script>
+  <script type="module" crossorigin src="../../../assets/phase3-Djk6Hn-P.js"></script>
+  <link rel="stylesheet" crossorigin href="../../../assets/app-BSYqXKSo.css">
+</head><body class="docs-body" data-rdk-theme-page><div class="docs-shell docs-public-shell min-h-screen lg:grid lg:grid-cols-[16rem_minmax(0,1fr)]"><aside class="docs-sidebar p-5 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto lg:p-7" aria-label="Documentation navigation"><a class="docs-wordmark block" href="../../../">RDK<span> / </span>RETRO UI</a><div class="docs-theme-control"><label class="rdk-label" for="docs-theme-select">Theme</label><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="czarek-os">Czarek OS</option><option value="terminal-os">Terminal OS</option><option value="dark-horse">Dark Horse</option></select></div><div class="rdk-vent mt-5 h-4 w-24" aria-hidden="true"></div><p class="docs-shell-caption mt-6 text-xs leading-5">Visual CSS for interfaces built with Tailwind.</p><nav class="mt-7 grid gap-6 text-sm" aria-label="Documentation"><a href="../../../" class="docs-nav-head">Overview</a><a href="../../../installation/" class="docs-nav-head">Installation</a><a href="../../../showcase/czarek-os/" class="docs-nav-head" data-rdk-demo-link>Demo</a><a href="../../../colors/" class="docs-nav-head">Colors</a><a href="../../../components/" class="docs-nav-head">Components</a><a href="../../../patterns/" class="docs-nav-head">Patterns</a><a href="../../../css-classes/" class="docs-nav-head">CSS Classes</a></nav></aside><main id="top" class="docs-main mx-auto w-full max-w-[83rem] px-5 pb-20 pt-6 sm:px-9 lg:px-12 lg:pt-10" data-doc-route="reference/themes/dark-horse/"><div class="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-[#aaa99f] pb-4"><span class="docs-eyebrow">RDK / Themes</span><span class="docs-meta">RDK-UI // <span data-site-version></span></span></div><header><span class="docs-eyebrow">Themes / Dark Horse</span><h1 class="docs-heading mt-3">Dark Horse</h1><p class="docs-copy mt-4">A dark operational UI theme for control surfaces, monitoring, dashboards and focused utility applications.</p><p class="docs-copy mt-3">Viewport profile: responsive-operational. Primary: 1440–768 px; secondary: 390 px; wide compatibility: 1440 px.</p></header><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">01 / CAPABILITY</div><h2 class="docs-section-title mt-5">Shared component support</h2><p class="docs-copy mt-3">24 supported / 1 fallback / 0 unsupported. The theme itself is alpha; visual refinements and theme-specific pattern adjustments may continue before stable.</p><ul class="mt-4 grid gap-2 sm:grid-cols-2"><li><a class="" href="../../../components/button/">Button</a>: SUPPORTED</li><li><a class="" href="../../../components/nav-item/">Navigation Item</a>: SUPPORTED</li><li><a class="" href="../../../components/panel/">Panel</a>: SUPPORTED</li><li><a class="" href="../../../components/input/">Input</a>: SUPPORTED</li><li><a class="" href="../../../components/select/">Select</a>: SUPPORTED</li><li><a class="" href="../../../components/textarea/">Textarea</a>: SUPPORTED</li><li><a class="" href="../../../components/checkbox/">Checkbox</a>: SUPPORTED</li><li><a class="" href="../../../components/radio/">Radio</a>: SUPPORTED</li><li><a class="" href="../../../components/toggle/">Toggle</a>: SUPPORTED</li><li><a class="" href="../../../components/badge/">Badge</a>: SUPPORTED</li><li><a class="" href="../../../components/card/">Card</a>: SUPPORTED</li><li><a class="" href="../../../components/tabs/">Tabs</a>: SUPPORTED</li><li><a class="" href="../../../components/progress/">Progress</a>: SUPPORTED</li><li><a class="" href="../../../components/disclosure/">Disclosure</a>: SUPPORTED</li><li><a class="" href="../../../components/range/">Range</a>: SUPPORTED</li><li><a class="" href="../../../components/breadcrumbs/">Breadcrumbs</a>: SUPPORTED</li><li><a class="" href="../../../components/segments/">Segments</a>: SUPPORTED</li><li><a class="" href="../../../components/table/">Table</a>: SUPPORTED</li><li><a class="" href="../../../components/lcd/">LCD</a>: SUPPORTED</li><li><a class="" href="../../../components/status-led/">Status LED</a>: SUPPORTED</li><li><a class="" href="../../../overlays/menu/">Menu</a>: SUPPORTED</li><li><a class="" href="../../../overlays/dialog/">Dialog</a>: SUPPORTED</li><li><a class="" href="../../../overlays/tooltip/">Tooltip</a>: FALLBACK</li><li><a class="" href="../../../feedback/notice/">Notice</a>: SUPPORTED</li><li><a class="" href="../../../feedback/toast/">Toast</a>: SUPPORTED</li></ul><p class="mt-4"><a class="" href="../../../support/">Full Support Matrix</a></p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">02 / NATIVE</div><h2 class="docs-section-title mt-5">Native Showcase</h2><p class="docs-copy mt-3">The <a class="" href="../../../showcase/dark-horse/">Native Showcase</a> is the canonical visual presentation of this theme. It may include theme patterns without changing shared component status.</p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">03 / PATTERNS</div><h2 class="docs-section-title mt-5">Theme-specific patterns</h2><p class="docs-copy mt-3">These reusable visual patterns are specific to Dark Horse and do not imply cross-theme support. Application CSS owns their layout and application code owns behavior.</p><article class="mt-4"><h3 class="text-lg font-bold">Control Window</h3><p class="docs-copy mt-2">Dark Horse composition for a compact, focused utility. Application CSS owns centering, width and placement.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;section class=&quot;rdk-dark-horse-window&quot; aria-labelledby=&quot;dh-doc-window-title&quot;&gt;
+&lt;header&gt;
+&lt;h2 class=&quot;font-semibold&quot; id=&quot;dh-doc-window-title&quot;&gt;Display Control&lt;/h2&gt;
+&lt;span class=&quot;rdk-dark-horse-micro-status&quot; data-state=&quot;success&quot;&gt;Online&lt;/span&gt;
+&lt;/header&gt;
+&lt;div class=&quot;grid gap-3 p-3&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-status&quot; data-state=&quot;success&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-status-mark&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-status-name&quot;&gt;Host&lt;/span&gt;
+&lt;strong class=&quot;rdk-dark-horse-status-value&quot;&gt;Station 04&lt;/strong&gt;
+&lt;/div&gt;
+&lt;label class=&quot;grid gap-1&quot; for=&quot;dh-doc-window-output&quot;&gt;
+&lt;span class=&quot;rdk-label&quot;&gt;Output&lt;/span&gt;
+&lt;select id=&quot;dh-doc-window-output&quot; class=&quot;rdk-select w-full p-2&quot;&gt;
+&lt;option&gt;Desk Monitor&lt;/option&gt;
+&lt;option&gt;Studio Panel&lt;/option&gt;
+&lt;/select&gt;
+&lt;/label&gt;
+&lt;div class=&quot;flex flex-wrap items-center justify-between gap-3&quot;&gt;
+&lt;label class=&quot;flex items-center gap-2&quot; for=&quot;dh-doc-window-hdr&quot;&gt;HDR &lt;input id=&quot;dh-doc-window-hdr&quot; type=&quot;checkbox&quot; class=&quot;rdk-toggle&quot; checked&gt;
+&lt;/label&gt;
+&lt;button type=&quot;button&quot; class=&quot;rdk-btn rdk-btn-primary min-h-9 px-3&quot;&gt;Apply&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Control Panel</h3><p class="docs-copy mt-2">Dark Horse composition for a contained, medium-density operational interface. The application owns shell geometry.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;section class=&quot;rdk-dark-horse-control-panel&quot; aria-labelledby=&quot;dh-doc-panel-title&quot;&gt;
+&lt;header&gt;
+&lt;h2 id=&quot;dh-doc-panel-title&quot;&gt;Control Panel&lt;/h2&gt;
+&lt;span class=&quot;rdk-dark-horse-micro-status&quot; data-state=&quot;success&quot;&gt;Connected&lt;/span&gt;
+&lt;/header&gt;
+&lt;div class=&quot;grid gap-3 p-3 sm:grid-cols-2&quot;&gt;
+&lt;section class=&quot;rdk-card grid gap-2 p-3&quot; aria-label=&quot;Host readings&quot;&gt;
+&lt;h3 class=&quot;rdk-label&quot;&gt;Host / Station 04&lt;/h3&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument&quot; data-variant=&quot;success&quot; role=&quot;group&quot; aria-label=&quot;CPU temperature&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-header&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-title&quot;&gt;CPU temperature&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-mark&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-readings&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-channel&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-value-line&quot;&gt;
+&lt;strong class=&quot;rdk-dark-horse-instrument-value&quot;&gt;65&lt;/strong&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-unit&quot;&gt;C&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-meta&quot;&gt;Within range&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section class=&quot;rdk-card grid gap-2 p-3&quot; aria-label=&quot;Display output&quot;&gt;
+&lt;h3 class=&quot;rdk-label&quot;&gt;Output&lt;/h3&gt;
+&lt;button type=&quot;button&quot; class=&quot;rdk-card rdk-card-interactive rdk-dark-horse-device-tile&quot; aria-pressed=&quot;true&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-device-tile-copy&quot;&gt;
+&lt;strong class=&quot;rdk-dark-horse-device-tile-name&quot;&gt;Desk Monitor&lt;/strong&gt;
+&lt;small class=&quot;rdk-dark-horse-device-tile-meta&quot;&gt;2560 x 1440 / 144 Hz&lt;/small&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-device-tile-state&quot;&gt;Selected&lt;/span&gt;
+&lt;/button&gt;
+&lt;/section&gt;
+&lt;section class=&quot;rdk-card p-3 sm:col-span-2&quot; aria-label=&quot;Network status&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-status&quot; data-state=&quot;success&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-status-mark&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-status-name&quot;&gt;Network&lt;/span&gt;
+&lt;strong class=&quot;rdk-dark-horse-status-value&quot;&gt;Connected&lt;/strong&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;/div&gt;
+&lt;/section&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Workspace</h3><p class="docs-copy mt-2">Dark Horse composition for a larger responsive operational interface. Use only when the application needs a persistent workspace shell.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;section class=&quot;rdk-dark-horse-workspace&quot; aria-labelledby=&quot;dh-doc-workspace-title&quot;&gt;
+&lt;header class=&quot;flex items-center justify-between gap-3 p-3&quot;&gt;
+&lt;div&gt;
+&lt;span class=&quot;rdk-label&quot;&gt;Operational workspace&lt;/span&gt;
+&lt;h2 id=&quot;dh-doc-workspace-title&quot;&gt;Station 04&lt;/h2&gt;
+&lt;/div&gt;
+&lt;span class=&quot;rdk-dark-horse-micro-status&quot; data-state=&quot;neutral&quot;&gt;Local&lt;/span&gt;
+&lt;/header&gt;
+&lt;div class=&quot;grid gap-3 p-3 sm:grid-cols-[9rem_minmax(0,1fr)]&quot;&gt;
+&lt;aside class=&quot;grid content-start gap-1&quot; aria-label=&quot;Workspace navigation&quot;&gt;
+&lt;span class=&quot;rdk-label&quot;&gt;Workspace&lt;/span&gt;
+&lt;a href=&quot;#workspace-overview&quot; class=&quot;rdk-nav-item&quot; aria-current=&quot;page&quot;&gt;
+&lt;span class=&quot;rdk-nav-item-label&quot;&gt;Overview&lt;/span&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#workspace-telemetry&quot; class=&quot;rdk-nav-item&quot;&gt;
+&lt;span class=&quot;rdk-nav-item-label&quot;&gt;Telemetry&lt;/span&gt;
+&lt;/a&gt;
+&lt;/aside&gt;
+&lt;div id=&quot;workspace-overview&quot; class=&quot;grid min-w-0 gap-3&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument&quot; data-variant=&quot;accent&quot; role=&quot;group&quot; aria-label=&quot;System load&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-header&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-title&quot;&gt;System load&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-mark&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-readings&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-channel&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-value-line&quot;&gt;
+&lt;strong class=&quot;rdk-dark-horse-instrument-value&quot;&gt;38&lt;/strong&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-unit&quot;&gt;%&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-meta&quot;&gt;All services online&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;workspace-telemetry&quot; class=&quot;rdk-dark-horse-telemetry-row&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-telemetry-label&quot;&gt;GPU load&lt;/span&gt;
+&lt;strong class=&quot;rdk-dark-horse-telemetry-value&quot;&gt;78%&lt;/strong&gt;
+&lt;span class=&quot;rdk-dark-horse-telemetry-state&quot;&gt;Active&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Metric</h3><p class="docs-copy mt-2">Theme-specific label, value, unit and context treatment for operational measurements.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;div class=&quot;rdk-dark-horse-metric&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-metric-label&quot;&gt;Refresh rate&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-metric-value-line&quot;&gt;
+&lt;strong class=&quot;rdk-dark-horse-metric-value&quot;&gt;144&lt;/strong&gt;
+&lt;span class=&quot;rdk-dark-horse-metric-unit&quot;&gt;Hz&lt;/span&gt;
+&lt;/span&gt;
+&lt;small class=&quot;rdk-dark-horse-metric-meta&quot;&gt;Current output&lt;/small&gt;
+&lt;/div&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Status Row</h3><p class="docs-copy mt-2">Theme-specific textual state and value treatment. Keep state meaning in text; the application owns live updates.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;div class=&quot;rdk-dark-horse-status&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-status-mark&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-status-name&quot;&gt;Network&lt;/span&gt;
+&lt;strong class=&quot;rdk-dark-horse-status-value&quot;&gt;Connected&lt;/strong&gt;
+&lt;/div&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Device / Output Tile</h3><p class="docs-copy mt-2">Theme-specific selectable device/output presentation. Native button semantics and selection behavior remain application-owned.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;div class=&quot;grid gap-2 sm:grid-cols-2&quot; role=&quot;group&quot; aria-label=&quot;Available output devices&quot;&gt;
+&lt;button type=&quot;button&quot; class=&quot;rdk-card rdk-card-interactive rdk-dark-horse-device-tile&quot; aria-pressed=&quot;true&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-device-tile-copy&quot;&gt;
+&lt;strong class=&quot;rdk-dark-horse-device-tile-name&quot;&gt;Desk Monitor&lt;/strong&gt;
+&lt;small class=&quot;rdk-dark-horse-device-tile-meta&quot;&gt;2560 x 1440 / 144 Hz&lt;/small&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-device-tile-state&quot;&gt;Selected&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-device-tile-marker&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;/span&gt;
+&lt;/button&gt;
+&lt;button type=&quot;button&quot; class=&quot;rdk-card rdk-card-interactive rdk-dark-horse-device-tile&quot; aria-pressed=&quot;false&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-device-tile-copy&quot;&gt;
+&lt;strong class=&quot;rdk-dark-horse-device-tile-name&quot;&gt;Studio Panel&lt;/strong&gt;
+&lt;small class=&quot;rdk-dark-horse-device-tile-meta&quot;&gt;3840 x 2160 / 60 Hz&lt;/small&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-device-tile-state&quot;&gt;Available&lt;/span&gt;
+&lt;/button&gt;
+&lt;/div&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Telemetry Row</h3><p class="docs-copy mt-2">Theme-specific label, value, meter and state presentation for one telemetry reading.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;div class=&quot;rdk-dark-horse-telemetry-row&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-telemetry-label&quot;&gt;CPU&lt;/span&gt;
+&lt;strong class=&quot;rdk-dark-horse-telemetry-value&quot;&gt;38%&lt;/strong&gt;
+&lt;span class=&quot;rdk-dark-horse-telemetry-state&quot;&gt;Nominal&lt;/span&gt;
+&lt;progress class=&quot;rdk-progress rdk-dark-horse-telemetry-meter&quot; data-accent=&quot;blue&quot; value=&quot;38&quot; max=&quot;100&quot; aria-label=&quot;CPU load, 38 percent&quot;&gt;38%&lt;/progress&gt;
+&lt;/div&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Event / Log Row</h3><p class="docs-copy mt-2">Theme-specific timestamp, event description and state presentation. The application owns the log and ordering.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;div class=&quot;rdk-dark-horse-event-row&quot; role=&quot;listitem&quot;&gt;
+&lt;time class=&quot;rdk-dark-horse-event-time&quot; datetime=&quot;2026-09-30T14:32:08&quot;&gt;14:32:08&lt;/time&gt;
+&lt;span class=&quot;rdk-dark-horse-event-copy&quot;&gt;
+&lt;strong class=&quot;rdk-dark-horse-event-title&quot;&gt;Host connected&lt;/strong&gt;
+&lt;span class=&quot;rdk-dark-horse-event-detail&quot;&gt;Station 04 / Local network&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state&quot; data-state=&quot;success&quot;&gt;Connected&lt;/span&gt;
+&lt;/div&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Micro-status</h3><p class="docs-copy mt-2">Compact status tag for dense device and event summaries. Keep a textual label.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;span class=&quot;rdk-dark-horse-micro-status&quot; data-state=&quot;success&quot;&gt;Online&lt;/span&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Instrument Display</h3><p class="docs-copy mt-2">Multi-channel operational readout for values, units and channel state. It is distinct from the shared single-value LCD.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;div class=&quot;rdk-dark-horse-instrument&quot; data-variant=&quot;accent&quot; role=&quot;group&quot; aria-label=&quot;Selected output refresh rate&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-header&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-title&quot;&gt;Active output&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-mark&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-readings&quot;&gt;
+&lt;div class=&quot;rdk-dark-horse-instrument-channel&quot;&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-label&quot;&gt;Refresh rate&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-value-line&quot;&gt;
+&lt;strong class=&quot;rdk-dark-horse-instrument-value&quot;&gt;144&lt;/strong&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-unit&quot;&gt;Hz&lt;/span&gt;
+&lt;/span&gt;
+&lt;span class=&quot;rdk-dark-horse-instrument-meta&quot;&gt;Desk Monitor / active profile&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre></div></article></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">04 / MATURITY</div><h2 class="docs-section-title mt-5">Release status and QA</h2><p class="docs-copy mt-3">Status: alpha. Verified in Chromium and Firefox at 390, 768 and 1440 px; public Native Showcase and theme bundle checks. Safari, iOS Safari and Android Chrome real-device QA have not been performed.</p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">05 / SIGNALS</div><h2 class="docs-section-title mt-5">Signal semantics</h2><p class="docs-copy mt-3"><strong>Dark Horse amber is the accent and active signal, not the warning color. Warning uses a separate orange signal.</strong></p><div class="mt-4 overflow-x-auto"><table class="rdk-table min-w-[36rem] w-full text-sm"><thead><tr><th scope="col">Role</th><th scope="col">Meaning</th></tr></thead><tbody><tr><th>Neutral</th><td>Structural / standby / inactive</td></tr><tr><th>Accent</th><td>Active / selected / primary operational emphasis</td></tr><tr><th>Success</th><td>Nominal / healthy / online</td></tr><tr><th>Info</th><td>Informational / connected</td></tr><tr><th>Warning</th><td>Review / caution / degraded</td></tr><tr><th>Danger</th><td>Error / offline / critical</td></tr></tbody></table></div><p class="docs-copy mt-4"><strong>Segments</strong> is supported as the existing RDK segmented progress/readout component. It is not a selectable tabs or segmented-control API. <strong>Tooltip</strong> is a fallback: its readable appearance is supported, placement stays application-owned, and its content should remain supplementary and non-critical.</p><p class="mt-4"><a class="" href="../../../installation/">Installation</a> · <a class="" href="../../../showcase/dark-horse/">Dark Horse Native Showcase</a> · <a class="" href="../../../support/">Shared Support Matrix</a></p></section><footer class="docs-rule docs-copy mt-20 flex flex-wrap justify-between gap-3 pt-5 text-xs"><span>RDK RETRO UI · <span data-site-version></span></span></footer></main></div></body></html>

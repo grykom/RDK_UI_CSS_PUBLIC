@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="en" data-rdk-theme="czarek-os">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0d1115">
+    <title>Dark Horse / Native Showcase</title>
+    <meta name="description" content="Dark Horse is a dark operational UI theme for control surfaces, monitoring, dashboards and focused utility applications.">
+    <style>
+      * { box-sizing: border-box; }
+      [hidden] { display: none !important; }
+      body { min-width: 320px; min-height: 100vh; margin: 0; padding: 1rem clamp(1rem, 3vw, 2.5rem); background: var(--rdk-case); color: var(--rdk-text); }
+      button, input, select { font: inherit; }
+      .dh-review { width: min(100%, 92rem); margin-inline: auto; }
+      .dh-doc-nav { display: flex; flex-wrap: wrap; gap: .9rem; padding-block: .55rem; border-bottom: 1px solid var(--rdk-border); }
+      .dh-doc-nav a { color: var(--rdk-text-muted); font-size: .72rem; text-decoration: none; }
+      .dh-doc-nav a:hover, .dh-doc-nav a:focus-visible { color: var(--rdk-text); text-decoration: underline; text-underline-offset: .2em; }
+      .dh-review-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.4rem; border-bottom: 1px solid var(--rdk-border); }
+      .dh-review-brand { display: grid; gap: .15rem; }
+      .dh-review-brand p { max-width: 34rem; margin: .12rem 0 0; color: var(--rdk-text-muted); font-size: .78rem; line-height: 1.35; }
+      .dh-eyebrow, .dh-label { color: var(--rdk-text-muted); font-size: .68rem; font-weight: 700; letter-spacing: .12em; line-height: 1.4; text-transform: uppercase; }
+      .dh-review-brand strong { font-size: .95rem; font-weight: 650; letter-spacing: .01em; }
+      .dh-review-status { display: flex; align-items: center; gap: .7rem; }
+      .dh-alpha { color: var(--rdk-text-muted); font-size: .76rem; }
+      .dh-review-status .rdk-badge:not(.rdk-dark-horse-micro-status) { padding: .3rem .5rem; font-size: .75rem; }
+      .dh-mode-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding-block: .85rem; border-bottom: 1px solid var(--rdk-border); }
+      .dh-mode-caption { margin-right: .35rem; color: var(--rdk-text-muted); font-size: .78rem; }
+      .dh-mode-button { min-height: 2.4rem !important; padding: .48rem .75rem !important; font-size: .83rem !important; }
+      .dh-mode-button[aria-pressed="true"] { border-color: var(--_dh-active-edge); background: var(--rdk-accent-muted); box-shadow: inset 0 -2px 0 var(--_dh-active-edge); color: var(--rdk-text); }
+      [data-shell-mode][hidden] { display: none !important; }
+      .dh-window-stage { display: grid; place-items: center; min-height: calc(100vh - 8.25rem); padding-block: 1.5rem 2.25rem; }
+      .dh-window-title { display: grid; gap: .15rem; min-width: 0; }
+      .dh-window-title h1 { margin: 0; font-size: 1.16rem; font-weight: 650; letter-spacing: -.01em; line-height: 1.25; }
+      .dh-window-caption { color: var(--rdk-text-muted); font-size: .78rem; }
+      .dh-window-body { display: grid; gap: 1.1rem; padding: 1.2rem; }
+      .dh-host-line { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .35rem 1rem; padding-bottom: .85rem; border-bottom: 1px solid var(--rdk-border); color: var(--rdk-text-muted); font-size: .82rem; }
+      .dh-mono { color: var(--rdk-text-muted); font: .72rem/1.4 var(--rdk-font-mono); }
+      .dh-control-block { display: grid; gap: .55rem; min-width: 0; }
+      .dh-block-head { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; }
+      .dh-block-head h2 { margin: 0; font-size: .94rem; font-weight: 650; }
+      .dh-block-head span { color: var(--rdk-text-muted); font-size: .76rem; }
+      .dh-display-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+      .dh-display-choice { min-height: 4rem; }
+      .dh-current-output { color: var(--rdk-text-muted); font-size: .78rem; }
+      .dh-current-output strong { color: var(--rdk-text); font-weight: 600; }
+      .dh-field { display: grid; gap: .4rem; color: var(--rdk-text-muted); font-size: .78rem; }
+      .dh-field .rdk-select { width: 100%; min-height: 2.75rem; padding: .55rem .75rem; }
+      .dh-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: .8rem; min-height: 2.75rem; padding: .55rem .7rem; border: 1px solid var(--rdk-border); border-radius: var(--rdk-radius); background: var(--rdk-surface-raised); color: var(--rdk-text); font-size: .86rem; }
+      .dh-toggle-row > span { display: grid; gap: .12rem; }
+      .dh-toggle-row small { color: var(--rdk-text-muted); font-size: .74rem; }
+      .dh-toggle-row .rdk-toggle { flex: none; }
+      .dh-window-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem; padding-top: .2rem; }
+      .dh-window-actions .rdk-btn { min-width: 7.25rem; min-height: 2.75rem; }
+      .dh-local-note { max-width: 16rem; color: var(--rdk-text-muted); font-size: .74rem; line-height: 1.4; }
+      .dh-apply-result { min-height: 1.25rem; margin: 0; color: var(--rdk-text-muted); font-size: .78rem; }
+      .dh-panel-stage { display: grid; place-items: start center; min-height: calc(100vh - 8.25rem); padding-block: clamp(1rem, 4vh, 2.8rem); }
+      .dh-panel-title { display: grid; gap: .2rem; min-width: 0; }
+      .dh-panel-title h1 { margin: 0; font-size: 1.2rem; font-weight: 650; letter-spacing: -.015em; }
+      .dh-panel-title p { margin: 0; color: var(--rdk-text-muted); font-size: .8rem; }
+      .dh-panel-body { display: grid; gap: 1rem; padding: 1.15rem; }
+      .dh-module-grid { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; gap: .75rem; }
+      .dh-module { display: grid; align-content: start; gap: .6rem; min-width: 0; padding: .85rem .9rem; }
+      .dh-module-top { display: flex; align-items: center; justify-content: space-between; gap: .7rem; }
+      .dh-module-top h2 { margin: 0; font-size: .9rem; font-weight: 650; }
+      .dh-panel-footer { padding-top: .75rem; border-top: 1px solid var(--rdk-border); color: var(--rdk-text-muted); font-size: .75rem; }
+      .dh-module .rdk-badge:not(.rdk-dark-horse-micro-status) { padding: .3rem .5rem; font-size: .72rem; }
+      .dh-panel-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+      .dh-module-stack { display: grid; gap: .5rem; min-width: 0; }
+      .dh-workspace-stage { display: grid; place-items: start center; min-height: calc(100vh - 8.25rem); padding-block: clamp(1rem, 3vh, 2rem); }
+      .dh-workspace-title { display: grid; gap: .2rem; min-width: 0; }
+      .dh-workspace-title h1 { margin: 0; font-size: 1rem; font-weight: 650; }
+      .dh-workspace-topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.5rem; padding: .75rem 1rem; border-bottom: 1px solid var(--rdk-border); }
+      .dh-workspace-topbar .rdk-badge:not(.rdk-dark-horse-micro-status) { padding: .3rem .5rem; font-size: .72rem; }
+      .dh-workspace-layout { display: grid; grid-template-columns: 13rem minmax(0, 1fr); min-width: 0; }
+      .dh-workspace-sidebar { min-width: 0; padding: 1rem .75rem; border-right: 1px solid var(--rdk-border); }
+      .dh-workspace-sidebar-label { margin: 0 0 .65rem .5rem; color: var(--rdk-text-muted); font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+      .dh-workspace-nav { display: grid; gap: .3rem; }
+      .dh-workspace-nav .rdk-nav-item { width: 100%; text-align: left; }
+      .dh-workspace-nav .rdk-nav-item[aria-current="page"] { border-color: var(--_dh-active-edge); background: var(--rdk-accent-muted); box-shadow: none; color: var(--rdk-text); }
+      .dh-workspace-mobile-toggle { display: none; min-height: 2.25rem !important; padding: .35rem .6rem !important; font-size: .78rem !important; }
+      .dh-workspace-main { display: grid; align-content: start; gap: .85rem; min-width: 0; padding: 1rem; }
+      .dh-workspace-heading { display: grid; gap: .25rem; }
+      .dh-workspace-heading h2 { margin: 0; font-size: 1.05rem; font-weight: 650; }
+      .dh-workspace-heading p { margin: 0; color: var(--rdk-text-muted); font-size: .8rem; }
+      .dh-workspace-summary { display: flex; flex-wrap: wrap; gap: .45rem 1rem; padding: .65rem .75rem; border: 1px solid var(--rdk-border); border-radius: var(--rdk-radius); background: var(--rdk-surface-recessed); }
+      .dh-workspace-content { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: .75rem; }
+      .dh-workspace-group { display: grid; align-content: start; gap: .55rem; min-width: 0; padding: .8rem; }
+      .dh-workspace-group h3 { margin: 0; font-size: .78rem; font-weight: 700; }
+      .dh-workspace-telemetry { display: grid; gap: 0; }
+      .dh-workspace-events { display: grid; gap: 0; }
+      .dh-workspace-events-group { grid-column: 1 / -1; }
+      .dh-lab-stage { display: grid; place-items: start center; min-height: calc(100vh - 8.25rem); padding-block: clamp(1rem, 3vh, 2rem); }
+      .dh-lab { width: min(100%, 74rem); }
+      .dh-lab-header { display: grid; gap: .25rem; padding: .25rem 0 .9rem; border-bottom: 1px solid var(--rdk-border); }
+      .dh-lab-header h1 { margin: 0; font-size: 1.16rem; font-weight: 650; }
+      .dh-lab-header p { margin: 0; color: var(--rdk-text-muted); font-size: .8rem; }
+      .dh-lab-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; padding-top: .85rem; }
+      .dh-lab-card { display: grid; align-content: start; gap: .65rem; min-width: 0; padding: .85rem; }
+      .dh-lab-card h2 { margin: 0; font-size: .86rem; font-weight: 650; }
+      .dh-lab-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+      .dh-lab-telemetry { display: grid; gap: 0; }
+      .dh-lab-events { display: grid; gap: 0; }
+      .dh-lab-events-card { grid-column: 1 / -1; }
+      .dh-lab-statuses { display: grid; gap: .4rem; }
+      .dh-lab-micro-statuses { display: grid; gap: .4rem; padding-top: .6rem; border-top: 1px solid var(--rdk-border); }
+      .dh-lab-micro-status-strip { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+      .dh-lab-instruments-card { grid-column: 1 / -1; }
+      .dh-lab-instrument-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; }
+      .dh-signal-calibration { grid-column: 1 / -1; }
+      .dh-signal-samples { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .55rem; }
+      .dh-signal-sample { display: grid; align-content: start; gap: .55rem; min-width: 0; padding: .65rem; border: 1px solid var(--rdk-border); border-radius: var(--rdk-radius); background: var(--rdk-surface-recessed); }
+      .dh-signal-sample .rdk-dark-horse-status { flex-wrap: wrap; }
+      .dh-signal-reading { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; min-width: 0; }
+      .dh-signal-value { color: var(--rdk-text); font: 600 .82rem/1.3 var(--rdk-font-mono); font-variant-numeric: tabular-nums; }
+      .dh-signal-value[data-signal="active"] { color: var(--_dh-signal-active); }
+      .dh-signal-value[data-signal="success"] { color: var(--_dh-signal-success); }
+      .dh-signal-value[data-signal="info"] { color: var(--_dh-signal-info); }
+      .dh-signal-value[data-signal="warning"] { color: var(--_dh-signal-warning); }
+      .dh-signal-value[data-signal="danger"] { color: var(--_dh-signal-danger); }
+      [data-rdk-theme="dark-horse"] .dh-signal-system { display: grid; gap: .65rem; padding: .75rem; border: 1px solid var(--rdk-border); border-radius: var(--rdk-radius); background: var(--rdk-surface-recessed); }
+      [data-rdk-theme="dark-horse"] .dh-signal-system-title { margin: 0; font-size: .76rem; font-weight: 650; }
+      [data-rdk-theme="dark-horse"] .dh-signal-reference { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .45rem; }
+      [data-rdk-theme="dark-horse"] .dh-signal-role { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .25rem .45rem; min-width: 0; padding: .45rem; border: 1px solid var(--rdk-border); border-radius: var(--_dh-radius-tag); background: var(--rdk-surface); }
+      [data-rdk-theme="dark-horse"] .dh-signal-swatch { grid-row: span 2; width: .72rem; height: .72rem; border: 1px solid var(--rdk-structure); border-radius: 50%; box-shadow: 0 0 0 2px var(--rdk-surface-recessed); }
+      [data-rdk-theme="dark-horse"] .dh-signal-role strong { overflow-wrap: anywhere; color: var(--rdk-text); font-size: .69rem; line-height: 1.2; }
+      [data-rdk-theme="dark-horse"] .dh-signal-role small { overflow-wrap: anywhere; color: var(--rdk-text-muted); font-size: .62rem; line-height: 1.25; }
+      [data-rdk-theme="dark-horse"] .dh-review-disclosure-stack { display: grid; gap: .45rem; }
+      [data-rdk-theme="dark-horse"] .dh-review-disclosure-state { margin: 0 0 .25rem; color: var(--rdk-text-muted); font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; }
+      .dh-coverage { width: min(100%, 74rem); display: grid; gap: .9rem; padding: 1rem; }
+      .dh-coverage-header { display: grid; gap: .2rem; padding-bottom: .7rem; border-bottom: 1px solid var(--rdk-border); }
+      .dh-coverage-header h2 { margin: 0; font-size: 1rem; font-weight: 650; }
+      .dh-coverage-header p { margin: 0; color: var(--rdk-text-muted); font-size: .78rem; }
+      .dh-coverage-grid { display: grid; gap: .7rem; }
+      .dh-coverage-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: .7rem; }
+      .dh-coverage-card { display: grid; align-content: start; gap: .65rem; min-width: 0; padding: .8rem; }
+      .dh-coverage-card h3 { margin: 0; font-size: .83rem; font-weight: 650; }
+      .dh-coverage-subhead { grid-column: 1 / -1; margin: .1rem 0 -.15rem; padding-top: .25rem; border-top: 1px solid var(--rdk-border); color: var(--rdk-text-muted); font-size: .68rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; }
+      .dh-specialized-area { display: grid; gap: .85rem; margin-top: .35rem; padding-top: .9rem; border-top: 1px solid var(--rdk-border); }
+      .dh-specialized-header { display: grid; gap: .2rem; }
+      .dh-specialized-header h3 { margin: 0; font-size: .9rem; font-weight: 650; }
+      .dh-specialized-header p { margin: 0; color: var(--rdk-text-muted); font-size: .74rem; }
+      .dh-specialized-group { display: grid; gap: .55rem; }
+      .dh-specialized-group-title { margin: 0; color: var(--rdk-text-muted); font-size: .68rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; }
+      .dh-specialized-grid { display: grid; gap: .7rem; }
+      .dh-specialized-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: .7rem; }
+      .dh-review-table-card { grid-column: 1 / -1; }
+      .dh-review-table-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; border-radius: var(--rdk-radius); }
+      .dh-review-table-scroll:focus-visible { outline: 3px solid var(--rdk-focus); outline-offset: 2px; }
+      .dh-review-table { width: 100%; min-width: 49rem; }
+      .dh-review-table th, .dh-review-table td { padding: .55em .72em; font-size: .72rem; white-space: nowrap; }
+      .dh-review-mono { font-family: var(--rdk-font-mono); font-variant-numeric: tabular-nums; }
+      .dh-review-lcd-stack { display: flex; flex-wrap: wrap; gap: .55rem; }
+      .dh-review-lcd { display: flex; flex: 1 1 8rem; align-items: baseline; justify-content: space-between; gap: .55rem; min-width: 0; padding: .8rem .7rem; font-size: 1.15rem; }
+      .dh-review-lcd small { font-size: .66em; }
+      .dh-review-led-list { display: grid; gap: .45rem; }
+      .dh-review-led-row { display: flex; align-items: center; gap: .65rem; min-height: 1.5rem; color: var(--rdk-text); font-size: .76rem; }
+      .dh-review-led-row small { margin-left: auto; color: var(--rdk-text-muted); font-size: .68rem; }
+      .dh-review-dialog { width: min(32rem, calc(100vw - 2rem)); padding: 0; }
+      .dh-review-dialog-header, .dh-review-dialog-footer { display: flex; align-items: center; justify-content: space-between; gap: .65rem; padding: .8rem .9rem; }
+      .dh-review-dialog-header { border-bottom: 1px solid var(--rdk-border); background: var(--rdk-surface-raised); }
+      .dh-review-dialog-header h4 { margin: 0; font-size: .9rem; font-weight: 650; }
+      .dh-review-dialog-body { display: grid; gap: .55rem; padding: .9rem; }
+      .dh-review-dialog-body p { margin: 0; color: var(--rdk-text-muted); font-size: .78rem; line-height: 1.45; }
+      .dh-review-dialog-context { color: var(--rdk-text); font: .7rem/1.4 var(--rdk-font-mono); }
+      .dh-review-dialog-footer { justify-content: flex-end; flex-wrap: wrap; border-top: 1px solid var(--rdk-border); background: var(--rdk-surface-raised); }
+      .dh-review-tooltip-wrap { position: relative; display: inline-flex; max-width: 100%; }
+      .dh-review-tooltip { position: absolute; z-index: 8; bottom: calc(100% + .4rem); left: 0; width: min(14rem, calc(100vw - 2.5rem)); padding: .55rem .65rem; font-size: .7rem; }
+      .dh-review-notices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .45rem; }
+      .dh-review-notice { min-width: 0; padding: .58rem .65rem; }
+      .dh-review-notice strong { font-size: .74rem; }
+      .dh-review-notice p { margin: .12rem 0 0; color: var(--rdk-text-muted); font-size: .68rem; line-height: 1.35; }
+      .dh-review-toast-actions { display: flex; align-items: center; justify-content: space-between; gap: .6rem; }
+      .dh-review-toast-host { position: fixed; z-index: 30; right: 1rem; bottom: 1rem; display: grid; gap: .45rem; width: min(21rem, calc(100vw - 2rem)); pointer-events: none; }
+      .dh-review-toast-host[hidden] { display: none; }
+      .dh-review-toast-host .rdk-toast { padding: .7rem .8rem; }
+      .dh-review-toast-host strong { font-size: .78rem; }
+      .dh-review-toast-host p { margin: .12rem 0 0; color: var(--rdk-text-muted); font-size: .69rem; line-height: 1.35; }
+      .dh-review-helper { margin: 0; color: var(--rdk-text-muted); font-size: .7rem; line-height: 1.4; }
+      .dh-review-field { display: grid; gap: .3rem; min-width: 0; color: var(--rdk-text-muted); font-size: .75rem; }
+      .dh-review-textarea { width: 100%; min-height: 4.4rem; padding: .55rem .65rem; resize: vertical; font-size: .8rem; line-height: 1.4; }
+      .dh-review-textarea-small { min-height: 3.1rem; padding-block: .4rem; }
+      .dh-review-error { margin: -.35rem 0 0; color: var(--_dh-signal-danger); font-size: .7rem; }
+      .dh-review-radio-group { display: grid; gap: .15rem; min-width: 0; margin: 0; padding: 0; border: 0; }
+      .dh-review-radio-group legend { margin-bottom: .35rem; }
+      .dh-review-radio-option { display: flex; align-items: center; gap: .5rem; min-height: 2rem; padding: .2rem .35rem; border-radius: var(--rdk-radius); color: var(--rdk-text); font-size: .78rem; }
+      .dh-review-radio-option:has(.rdk-radio:disabled) { color: var(--rdk-text-muted); }
+      .dh-review-radio-option .rdk-radio { width: 1rem; height: 1rem; }
+      .dh-review-tabs { min-width: 0; }
+      .dh-review-tabs .rdk-tab { padding: .48rem .65rem; font-size: .75rem; white-space: nowrap; }
+      .dh-review-tab-panel { min-height: 2.5rem; padding: .7rem .2rem .15rem; color: var(--rdk-text-muted); font-size: .77rem; line-height: 1.45; }
+      .dh-review-disclosure { min-width: 0; }
+      .dh-review-range-row { display: grid; gap: .35rem; min-width: 0; }
+      .dh-review-range-label { display: flex; align-items: baseline; justify-content: space-between; gap: .65rem; color: var(--rdk-text-muted); font-size: .75rem; }
+      .dh-review-range-label output { color: var(--rdk-text); font: 600 .76rem/1.3 var(--rdk-font-mono); }
+      .dh-review-range { width: 100%; }
+      .dh-review-segment-readout { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; min-width: 0; }
+      .dh-review-segment-readout .rdk-segments { font-size: 1rem; }
+      .dh-review-segment-value { color: var(--rdk-text); font: 600 .74rem/1.3 var(--rdk-font-mono); }
+      .dh-review-breadcrumb-wrap { min-width: 0; padding: .55rem .6rem; border: 1px solid var(--rdk-border); border-radius: var(--rdk-radius); background: var(--rdk-surface-recessed); }
+      .dh-review-breadcrumbs { font-size: .78rem; line-height: 1.45; }
+      .dh-review-menu-wrap { position: relative; display: flex; justify-content: flex-start; min-width: 0; }
+      .dh-review-menu-trigger { min-height: 2.25rem; padding: .45rem .65rem; font-size: .76rem; }
+      .dh-review-menu { position: absolute; z-index: 5; top: calc(100% + .35rem); left: 0; width: min(14rem, calc(100vw - 3rem)); padding: .18rem; }
+      .dh-review-menu[data-position="above"] { top: auto; bottom: calc(100% + .35rem); }
+      .dh-review-menu .rdk-menu-label { display: block; padding: .38rem .5rem .26rem; }
+      .dh-review-menu .rdk-menu-item { min-height: 2.1rem; padding: .36rem .5rem; font-size: .75rem; }
+      .dh-review-menu .rdk-menu-separator { margin: .18rem .15rem; }
+      .dh-review-menu-result { min-height: 1.1rem; margin: 0; color: var(--rdk-text-muted); font-size: .7rem; }
+      @media (max-width: 500px) {
+        .dh-review-header { align-items: flex-start; padding-block: .35rem .75rem; }
+        .dh-review-status { align-items: flex-end; flex-direction: column; gap: .25rem; }
+        .dh-mode-bar { gap: .35rem; }
+        .dh-mode-caption { width: 100%; }
+        .dh-mode-button { flex: 1; }
+        .dh-window-stage { min-height: calc(100vh - 9.8rem); }
+        .dh-window-body { gap: .95rem; padding: 1rem; }
+        .dh-display-options { grid-template-columns: minmax(0, 1fr); }
+        .dh-display-choice { min-height: 3.25rem; }
+        .dh-local-note { max-width: none; }
+      }
+      @media (max-width: 700px) {
+        .dh-panel-metrics { gap: .45rem; }
+        .dh-workspace-content, .dh-lab-grid { grid-template-columns: minmax(0, 1fr); }
+        .dh-coverage { padding: .75rem; }
+        .dh-coverage-row { grid-template-columns: minmax(0, 1fr); }
+        .dh-specialized-row { grid-template-columns: minmax(0, 1fr); }
+        .dh-review-notices { grid-template-columns: minmax(0, 1fr); }
+        .dh-lab-instrument-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .dh-signal-samples { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        [data-rdk-theme="dark-horse"] .dh-signal-reference { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (min-width: 701px) and (max-width: 900px) {
+        .dh-signal-samples { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        [data-rdk-theme="dark-horse"] .dh-signal-reference { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+      @media (max-width: 800px) {
+        .dh-workspace-layout { grid-template-columns: minmax(0, 1fr); }
+        .dh-workspace-content { grid-template-columns: minmax(0, 1fr); }
+        .dh-workspace-sidebar { display: none; padding: .75rem 1rem; border-right: 0; border-bottom: 1px solid var(--rdk-border); }
+        .dh-workspace[data-nav-open="true"] .dh-workspace-sidebar { display: block; }
+        .dh-workspace-sidebar-label { display: none; }
+        .dh-workspace-nav { display: none; }
+        .dh-workspace[data-nav-open="true"] .dh-workspace-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .dh-workspace-mobile-toggle { display: inline-flex; }
+      }
+      @media (min-width: 900px) {
+        .dh-module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+    </style>
+  <script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"czarek-os","label":"Czarek OS","status":"alpha","default":true,"public":true,"source":"src/themes/czarek-os.css","docsRoute":"reference/themes/czarek-os/","nativeShowcase":"showcase/czarek-os/","description":"Slate-led, content-first bakery workspace with compact editable controls, semantic status colors, and calm density.","lifecycle":"active","role":"universal / content / productivity"},{"id":"terminal-os","label":"Terminal OS","status":"alpha","default":false,"public":true,"source":"src/themes/terminal-os.css","docsRoute":"reference/themes/terminal-os/","nativeShowcase":"showcase/terminal-os/","description":"Compact neutral-black terminal interface with graphite surfaces. Green signals prompts, success and actions.","lifecycle":"active","role":"compact / mobile / terminal-inspired"},{"id":"console-94","label":"Console 94","status":"stable","default":false,"public":true,"source":"src/themes/console-94.css","docsRoute":"archive/console-94/","nativeShowcase":"showcase/console-94/","description":"Warm equipment surfaces, IBM Plex typography, subtle bevels and LCD readouts.","lifecycle":"archived","role":"legacy / historical RDK theme"},{"id":"dark-horse","label":"Dark Horse","status":"alpha","lifecycle":"active","role":"control / monitoring / operational interfaces","default":false,"public":true,"source":"src/themes/dark-horse.css","docsRoute":"reference/themes/dark-horse/","nativeShowcase":"showcase/dark-horse/","description":"A dark operational UI theme for control surfaces, monitoring, dashboards and focused utility applications."}],"basePath":"../../","forcedTheme":"dark-horse"}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
+(function () {
+  "use strict";
+  const configNode = document.getElementById("rdk-theme-config");
+  if (!configNode) throw new Error("RDK theme configuration is missing");
+  const config = JSON.parse(configNode.textContent);
+  const publicThemes = config.themes.filter((theme) => theme.public && theme.lifecycle === "active" && ["stable", "alpha"].includes(theme.status));
+  const forcedArchived = config.themes.find((theme) => theme.public && theme.lifecycle === "archived" && theme.id === config.forcedTheme);
+  const testTheme = window.__RDK_THEME_TEST__;
+  const themes = testTheme && testTheme.status === "fixture" && testTheme.public === false
+    ? [...publicThemes, testTheme] : publicThemes;
+  const defaultTheme = publicThemes.find((theme) => theme.default);
+  if (!defaultTheme) throw new Error("RDK default theme is missing");
+  const storageKey = config.storageKey;
+  const isValidTheme = (id) => themes.some((theme) => theme.id === id) || forcedArchived?.id === id;
+  const getThemeRegistry = () => themes.map((theme) => ({ ...theme }));
+  const getDefaultTheme = () => ({ ...defaultTheme });
+  function getStoredTheme() {
+    try { return localStorage.getItem(storageKey); }
+    catch { return null; }
+  }
+  function storeTheme(id) {
+    try { localStorage.setItem(storageKey, id); } catch { /* storage may be blocked */ }
+  }
+  function clearStoredTheme() {
+    try { localStorage.removeItem(storageKey); } catch { /* storage may be blocked */ }
+  }
+  function syncSelects(id) {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach((select) => { select.value = themes.some((theme) => theme.id === id) ? id : defaultTheme.id; });
+  }
+  function syncTokenValues() {
+    const style = getComputedStyle(document.documentElement);
+    document.querySelectorAll("[data-theme-token]").forEach((node) => {
+      node.textContent = style.getPropertyValue(node.dataset.themeToken).trim() || "—";
+    });
+  }
+  function routeUrl(route) {
+    return new URL(config.basePath + route, location.href).href;
+  }
+  function syncThemeContext(id) {
+    document.querySelectorAll("[data-rdk-theme-context]").forEach((node) => {
+      node.hidden = node.dataset.rdkThemeContext !== id;
+    });
+    document.querySelectorAll("[data-rdk-theme-support-list]").forEach((list) => {
+      const active = [...list.children].find((item) => item.dataset.theme === id);
+      if (active) list.prepend(active);
+      [...list.children].forEach((item) => {
+        if (item.dataset.theme) item.dataset.activeTheme = String(item === active);
+      });
+    });
+    document.querySelectorAll("[data-rdk-active-theme-label]").forEach((node) => {
+      node.textContent = themes.find((theme) => theme.id === id)?.label || id;
+    });
+  }
+  function applyTheme(id, persist = true) {
+    const resolved = isValidTheme(id) ? id : defaultTheme.id;
+    document.documentElement.setAttribute("data-rdk-theme", resolved);
+    if (persist) storeTheme(resolved);
+    syncSelects(resolved);
+    if (document.readyState !== "loading") { syncTokenValues(); syncThemeContext(resolved); }
+    document.dispatchEvent(new CustomEvent("rdk-theme-change", { detail: { id: resolved } }));
+    return resolved;
+  }
+  function populateThemeSelect(select) {
+    select.replaceChildren(...themes.map((theme) => {
+      const option = document.createElement("option");
+      option.value = theme.id;
+      option.textContent = theme.label;
+      return option;
+    }));
+    select.value = themes.some((theme) => theme.id === document.documentElement.getAttribute("data-rdk-theme"))
+      ? document.documentElement.getAttribute("data-rdk-theme") : defaultTheme.id;
+    select.addEventListener("change", () => {
+      const id = applyTheme(select.value);
+      const theme = publicThemes.find((item) => item.id === id);
+      if (document.body?.hasAttribute("data-rdk-archive-page") && theme) location.assign(routeUrl(""));
+      else if (document.body?.hasAttribute("data-rdk-theme-page") && theme?.docsRoute) location.assign(routeUrl(theme.docsRoute));
+      else if (document.body?.hasAttribute("data-rdk-native-showcase") && theme?.nativeShowcase) location.assign(routeUrl(theme.nativeShowcase));
+    });
+  }
+  const stored = getStoredTheme();
+  if (stored && !isValidTheme(stored)) clearStoredTheme();
+  applyTheme(config.forcedTheme || stored || defaultTheme.id, Boolean(config.forcedTheme) && !forcedArchived);
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach(populateThemeSelect);
+    syncTokenValues();
+    syncThemeContext(document.documentElement.getAttribute("data-rdk-theme"));
+    if (document.querySelector("[data-site-version]")) {
+      fetch(routeUrl("site-meta.json"))
+        .then((response) => {
+          if (!response.ok) throw new Error("Site metadata unavailable");
+          return response.json();
+        })
+        .then(({ version }) => {
+          document.querySelectorAll("[data-site-version]").forEach((node) => {
+            node.textContent = version;
+          });
+        })
+        .catch((error) => console.error(error));
+    }
+    if (document.body?.hasAttribute("data-rdk-showcase-landing")) {
+      const theme = publicThemes.find((item) => item.id === document.documentElement.getAttribute("data-rdk-theme"));
+      if (theme?.nativeShowcase) location.replace(routeUrl(theme.nativeShowcase));
+    }
+  }, { once: true });
+  window.RDKTheme = Object.freeze({
+    getThemeRegistry, getDefaultTheme, isValidTheme, getStoredTheme,
+    applyTheme, storeTheme, populateThemeSelect
+  });
+})();
+
+</script>  <link rel="stylesheet" crossorigin href="../../assets/app-BSYqXKSo.css">
+  <link rel="stylesheet" crossorigin href="../../assets/showcase-CqT6wJ4w.css">
+</head>
+  <body data-rdk-native-showcase>
+    <div class="dh-review">
+      <nav class="dh-doc-nav" aria-label="Documentation"><a href="../../">Overview</a><a href="../../installation/">Installation</a><a href="../../support/">Support Matrix</a><a href="../../reference/themes/dark-horse/">Dark Horse</a><label for="dh-theme-select">Theme <select id="dh-theme-select" class="rdk-select" data-rdk-theme-select><option value="czarek-os">Czarek OS</option><option value="terminal-os">Terminal OS</option><option value="dark-horse">Dark Horse</option></select></label></nav>
+      <header class="dh-review-header">
+        <div class="dh-review-brand"><span class="dh-eyebrow">RDK / Operational interface</span><strong>Dark Horse</strong><p>Dark operational UI for control, monitoring and focused utility interfaces.</p></div>
+        <div class="dh-review-status"><span class="dh-alpha">Alpha</span><span class="dh-release">RDK <span data-site-version></span></span><span class="rdk-badge rdk-badge-neutral px-2 py-1 text-xs">ALPHA</span></div>
+      </header>
+      <nav class="dh-mode-bar" aria-label="Showcase views">
+        <span class="dh-mode-caption">Views</span>
+        <button type="button" class="rdk-btn dh-mode-button" data-shell-target="window" aria-pressed="true">Control Window</button>
+        <button type="button" class="rdk-btn dh-mode-button" data-shell-target="panel" aria-pressed="false">Control Panel</button>
+        <button type="button" class="rdk-btn dh-mode-button" data-shell-target="workspace" aria-pressed="false">Workspace</button>
+        <button type="button" class="rdk-btn dh-mode-button" data-shell-target="components" aria-pressed="false">Operational Components</button>
+      </nav>
+
+      <main>
+        <section data-shell-mode="window" aria-labelledby="window-title">
+          <div class="dh-window-stage">
+            <article id="control-window" class="rdk-dark-horse-window" aria-label="Display Control utility">
+              <header>
+                <div class="dh-window-title"><span class="dh-eyebrow">Focused utility</span><h1 id="window-title">Display Control</h1></div>
+                <span class="rdk-badge rdk-dark-horse-micro-status" data-state="success">Online</span>
+              </header>
+              <div class="dh-window-body">
+                <div class="dh-host-line"><div class="rdk-dark-horse-status" data-state="success"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Host status</span><strong class="rdk-dark-horse-status-value">Online</strong></div><span class="dh-mono">STATION-04 / LOCAL</span></div>
+
+                <section class="dh-control-block" aria-labelledby="display-heading">
+                  <div class="dh-block-head"><h2 id="display-heading">Display</h2><span>Choose one output</span></div>
+                  <div class="dh-display-options" role="group" aria-label="Available displays">
+                    <button type="button" id="window-device-desk" class="rdk-card rdk-card-interactive rdk-dark-horse-device-tile dh-display-choice" data-device-tile data-device-group="window" data-device-name="Desk Monitor" data-device-resolution="2560 x 1440" aria-pressed="true">
+                      <span class="rdk-dark-horse-device-tile-copy"><strong class="rdk-dark-horse-device-tile-name">Desk Monitor</strong><span class="rdk-dark-horse-device-tile-meta">Display 1 · 2560 × 1440</span></span><span class="rdk-dark-horse-device-tile-state"><span class="rdk-dark-horse-device-tile-marker" aria-hidden="true">✓</span><span data-device-state-label>Selected</span></span>
+                    </button>
+                    <button type="button" id="window-device-studio" class="rdk-card rdk-card-interactive rdk-dark-horse-device-tile dh-display-choice" data-device-tile data-device-group="window" data-device-name="Studio Panel" data-device-resolution="3840 x 2160" aria-pressed="false">
+                      <span class="rdk-dark-horse-device-tile-copy"><strong class="rdk-dark-horse-device-tile-name">Studio Panel</strong><span class="rdk-dark-horse-device-tile-meta">Display 2 · 3840 × 2160</span></span><span class="rdk-dark-horse-device-tile-state"><span class="rdk-dark-horse-device-tile-marker" aria-hidden="true">✓</span><span data-device-state-label>Available</span></span>
+                    </button>
+                  </div>
+                  <div id="window-output-instrument" class="rdk-dark-horse-instrument rdk-dark-horse-instrument--compact" data-variant="accent" role="group" aria-label="Selected output readout">
+                  <div class="rdk-dark-horse-instrument-header"><span class="rdk-dark-horse-instrument-title">Active output</span><span class="rdk-dark-horse-instrument-mark" aria-hidden="true"></span></div>
+                  <div class="rdk-dark-horse-instrument-readings"><div class="rdk-dark-horse-instrument-channel">
+                    <span class="rdk-dark-horse-instrument-label">Resolution</span>
+                    <span class="rdk-dark-horse-instrument-value-line"><strong id="window-instrument-value" class="rdk-dark-horse-instrument-value">2560 x 1440</strong><span class="rdk-dark-horse-instrument-unit">px</span></span>
+                    <span class="rdk-dark-horse-instrument-meta"><span id="current-display">Desk Monitor</span> / <span id="window-instrument-refresh">60 Hz</span></span>
+                  </div></div>
+                </div>
+                </section>
+
+                <label class="dh-field" for="refresh-rate"><span class="dh-label">Refresh rate</span><select id="refresh-rate" class="rdk-select"><option value="60 Hz">60 Hz</option><option value="120 Hz">120 Hz</option><option value="144 Hz">144 Hz</option></select></label>
+                <label class="dh-toggle-row" for="hdr-toggle"><span>HDR<small>High dynamic range</small></span><input id="hdr-toggle" type="checkbox" role="switch" class="rdk-toggle"></label>
+
+                <div class="dh-window-actions"><button id="apply-display" type="button" class="rdk-btn rdk-btn-primary">Apply</button><span class="dh-local-note">Changes stay in this local preview.</span></div>
+                <p id="apply-result" class="dh-apply-result" role="status" aria-live="polite">No local changes applied.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section data-shell-mode="panel" aria-labelledby="panel-title" hidden>
+          <div class="dh-panel-stage">
+            <article class="rdk-dark-horse-control-panel" aria-label="Dark Horse Control Panel">
+              <header>
+                <div class="dh-panel-title"><span class="dh-eyebrow">Local controls / Station 04</span><h1 id="panel-title">Control Panel</h1><p>Related controls in one contained surface.</p></div>
+                <span class="rdk-badge rdk-dark-horse-micro-status" data-state="success">Connected</span>
+              </header>
+              <div class="dh-panel-body">
+                <div class="dh-module-grid" role="group" aria-label="Control modules">
+                  <section class="rdk-card dh-module" aria-labelledby="module-host">
+                    <div class="dh-module-top"><h2 id="module-host">Host</h2><span class="dh-mono">STATION-04</span></div>
+                    <div id="panel-host-instrument" class="rdk-dark-horse-instrument" data-variant="success" data-columns="3" role="group" aria-label="Host status and readings">
+                      <div class="rdk-dark-horse-instrument-header"><span class="rdk-dark-horse-instrument-title">Host / online</span><span class="rdk-dark-horse-instrument-mark" aria-hidden="true"></span></div>
+                      <div class="rdk-dark-horse-instrument-readings">
+                        <div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">CPU temperature</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">65</strong><span class="rdk-dark-horse-instrument-unit">C</span></span><span class="rdk-dark-horse-instrument-meta">Within range</span></div>
+                        <div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">System load</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">38</strong><span class="rdk-dark-horse-instrument-unit">%</span></span><span class="rdk-dark-horse-instrument-meta">12 cores</span></div>
+                        <div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">Fan speed</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">1240</strong><span class="rdk-dark-horse-instrument-unit">RPM</span></span><span class="rdk-dark-horse-instrument-meta">Automatic</span></div>
+                      </div>
+                    </div>
+                    </section>
+                  <section class="rdk-card dh-module" aria-labelledby="module-display">
+                    <div class="dh-module-top"><h2 id="module-display">Display</h2><span class="rdk-badge rdk-badge-neutral">2 outputs</span></div>
+                    <div class="dh-module-stack" role="group" aria-label="Display outputs">
+                      <button type="button" id="panel-device-desk" class="rdk-card rdk-card-interactive rdk-dark-horse-device-tile" data-device-tile data-device-group="panel" data-device-name="Desk Monitor" aria-pressed="true"><span class="rdk-dark-horse-device-tile-copy"><strong class="rdk-dark-horse-device-tile-name">Desk Monitor</strong><span class="rdk-dark-horse-device-tile-meta">2560 × 1440 · 144 Hz</span></span><span class="rdk-dark-horse-device-tile-state"><span class="rdk-dark-horse-device-tile-marker" aria-hidden="true">✓</span><span data-device-state-label>Selected</span></span></button>
+                      <button type="button" id="panel-device-studio" class="rdk-card rdk-card-interactive rdk-dark-horse-device-tile" data-device-tile data-device-group="panel" data-device-name="Studio Panel" aria-pressed="false"><span class="rdk-dark-horse-device-tile-copy"><strong class="rdk-dark-horse-device-tile-name">Studio Panel</strong><span class="rdk-dark-horse-device-tile-meta">3840 × 2160 · 60 Hz</span></span><span class="rdk-dark-horse-device-tile-state"><span class="rdk-dark-horse-device-tile-marker" aria-hidden="true">✓</span><span data-device-state-label>Available</span></span></button>
+                    </div>
+                    <p class="dh-current-output">Selected output: <strong id="panel-selected-output">Desk Monitor</strong></p>
+                    <div class="rdk-dark-horse-status" data-state="info"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Output</span><strong class="rdk-dark-horse-status-value">Active</strong></div>
+                  </section>
+                  <section class="rdk-card dh-module" aria-labelledby="module-audio">
+                    <div class="dh-module-top"><h2 id="module-audio">Audio</h2><span class="rdk-badge rdk-dark-horse-micro-status" data-state="neutral">Default</span></div>
+                    <article class="rdk-card rdk-dark-horse-device-tile"><span class="rdk-dark-horse-device-tile-copy"><strong class="rdk-dark-horse-device-tile-name">Studio Headphones</strong><span class="rdk-dark-horse-device-tile-meta">Stereo · USB audio</span></span><span class="rdk-dark-horse-device-tile-state">Available</span></article>
+                    <div class="rdk-dark-horse-status" data-state="success"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Audio service</span><strong class="rdk-dark-horse-status-value">Ready</strong></div>
+                  </section>
+                  <section class="rdk-card dh-module" aria-labelledby="module-session">
+                    <div class="dh-module-top"><h2 id="module-session">Session</h2><span class="rdk-badge rdk-dark-horse-micro-status" data-state="neutral">LOCAL</span></div>
+                    <div class="rdk-dark-horse-status" data-state="success"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Session</span><strong class="rdk-dark-horse-status-value">Ready</strong></div>
+                    <div class="dh-module-stack" role="list" aria-label="Recent session events">
+                      <div class="rdk-dark-horse-event-row" role="listitem"><time class="rdk-dark-horse-event-time" datetime="2026-09-30T14:33:11">14:33:11</time><span class="rdk-dark-horse-event-copy"><strong class="rdk-dark-horse-event-title">Display profile applied</strong><span class="rdk-dark-horse-event-detail">Local profile · Desk Monitor</span></span><span class="rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state" data-state="success">Applied</span></div>
+                      <div class="rdk-dark-horse-event-row" role="listitem"><time class="rdk-dark-horse-event-time" datetime="2026-09-30T14:32:08">14:32:08</time><span class="rdk-dark-horse-event-copy"><strong class="rdk-dark-horse-event-title">Host connected</strong><span class="rdk-dark-horse-event-detail">Station 04 · Local network</span></span><span class="rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state" data-state="success">Connected</span></div>
+                    </div>
+                  </section>
+                </div>
+              <p class="dh-panel-footer">Station controls, device selection, audio and recent session activity.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section data-shell-mode="workspace" aria-labelledby="workspace-heading-title" hidden>
+          <div class="dh-workspace-stage">
+            <article id="workspace-shell" class="rdk-dark-horse-workspace dh-workspace" data-nav-open="false" aria-label="Dark Horse workspace skeleton">
+              <header class="dh-workspace-topbar">
+                  <div class="dh-workspace-title"><span class="dh-eyebrow">Operational workspace</span><h1>Station 04</h1></div>
+                <button type="button" class="rdk-btn dh-workspace-mobile-toggle" id="workspace-nav-toggle" aria-expanded="false" aria-controls="workspace-nav">Menu</button>
+                <span class="rdk-badge rdk-dark-horse-micro-status" data-state="neutral">Preview</span>
+              </header>
+                <div class="dh-workspace-layout">
+                <aside class="dh-workspace-sidebar" aria-label="Workspace navigation">
+                  <p class="dh-workspace-sidebar-label">Workspace</p>
+                  <nav class="dh-workspace-nav" id="workspace-nav" aria-label="Workspace sections">
+                    <button type="button" class="rdk-nav-item" aria-current="page"><span class="rdk-nav-item-label">Overview</span></button>
+                    <button type="button" class="rdk-nav-item"><span class="rdk-nav-item-label">Devices</span></button>
+                    <button type="button" class="rdk-nav-item"><span class="rdk-nav-item-label">Preferences</span></button>
+                  </nav>
+                </aside>
+                <main class="dh-workspace-main">
+                  <div class="dh-workspace-heading"><span class="dh-eyebrow">System overview</span><h2 id="workspace-heading-title">Overview</h2><p>System health, telemetry and recent activity for Station 04.</p></div>
+                  <div class="dh-workspace-summary" role="group" aria-label="System status summary">
+                    <div class="rdk-dark-horse-status" data-state="success"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Host</span><strong class="rdk-dark-horse-status-value">Online</strong></div>
+                    <div class="rdk-dark-horse-status" data-state="info"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Network</span><strong class="rdk-dark-horse-status-value">Connected</strong></div>
+                    <div class="rdk-dark-horse-status" data-state="success"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Service</span><strong class="rdk-dark-horse-status-value">Ready</strong></div>
+                  </div>
+                  <div class="dh-workspace-content">
+                    <section class="rdk-panel dh-workspace-group" aria-labelledby="workspace-metrics-title"><h3 id="workspace-metrics-title">System metrics</h3><div id="workspace-system-instrument" class="rdk-dark-horse-instrument" data-variant="accent" data-columns="3" role="group" aria-label="System metrics instrument display">
+                      <div class="rdk-dark-horse-instrument-header"><span class="rdk-dark-horse-instrument-title">System / active</span><span class="rdk-dark-horse-instrument-mark" aria-hidden="true"></span></div>
+                      <div class="rdk-dark-horse-instrument-readings">
+                        <div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">CPU load</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">38</strong><span class="rdk-dark-horse-instrument-unit">%</span></span><span class="rdk-dark-horse-instrument-meta">12 cores</span></div>
+                        <div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">Memory</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">12.4</strong><span class="rdk-dark-horse-instrument-unit">GB</span></span><span class="rdk-dark-horse-instrument-meta">of 32 GB</span></div>
+                        <div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">System power</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">198</strong><span class="rdk-dark-horse-instrument-unit">W</span></span><span class="rdk-dark-horse-instrument-meta">System draw</span></div>
+                      </div>
+                    </div></section>
+                    <section class="rdk-panel dh-workspace-group" aria-labelledby="workspace-telemetry-title"><h3 id="workspace-telemetry-title">Telemetry</h3><div class="dh-workspace-telemetry" role="group" aria-label="Telemetry rows">
+                      <div class="rdk-dark-horse-telemetry-row"><span class="rdk-dark-horse-telemetry-label">CPU TEMP</span><span class="rdk-dark-horse-telemetry-value">65 °C</span><span class="rdk-dark-horse-telemetry-state">Normal</span></div>
+                      <div class="rdk-dark-horse-telemetry-row"><span class="rdk-dark-horse-telemetry-label">GPU LOAD</span><span class="rdk-dark-horse-telemetry-value">38 %</span><span class="rdk-dark-horse-telemetry-state">Active</span><progress class="rdk-progress rdk-dark-horse-telemetry-meter" data-accent="blue" value="38" max="100" aria-label="GPU load, 38 percent">38%</progress></div>
+                      <div class="rdk-dark-horse-telemetry-row"><span class="rdk-dark-horse-telemetry-label">FAN</span><span class="rdk-dark-horse-telemetry-value">1240 RPM</span><span class="rdk-dark-horse-telemetry-state">Automatic</span></div>
+                    </div></section>
+                    <section class="rdk-panel dh-workspace-group dh-workspace-events-group" aria-labelledby="workspace-events-title"><h3 id="workspace-events-title">Recent events</h3><div class="dh-workspace-events" role="list" aria-label="Recent system events">
+                      <div class="rdk-dark-horse-event-row" role="listitem"><time class="rdk-dark-horse-event-time" datetime="2026-09-30T14:33:11">14:33:11</time><span class="rdk-dark-horse-event-copy"><strong class="rdk-dark-horse-event-title">Display profile applied</strong><span class="rdk-dark-horse-event-detail">Desk Monitor · Local profile</span></span><span class="rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state" data-state="success">Applied</span></div>
+                      <div class="rdk-dark-horse-event-row" role="listitem"><time class="rdk-dark-horse-event-time" datetime="2026-09-30T14:32:08">14:32:08</time><span class="rdk-dark-horse-event-copy"><strong class="rdk-dark-horse-event-title">Host connected</strong><span class="rdk-dark-horse-event-detail">Station 04 · Local network</span></span><span class="rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state" data-state="success">Connected</span></div>
+                    </div></section>
+                  </div>
+                </main>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section data-shell-mode="components" aria-labelledby="lab-title" hidden>
+          <div class="dh-lab-stage">
+            <div class="dh-lab">
+              <header class="dh-lab-header"><span class="dh-eyebrow">Pattern reference / Example data</span><h1 id="lab-title">Operational Components</h1><p>Six reusable operational patterns composed from shared RDK controls.</p></header>
+              <div class="dh-lab-grid">
+                <section class="rdk-panel dh-lab-card" aria-labelledby="lab-metric-title"><h2 id="lab-metric-title">Metric</h2><div class="dh-lab-metrics" role="group" aria-label="Metric examples">
+                  <div class="rdk-dark-horse-metric"><span class="rdk-dark-horse-metric-label">CPU temperature</span><span class="rdk-dark-horse-metric-value-line"><strong class="rdk-dark-horse-metric-value">65</strong><span class="rdk-dark-horse-metric-unit">°C</span></span><span class="rdk-dark-horse-metric-meta">Within operating range</span><progress class="rdk-progress rdk-dark-horse-meter" data-accent="green" value="65" max="100" aria-label="CPU temperature scale, 65 of 100">65 of 100</progress></div>
+                  <div class="rdk-dark-horse-metric"><span class="rdk-dark-horse-metric-label">System power</span><span class="rdk-dark-horse-metric-value-line"><strong class="rdk-dark-horse-metric-value">198</strong><span class="rdk-dark-horse-metric-unit">W</span></span><span class="rdk-dark-horse-metric-meta">Workstation draw</span></div>
+                </div></section>
+                <section class="rdk-panel dh-lab-card" aria-labelledby="lab-status-title"><h2 id="lab-status-title">Status Indicator / Status Row</h2><div class="dh-lab-statuses" role="group" aria-label="Semantic status examples">
+                  <div class="rdk-dark-horse-status" data-state="success"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Host status</span><strong class="rdk-dark-horse-status-value">Online</strong></div>
+                  <div class="rdk-dark-horse-status" data-state="info"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Network</span><strong class="rdk-dark-horse-status-value">Connected</strong></div>
+                  <div class="rdk-dark-horse-status" data-state="warning"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Storage</span><strong class="rdk-dark-horse-status-value">Review capacity</strong></div>
+                  <div class="rdk-dark-horse-status" data-state="danger"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Backup service</span><strong class="rdk-dark-horse-status-value">Offline</strong></div>
+                </div><div class="dh-lab-micro-statuses" role="group" aria-label="Micro-status tag states"><span class="dh-label">Micro-status tags</span><div class="dh-lab-micro-status-strip">
+                  <span class="rdk-badge rdk-dark-horse-micro-status" data-state="neutral">Standby</span><span class="rdk-badge rdk-dark-horse-micro-status" data-state="success">Online</span><span class="rdk-badge rdk-dark-horse-micro-status" data-state="info">Connected</span><span class="rdk-badge rdk-dark-horse-micro-status" data-state="warning">Review</span><span class="rdk-badge rdk-dark-horse-micro-status" data-state="danger">Unavailable</span>
+                </div></div></section>
+                <section id="lab-signal-calibration" class="rdk-panel dh-lab-card dh-signal-calibration" aria-labelledby="lab-signal-title">
+                  <h2 id="lab-signal-title">Signal Colors / Calibration</h2>
+                  <div class="dh-signal-samples" role="group" aria-label="Active and semantic signal colors">
+                    <div class="dh-signal-sample" data-signal-role="active">
+                      <div class="rdk-dark-horse-status" data-state="active"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Active output</span><strong class="rdk-dark-horse-status-value">Selected</strong></div>
+                      <span class="rdk-badge rdk-dark-horse-micro-status" data-state="active">ACTIVE</span>
+                      <div class="dh-signal-reading"><span class="dh-label">Refresh</span><strong class="dh-signal-value" data-signal="active">144 Hz</strong></div>
+                    </div>
+                    <div class="dh-signal-sample" data-signal-role="success">
+                      <div class="rdk-dark-horse-status" data-state="success"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Host health</span><strong class="rdk-dark-horse-status-value">Online</strong></div>
+                      <span class="rdk-badge rdk-dark-horse-micro-status" data-state="success">SUCCESS</span>
+                      <div class="dh-signal-reading"><span class="dh-label">Temperature</span><strong class="dh-signal-value" data-signal="success">65 °C</strong></div>
+                    </div>
+                    <div class="dh-signal-sample" data-signal-role="info">
+                      <div class="rdk-dark-horse-status" data-state="info"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Network link</span><strong class="rdk-dark-horse-status-value">Connected</strong></div>
+                      <span class="rdk-badge rdk-dark-horse-micro-status" data-state="info">INFO</span>
+                      <div class="dh-signal-reading"><span class="dh-label">Link rate</span><strong class="dh-signal-value" data-signal="info">2.5 GbE</strong></div>
+                    </div>
+                    <div class="dh-signal-sample" data-signal-role="warning">
+                      <div class="rdk-dark-horse-status" data-state="warning"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Storage</span><strong class="rdk-dark-horse-status-value">Review</strong></div>
+                      <span class="rdk-badge rdk-dark-horse-micro-status" data-state="warning">WARNING</span>
+                      <div class="dh-signal-reading"><span class="dh-label">Capacity</span><strong class="dh-signal-value" data-signal="warning">82 %</strong></div>
+                    </div>
+                    <div class="dh-signal-sample" data-signal-role="danger">
+                      <div class="rdk-dark-horse-status" data-state="danger"><span class="rdk-dark-horse-status-mark" aria-hidden="true"></span><span class="rdk-dark-horse-status-name">Backup service</span><strong class="rdk-dark-horse-status-value">Offline</strong></div>
+                      <span class="rdk-badge rdk-dark-horse-micro-status" data-state="danger">DANGER</span>
+                      <div class="dh-signal-reading"><span class="dh-label">Last result</span><strong class="dh-signal-value" data-signal="danger">Failed</strong></div>
+                    </div>
+                  </div>
+                </section>
+                <section class="rdk-panel dh-lab-card" aria-labelledby="lab-device-title"><h2 id="lab-device-title">Device / Output Tile</h2><div class="dh-module-stack" role="group" aria-label="Select an output device">
+                  <button type="button" id="lab-device-desk" class="rdk-card rdk-card-interactive rdk-dark-horse-device-tile" data-device-tile data-device-group="lab" data-device-name="Desk Monitor" aria-pressed="true"><span class="rdk-dark-horse-device-tile-copy"><strong class="rdk-dark-horse-device-tile-name">Desk Monitor</strong><span class="rdk-dark-horse-device-tile-meta">2560 × 1440 · 144 Hz</span></span><span class="rdk-dark-horse-device-tile-state"><span class="rdk-dark-horse-device-tile-marker" aria-hidden="true">✓</span><span data-device-state-label>Selected</span></span></button>
+                  <button type="button" id="lab-device-studio" class="rdk-card rdk-card-interactive rdk-dark-horse-device-tile" data-device-tile data-device-group="lab" data-device-name="Studio Panel" aria-pressed="false"><span class="rdk-dark-horse-device-tile-copy"><strong class="rdk-dark-horse-device-tile-name">Studio Panel</strong><span class="rdk-dark-horse-device-tile-meta">3840 × 2160 · 60 Hz</span></span><span class="rdk-dark-horse-device-tile-state"><span class="rdk-dark-horse-device-tile-marker" aria-hidden="true">✓</span><span data-device-state-label>Available</span></span></button>
+                  <button type="button" id="lab-device-wall" class="rdk-card rdk-card-interactive rdk-dark-horse-device-tile" data-device-tile data-device-group="lab" data-device-name="Wall Display" aria-pressed="false" disabled><span class="rdk-dark-horse-device-tile-copy"><strong class="rdk-dark-horse-device-tile-name">Wall Display</strong><span class="rdk-dark-horse-device-tile-meta">Link unavailable · 1920 × 1080</span></span><span class="rdk-dark-horse-device-tile-state"><span class="rdk-dark-horse-device-tile-marker" aria-hidden="true">✓</span><span data-device-state-label>Unavailable</span></span></button>
+                </div><p class="dh-current-output">Selected output: <strong id="lab-selected-output">Desk Monitor</strong></p></section>
+                <section class="rdk-panel dh-lab-card" aria-labelledby="lab-telemetry-title"><h2 id="lab-telemetry-title">Telemetry Row</h2><div class="dh-lab-telemetry" role="group" aria-label="Static telemetry examples">
+                  <div class="rdk-dark-horse-telemetry-row"><span class="rdk-dark-horse-telemetry-label">CPU TEMP</span><span class="rdk-dark-horse-telemetry-value">65 °C</span><span class="rdk-dark-horse-telemetry-state">Normal</span></div>
+                  <div class="rdk-dark-horse-telemetry-row"><span class="rdk-dark-horse-telemetry-label">GPU LOAD</span><span class="rdk-dark-horse-telemetry-value">78 %</span><span class="rdk-dark-horse-telemetry-state">Active</span><progress class="rdk-progress rdk-dark-horse-telemetry-meter" data-accent="blue" value="78" max="100" aria-label="GPU load, 78 percent">78%</progress></div>
+                  <div class="rdk-dark-horse-telemetry-row"><span class="rdk-dark-horse-telemetry-label">FAN</span><span class="rdk-dark-horse-telemetry-value">1240 RPM</span><span class="rdk-dark-horse-telemetry-state">Automatic</span></div>
+                </div></section>
+                <section class="rdk-panel dh-lab-card dh-lab-instruments-card" aria-labelledby="lab-instrument-title"><h2 id="lab-instrument-title">Instrument Display / Controlled variants</h2><div class="dh-lab-instrument-grid" role="group" aria-label="Instrument Display variant examples">
+                   <div class="rdk-dark-horse-instrument" data-variant="neutral" role="group" aria-label="Neutral instrument display"><div class="rdk-dark-horse-instrument-header"><span class="rdk-dark-horse-instrument-title">Neutral / baseline</span><span class="rdk-dark-horse-instrument-mark" aria-hidden="true"></span></div><div class="rdk-dark-horse-instrument-readings"><div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">System load</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">38</strong><span class="rdk-dark-horse-instrument-unit">%</span></span><span class="rdk-dark-horse-instrument-meta">Across 12 cores</span></div></div></div>
+                   <div class="rdk-dark-horse-instrument" data-variant="accent" role="group" aria-label="Accent instrument display"><div class="rdk-dark-horse-instrument-header"><span class="rdk-dark-horse-instrument-title">Accent / selected</span><span class="rdk-dark-horse-instrument-mark" aria-hidden="true"></span></div><div class="rdk-dark-horse-instrument-readings"><div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">Refresh rate</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">144</strong><span class="rdk-dark-horse-instrument-unit">Hz</span></span><span class="rdk-dark-horse-instrument-meta">Active output</span></div></div></div>
+                   <div class="rdk-dark-horse-instrument" data-variant="success" role="group" aria-label="Success instrument display"><div class="rdk-dark-horse-instrument-header"><span class="rdk-dark-horse-instrument-title">Success / nominal</span><span class="rdk-dark-horse-instrument-mark" aria-hidden="true"></span></div><div class="rdk-dark-horse-instrument-readings"><div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">GPU temperature</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">65</strong><span class="rdk-dark-horse-instrument-unit">C</span></span><span class="rdk-dark-horse-instrument-meta">Within range</span></div></div></div>
+                   <div class="rdk-dark-horse-instrument" data-variant="warning" role="group" aria-label="Warning instrument display"><div class="rdk-dark-horse-instrument-header"><span class="rdk-dark-horse-instrument-title">Warning / review</span><span class="rdk-dark-horse-instrument-mark" aria-hidden="true"></span></div><div class="rdk-dark-horse-instrument-readings"><div class="rdk-dark-horse-instrument-channel"><span class="rdk-dark-horse-instrument-label">Storage capacity</span><span class="rdk-dark-horse-instrument-value-line"><strong class="rdk-dark-horse-instrument-value">82</strong><span class="rdk-dark-horse-instrument-unit">%</span></span><span class="rdk-dark-horse-instrument-meta">Review threshold</span></div></div></div>
+                 </div></section>
+                 <section class="rdk-panel dh-lab-card dh-lab-events-card" aria-labelledby="lab-events-title"><h2 id="lab-events-title">Event / Log Row</h2><div class="dh-lab-events" role="list" aria-label="Recent event examples">
+                  <div class="rdk-dark-horse-event-row" role="listitem"><time class="rdk-dark-horse-event-time" datetime="2026-09-30T14:32:08">14:32:08</time><span class="rdk-dark-horse-event-copy"><strong class="rdk-dark-horse-event-title">Host connected</strong><span class="rdk-dark-horse-event-detail">Station 04 · Local network</span></span><span class="rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state" data-state="success">Connected</span></div>
+                  <div class="rdk-dark-horse-event-row" role="listitem"><time class="rdk-dark-horse-event-time" datetime="2026-09-30T14:33:11">14:33:11</time><span class="rdk-dark-horse-event-copy"><strong class="rdk-dark-horse-event-title">Display profile applied</strong><span class="rdk-dark-horse-event-detail">Desk Monitor · Local profile</span></span><span class="rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state" data-state="success">Applied</span></div>
+                  <div class="rdk-dark-horse-event-row" role="listitem"><time class="rdk-dark-horse-event-time" datetime="2026-09-30T14:34:02">14:34:02</time><span class="rdk-dark-horse-event-copy"><strong class="rdk-dark-horse-event-title">Storage threshold reached</strong><span class="rdk-dark-horse-event-detail">Archive volume · Capacity review needed</span></span><span class="rdk-badge rdk-dark-horse-micro-status rdk-dark-horse-event-state" data-state="warning">Review</span></div>
+                </div></section>
+              </div>
+              <section id="lab-shared-coverage" class="rdk-panel dh-coverage" aria-labelledby="coverage-title">
+                <header class="dh-coverage-header"><span class="dh-eyebrow">Shared components / reference</span><h2 id="coverage-title">Shared Components / Reference</h2><p>Examples of shared controls for operational interfaces.</p></header>
+                <div class="dh-coverage-grid">
+                  <h3 class="dh-coverage-subhead">Form &amp; selection</h3>
+                  <div id="coverage-row-textarea-radio" class="dh-coverage-row">
+                    <section id="coverage-textarea-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-textarea-title">
+                      <h3 id="coverage-textarea-title">Textarea</h3>
+                      <label class="dh-review-field" for="coverage-textarea"><span class="rdk-label">Operator note</span><textarea id="coverage-textarea" class="rdk-textarea dh-review-textarea" rows="3" placeholder="Add a local session note."></textarea></label>
+                      <label class="dh-review-field" for="coverage-textarea-invalid"><span class="rdk-label">Required field / invalid</span><textarea id="coverage-textarea-invalid" class="rdk-textarea dh-review-textarea dh-review-textarea-small" rows="2" aria-invalid="true" aria-describedby="coverage-textarea-error" placeholder="Reference key required."></textarea></label>
+                      <p id="coverage-textarea-error" class="dh-review-error">Enter a reference key.</p>
+                      <label class="dh-review-field" for="coverage-textarea-disabled"><span class="rdk-label">Disabled / captured note</span><textarea id="coverage-textarea-disabled" class="rdk-textarea dh-review-textarea dh-review-textarea-small" rows="2" disabled>Captured from Station 04.</textarea></label>
+                    </section>
+                    <section id="coverage-radio-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-radio-title">
+                      <h3 id="coverage-radio-title">Radio</h3>
+                      <fieldset id="coverage-radio-group" class="dh-review-radio-group">
+                        <legend class="rdk-label">Startup policy</legend>
+                        <label class="dh-review-radio-option" for="coverage-radio-auto"><input id="coverage-radio-auto" class="rdk-radio" type="radio" name="coverage-startup-policy" value="auto" checked> Automatic</label>
+                        <label class="dh-review-radio-option" for="coverage-radio-manual"><input id="coverage-radio-manual" class="rdk-radio" type="radio" name="coverage-startup-policy" value="manual"> Manual</label>
+                        <label class="dh-review-radio-option" for="coverage-radio-safe"><input id="coverage-radio-safe" class="rdk-radio" type="radio" name="coverage-startup-policy" value="safe" disabled> Safe fallback / unavailable</label>
+                      </fieldset>
+                      <p class="dh-review-helper">One policy is selected; disabled options remain unavailable.</p>
+                    </section>
+                  </div>
+                  <h3 class="dh-coverage-subhead">Views &amp; disclosure</h3>
+                  <div id="coverage-row-tabs-disclosure" class="dh-coverage-row">
+                    <section id="coverage-tabs-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-tabs-title">
+                      <h3 id="coverage-tabs-title">Tabs</h3>
+                      <div id="coverage-tabs" class="rdk-tabs dh-review-tabs" role="tablist" aria-label="Station detail views">
+                        <button id="coverage-tab-overview" class="rdk-tab" type="button" role="tab" aria-selected="true" aria-controls="coverage-panel-overview" tabindex="0">Overview</button>
+                        <button id="coverage-tab-devices" class="rdk-tab" type="button" role="tab" aria-selected="false" aria-controls="coverage-panel-devices" tabindex="-1">Devices</button>
+                        <button id="coverage-tab-events" class="rdk-tab" type="button" role="tab" aria-selected="false" aria-controls="coverage-panel-events" tabindex="-1">Events</button>
+                        <button id="coverage-tab-settings" class="rdk-tab" type="button" role="tab" aria-selected="false" aria-controls="coverage-panel-settings" tabindex="-1" disabled>Settings</button>
+                      </div>
+                      <div id="coverage-panel-overview" class="dh-review-tab-panel" role="tabpanel" aria-labelledby="coverage-tab-overview" tabindex="0">Station 04 is online. Three display profiles are available.</div>
+                      <div id="coverage-panel-devices" class="dh-review-tab-panel" role="tabpanel" aria-labelledby="coverage-tab-devices" tabindex="0" hidden>Desk Monitor and Studio Panel are connected.</div>
+                      <div id="coverage-panel-events" class="dh-review-tab-panel" role="tabpanel" aria-labelledby="coverage-tab-events" tabindex="0" hidden>Last profile change completed locally.</div>
+                      <div id="coverage-panel-settings" class="dh-review-tab-panel" role="tabpanel" aria-labelledby="coverage-tab-settings" tabindex="0" hidden>Settings view is unavailable in this sample.</div>
+                    </section>
+                  </div>
+                  <h3 class="dh-coverage-subhead">Value controls &amp; readouts</h3>
+                  <div id="coverage-row-range-segments" class="dh-coverage-row">
+                    <section id="coverage-range-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-range-title">
+                      <h3 id="coverage-range-title">Range</h3>
+                      <label class="dh-review-range-row" for="coverage-range"><span class="dh-review-range-label"><span>Display brightness</span><output id="coverage-range-value" for="coverage-range">64%</output></span><input id="coverage-range" class="rdk-range dh-review-range" type="range" min="0" max="100" step="4" value="64"></label>
+                      <label class="dh-review-range-row" for="coverage-range-disabled"><span class="dh-review-range-label"><span>Remote output / disabled</span></span><input id="coverage-range-disabled" class="rdk-range dh-review-range" type="range" min="0" max="100" value="40" disabled></label>
+                    </section>
+                    <section id="coverage-segments-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-segments-title">
+                      <h3 id="coverage-segments-title">Segments / Readout</h3>
+                      <div class="dh-review-segment-readout"><span class="rdk-label">Outputs ready</span><div id="coverage-segments" class="rdk-segments" role="progressbar" aria-label="Outputs ready" aria-valuemin="0" aria-valuemax="3" aria-valuenow="2"><span data-active></span><span data-active></span><span></span></div><strong id="coverage-segment-value" class="dh-review-segment-value">2 / 3</strong></div>
+                      <p class="dh-review-helper">Segmented progress readout; it reports status and does not select a mode.</p>
+                    </section>
+                  </div>
+                  <h3 class="dh-coverage-subhead">Navigation &amp; actions</h3>
+                  <div id="coverage-row-breadcrumbs-menu" class="dh-coverage-row">
+                    <section id="coverage-breadcrumbs-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-breadcrumbs-title">
+                      <h3 id="coverage-breadcrumbs-title">Breadcrumbs</h3>
+                      <div class="dh-review-breadcrumb-wrap"><nav aria-label="Display location"><ol id="coverage-breadcrumbs" class="rdk-breadcrumbs dh-review-breadcrumbs"><li class="rdk-breadcrumb"><a href="#station-04">Station 04</a></li><li class="rdk-breadcrumb"><a href="#displays">Displays</a></li><li id="coverage-breadcrumb-current" class="rdk-breadcrumb" aria-current="page">Desk Monitor</li></ol></nav></div>
+                      <p class="dh-review-helper">Current location remains neutral; hierarchy is carried by text and position.</p>
+                    </section>
+                    <section id="coverage-menu-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-menu-title">
+                      <h3 id="coverage-menu-title">Menu</h3>
+                      <div id="coverage-menu-wrap" class="dh-review-menu-wrap">
+                        <button id="coverage-menu-trigger" class="rdk-btn dh-review-menu-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="coverage-menu">Output actions <span aria-hidden="true">&#9662;</span></button>
+                        <div id="coverage-menu" class="rdk-menu dh-review-menu" role="menu" aria-label="Output actions" hidden>
+                          <span class="rdk-menu-label">DESK MONITOR</span>
+                          <button class="rdk-menu-item" type="button" role="menuitem" tabindex="-1" data-coverage-action="details">Open details</button>
+                          <button class="rdk-menu-item" type="button" role="menuitem" tabindex="-1" data-coverage-action="restart">Restart service</button>
+                          <div class="rdk-menu-separator" role="separator"></div>
+                          <button class="rdk-menu-item" type="button" role="menuitem" tabindex="-1" disabled>Copy address / unavailable</button>
+                          <button class="rdk-menu-item" type="button" role="menuitem" tabindex="-1" data-tone="danger" data-coverage-action="disable">Disable output</button>
+                        </div>
+                      </div>
+                      <p id="coverage-menu-result" class="dh-review-menu-result" aria-live="polite">No action selected.</p>
+                    </section>
+                  </div>
+                </div>
+                <section id="coverage-specialized" class="dh-specialized-area" aria-labelledby="coverage-specialized-title">
+                  <header class="dh-specialized-header"><span class="dh-eyebrow">Specialized components and patterns</span><h3 id="coverage-specialized-title">Specialized Components / Reference</h3><p>Additional shared components and Dark Horse-specific operational patterns.</p></header>
+                  <section id="coverage-signal-system" class="dh-signal-system" aria-labelledby="coverage-signal-system-title">
+                    <h4 id="coverage-signal-system-title" class="dh-signal-system-title">Signal semantics / Dark Horse accent and operational roles</h4>
+                    <div id="coverage-signal-reference" class="dh-signal-reference" role="list" aria-label="Dark Horse signal role reference">
+                      <div class="dh-signal-role" data-signal-role="neutral" role="listitem"><span class="dh-signal-swatch" data-signal-role="neutral" aria-hidden="true"></span><strong>Neutral</strong><small>Structural / standby / inactive</small></div>
+                      <div class="dh-signal-role" data-signal-role="accent" role="listitem"><span class="dh-signal-swatch" data-signal-role="accent" aria-hidden="true"></span><strong>Accent</strong><small>Active / selected / primary emphasis</small></div>
+                      <div class="dh-signal-role" data-signal-role="success" role="listitem"><span class="dh-signal-swatch" data-signal-role="success" aria-hidden="true"></span><strong>Success</strong><small>Nominal / healthy / online</small></div>
+                      <div class="dh-signal-role" data-signal-role="info" role="listitem"><span class="dh-signal-swatch" data-signal-role="info" aria-hidden="true"></span><strong>Info</strong><small>Informational / connected</small></div>
+                      <div class="dh-signal-role" data-signal-role="warning" role="listitem"><span class="dh-signal-swatch" data-signal-role="warning" aria-hidden="true"></span><strong>Warning</strong><small>Review / caution / degraded</small></div>
+                      <div class="dh-signal-role" data-signal-role="danger" role="listitem"><span class="dh-signal-swatch" data-signal-role="danger" aria-hidden="true"></span><strong>Danger</strong><small>Error / offline / critical</small></div>
+                    </div>
+                    <h5 class="dh-signal-system-title">Refined component presentations</h5>
+                    <div id="coverage-signal-refinements" class="dh-specialized-grid">
+                      <div id="coverage-refinement-row-disclosure-lcd" class="dh-specialized-row">
+                        <section id="coverage-disclosure-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-disclosure-title">
+                          <h3 id="coverage-disclosure-title">Disclosure / Compact detail</h3>
+                          <div class="dh-review-disclosure-stack">
+                            <div><p class="dh-review-disclosure-state">Closed</p><details id="coverage-disclosure" class="rdk-disclosure dh-review-disclosure"><summary id="coverage-disclosure-summary" class="rdk-disclosure-summary">Inspection schedule</summary><div class="rdk-disclosure-body"><p>Next display inspection is due in 30 days. The current profile remains active.</p></div></details></div>
+                            <div><p class="dh-review-disclosure-state">Open</p><details id="coverage-disclosure-open" class="rdk-disclosure dh-review-disclosure" open><summary id="coverage-disclosure-open-summary" class="rdk-disclosure-summary">Inspection schedule</summary><div class="rdk-disclosure-body"><p>Next display inspection is due in 30 days. The current profile remains active.</p></div></details></div>
+                          </div>
+                        </section>
+                        <section id="coverage-lcd-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-lcd-title">
+                          <h3 id="coverage-lcd-title">LCD / Shared states and accent</h3>
+                          <div class="dh-review-lcd-stack" role="group" aria-label="Shared LCD on and off states and Dark Horse accent composition">
+                            <div id="coverage-lcd-on" class="rdk-lcd dh-review-lcd" data-state="on" role="img" aria-label="Active refresh rate, 144 hertz"><strong>144</strong><small>Hz / active</small></div>
+                            <div id="coverage-lcd-off" class="rdk-lcd dh-review-lcd" data-state="off" role="img" aria-label="Standby refresh rate, zero hertz"><strong>0</strong><small>Hz / standby</small></div>
+                            <div id="coverage-lcd-accent" class="rdk-lcd dh-review-lcd" data-state="on" data-dh-signal-role="accent" role="img" aria-label="Active output, 144 hertz"><strong>144</strong><small>Hz / ACTIVE</small></div>
+                          </div>
+                          <p class="dh-review-helper">The accent composition retains shared on/off state semantics. LCD remains a single readout, distinct from the multi-channel Instrument Display.</p>
+                        </section>
+                      </div>
+                      <div id="coverage-refinement-row-led-notice" class="dh-specialized-row">
+                        <section id="coverage-led-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-led-title">
+                          <h3 id="coverage-led-title">Status LED / Six signal roles</h3>
+                          <div id="coverage-led-list" class="dh-review-led-list" role="list" aria-label="Status LED signal examples">
+                            <div class="dh-review-led-row" role="listitem"><span id="coverage-led-neutral" class="rdk-status-led" data-state="off" aria-hidden="true"></span><strong>Neutral</strong><small>Standby</small></div>
+                            <div class="dh-review-led-row" role="listitem"><span id="coverage-led-accent" class="rdk-status-led" data-color="amber" aria-hidden="true"></span><strong>Accent</strong><small>Active</small></div>
+                            <div class="dh-review-led-row" role="listitem"><span id="coverage-led-success" class="rdk-status-led" aria-hidden="true"></span><strong>Success</strong><small>Online</small></div>
+                            <div class="dh-review-led-row" role="listitem"><span id="coverage-led-info" class="rdk-status-led" data-color="blue" aria-hidden="true"></span><strong>Info</strong><small>Connected</small></div>
+                            <div class="dh-review-led-row" role="listitem"><span id="coverage-led-warning" class="rdk-status-led" data-dh-signal-role="warning" aria-hidden="true"></span><strong>Warning</strong><small>Review due</small></div>
+                            <div class="dh-review-led-row" role="listitem"><span id="coverage-led-danger" class="rdk-status-led" data-color="red" aria-hidden="true"></span><strong>Danger</strong><small>Offline</small></div>
+                          </div>
+                          <p class="dh-review-helper">Each physical emitter has a visible text state; the local halo does not imply animation.</p>
+                        </section>
+                        <section id="coverage-notice-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-notice-title">
+                          <h3 id="coverage-notice-title">Notice / Persistent feedback</h3>
+                          <div id="coverage-notices" class="dh-review-notices">
+                            <div class="rdk-notice rdk-notice-info dh-review-notice"><strong>Information</strong><p>Link rate is 2.5 GbE.</p></div>
+                            <div class="rdk-notice rdk-notice-success dh-review-notice"><strong>Success</strong><p>Display profile is active.</p></div>
+                            <div class="rdk-notice rdk-notice-warning dh-review-notice"><strong>Warning</strong><p>Studio Panel needs inspection.</p></div>
+                            <div class="rdk-notice rdk-notice-danger dh-review-notice"><strong>Danger / error</strong><p>Wall Display is offline.</p></div>
+                            <div id="coverage-notice-accent" class="rdk-notice dh-review-notice" data-dh-signal-role="accent"><strong>Accent / active</strong><p>This profile is currently selected.</p></div>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </section>
+                  <section id="coverage-data-status" class="dh-specialized-group" aria-labelledby="coverage-data-status-title">
+                    <h4 id="coverage-data-status-title" class="dh-specialized-group-title">Data &amp; status</h4>
+                    <div id="coverage-data-grid" class="dh-specialized-grid">
+                      <section id="coverage-table-card" class="rdk-panel dh-coverage-card dh-review-table-card" aria-labelledby="coverage-table-title">
+                        <h3 id="coverage-table-title">Table / Endpoint status</h3>
+                        <div id="coverage-table-scroll" class="dh-review-table-scroll" role="region" aria-label="Endpoint status table; scroll within this region at narrow widths" tabindex="0">
+                          <table id="coverage-table" class="rdk-table dh-review-table">
+                            <caption>Display endpoints / last local check</caption>
+                            <thead><tr><th scope="col">Device</th><th scope="col">State</th><th scope="col">Address</th><th scope="col" data-align="numeric">Load</th><th scope="col">Last update</th></tr></thead>
+                            <tbody>
+                              <tr><th scope="row">Desk Monitor</th><td>Ready</td><td class="dh-review-mono">10.04.0.21</td><td data-align="numeric" class="dh-review-mono">38%</td><td>14:32:08</td></tr>
+                              <tr data-state="warning"><th scope="row">Studio Panel</th><td>Review due</td><td class="dh-review-mono">10.04.0.34</td><td data-align="numeric" class="dh-review-mono">82%</td><td>14:31:42</td></tr>
+                              <tr><th scope="row">Wall Display</th><td>Offline</td><td class="dh-review-mono">10.04.0.51</td><td data-align="numeric" class="dh-review-mono">—</td><td>13:58:11</td></tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <p class="dh-review-helper">The table keeps its shared row and column contract; narrow scrolling stays inside this labelled region.</p>
+                      </section>
+                    </div>
+                  </section>
+                  <section id="coverage-overlay-feedback" class="dh-specialized-group" aria-labelledby="coverage-overlay-feedback-title">
+                    <h4 id="coverage-overlay-feedback-title" class="dh-specialized-group-title">Overlay &amp; feedback</h4>
+                    <div id="coverage-feedback-grid" class="dh-specialized-grid">
+                      <div class="dh-specialized-row">
+                        <section id="coverage-dialog-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-dialog-title">
+                          <h3 id="coverage-dialog-title">Dialog / Profile confirmation</h3>
+                          <p class="dh-review-helper">A compact native confirmation with application-owned open/close and focus return.</p>
+                          <button id="coverage-dialog-trigger" class="rdk-btn dh-review-menu-trigger" type="button" aria-haspopup="dialog" aria-controls="coverage-dialog">Preview profile change</button>
+                          <dialog id="coverage-dialog" class="rdk-dialog dh-review-dialog" aria-labelledby="coverage-dialog-heading">
+                            <div class="rdk-dialog-header dh-review-dialog-header"><h4 id="coverage-dialog-heading">Apply display profile?</h4></div>
+                            <div class="rdk-dialog-body dh-review-dialog-body"><p>Switch Desk Monitor to the calibrated high-refresh profile?</p><span class="dh-review-dialog-context">2560 × 1440 / 144 Hz · Local profile</span></div>
+                            <div class="rdk-dialog-footer dh-review-dialog-footer"><button id="coverage-dialog-cancel" class="rdk-btn dh-review-menu-trigger" type="button">Cancel</button><button id="coverage-dialog-apply" class="rdk-btn rdk-btn-primary dh-review-menu-trigger" type="button">Apply profile</button></div>
+                          </dialog>
+                        </section>
+                        <section id="coverage-tooltip-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-tooltip-title">
+                          <h3 id="coverage-tooltip-title">Tooltip / Supporting detail</h3>
+                          <span class="dh-review-tooltip-wrap"><button id="coverage-tooltip-trigger" class="rdk-btn dh-review-menu-trigger" type="button" aria-describedby="coverage-tooltip">Reference detail</button><span id="coverage-tooltip" class="rdk-tooltip dh-review-tooltip" role="tooltip">Uses the locally assigned endpoint address. No external lookup is performed.</span></span>
+                          <p class="dh-review-helper">Supplementary only; the output address is also shown in the Table above.</p>
+                        </section>
+                      </div>
+                      <div class="dh-specialized-row">
+                        <section id="coverage-toast-card" class="rdk-panel dh-coverage-card" aria-labelledby="coverage-toast-title">
+                          <h3 id="coverage-toast-title">Toast / Transient feedback</h3>
+                          <div class="dh-review-toast-actions"><p class="dh-review-helper">Application code creates and removes the local stack; CSS sets no timer.</p><button id="coverage-toast-toggle" class="rdk-btn dh-review-menu-trigger" type="button" aria-controls="coverage-toast-host" aria-expanded="false">Preview stack</button></div>
+                          <div id="coverage-toast-host" class="dh-review-toast-host" aria-live="polite" aria-atomic="false" hidden>
+                            <div id="coverage-toast-success" class="rdk-toast rdk-toast-success" role="status"><div><strong>Display profile applied</strong><p>Desk Monitor is running at 144 Hz.</p></div></div>
+                            <div id="coverage-toast-warning" class="rdk-toast rdk-toast-warning" role="status"><div><strong>Inspection due</strong><p>Studio Panel should be reviewed.</p></div></div>
+                            <div id="coverage-toast-danger" class="rdk-toast rdk-toast-danger" role="alert"><div><strong>Connection lost</strong><p>Wall Display is unavailable.</p></div></div>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </section>
+                </section>
+              </section>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      const shellButtons = [...document.querySelectorAll('[data-shell-target]')];
+      const shellModes = [...document.querySelectorAll('[data-shell-mode]')];
+      for (const button of shellButtons) {
+        button.addEventListener('click', () => {
+          const target = button.dataset.shellTarget;
+          for (const candidate of shellButtons) candidate.setAttribute('aria-pressed', String(candidate === button));
+          for (const mode of shellModes) mode.hidden = mode.dataset.shellMode !== target;
+        });
+      }
+      const choices = [...document.querySelectorAll('[data-device-tile]')];
+      const currentDisplay = document.querySelector('#current-display');
+      for (const choice of choices) {
+        choice.addEventListener('click', () => {
+          const group = choice.dataset.deviceGroup;
+          for (const candidate of choices.filter(item => item.dataset.deviceGroup === group)) {
+            const selected = candidate === choice;
+            candidate.setAttribute('aria-pressed', String(selected));
+            candidate.querySelector('[data-device-state-label]').textContent = selected ? 'Selected' : 'Available';
+          }
+          if (group === 'window') {
+            currentDisplay.textContent = choice.dataset.deviceName;
+            document.querySelector('#window-instrument-value').textContent = choice.dataset.deviceResolution;
+            document.querySelector('#window-instrument-refresh').textContent = document.querySelector('#refresh-rate').value;
+          }
+          if (group === 'lab') document.querySelector('#lab-selected-output').textContent = choice.dataset.deviceName;
+          if (group === 'panel') document.querySelector('#panel-selected-output').textContent = choice.dataset.deviceName;
+        });
+      }
+      document.querySelector('#refresh-rate').addEventListener('change', event => {
+         document.querySelector('#window-instrument-refresh').textContent = event.target.value;
+       });
+       document.querySelector('#apply-display').addEventListener('click', () => {
+        const display = currentDisplay.textContent;
+        const refresh = document.querySelector('#refresh-rate').value;
+        const hdr = document.querySelector('#hdr-toggle').checked ? 'HDR on' : 'HDR off';
+        document.querySelector('#apply-result').textContent = `Preview updated locally: ${display}, ${refresh}, ${hdr}.`;
+      });
+      const workspace = document.querySelector('#workspace-shell');
+      const workspaceNavToggle = document.querySelector('#workspace-nav-toggle');
+      workspaceNavToggle.addEventListener('click', () => {
+        const expanded = workspaceNavToggle.getAttribute('aria-expanded') !== 'true';
+        workspaceNavToggle.setAttribute('aria-expanded', String(expanded));
+        workspace.dataset.navOpen = String(expanded);
+      });
+      for (const item of document.querySelectorAll('#workspace-nav .rdk-nav-item')) {
+        item.addEventListener('click', () => {
+          for (const candidate of document.querySelectorAll('#workspace-nav .rdk-nav-item')) {
+            candidate.removeAttribute('aria-current');
+          }
+          item.setAttribute('aria-current', 'page');
+          document.querySelector('#workspace-heading-title').textContent = item.textContent.trim();
+        });
+      }
+
+      // Application behavior for the shared Tabs primitive.
+      const coverageTabs = [...document.querySelectorAll('#coverage-tabs [role="tab"]')];
+      function activateCoverageTab(tab, moveFocus = true) {
+        if (!tab || tab.disabled) return;
+        for (const candidate of coverageTabs) {
+          const selected = candidate === tab;
+          candidate.setAttribute('aria-selected', String(selected));
+          candidate.tabIndex = selected ? 0 : -1;
+          document.getElementById(candidate.getAttribute('aria-controls')).hidden = !selected;
+        }
+        if (moveFocus) tab.focus();
+      }
+      for (const tab of coverageTabs) {
+        tab.addEventListener('click', () => activateCoverageTab(tab, false));
+        tab.addEventListener('keydown', event => {
+          const available = coverageTabs.filter(candidate => !candidate.disabled);
+          const index = available.indexOf(tab);
+          let nextIndex = null;
+          if (event.key === 'ArrowRight') nextIndex = (index + 1) % available.length;
+          if (event.key === 'ArrowLeft') nextIndex = (index - 1 + available.length) % available.length;
+          if (event.key === 'Home') nextIndex = 0;
+          if (event.key === 'End') nextIndex = available.length - 1;
+          if (nextIndex !== null) {
+            event.preventDefault();
+            activateCoverageTab(available[nextIndex]);
+          }
+        });
+      }
+
+      const coverageRange = document.querySelector('#coverage-range');
+      coverageRange.addEventListener('input', () => {
+        document.querySelector('#coverage-range-value').value = `${coverageRange.value}%`;
+      });
+
+      // The menu primitive supplies appearance; this local preview supplies behavior.
+      const coverageMenuWrap = document.querySelector('#coverage-menu-wrap');
+      const coverageMenuTrigger = document.querySelector('#coverage-menu-trigger');
+      const coverageMenu = document.querySelector('#coverage-menu');
+      const coverageMenuItems = () => [...coverageMenu.querySelectorAll('[role="menuitem"]:not(:disabled):not([aria-disabled="true"])')];
+      function focusCoverageMenuItem(item) {
+        for (const candidate of coverageMenuItems()) candidate.tabIndex = candidate === item ? 0 : -1;
+        item?.focus();
+      }
+      function openCoverageMenu(edge = 'first') {
+        coverageMenu.hidden = false;
+        coverageMenuTrigger.setAttribute('aria-expanded', 'true');
+        coverageMenu.removeAttribute('data-position');
+        const triggerBox = coverageMenuTrigger.getBoundingClientRect();
+        const menuHeight = coverageMenu.getBoundingClientRect().height;
+        const gap = 8;
+        if (window.innerHeight - triggerBox.bottom < menuHeight + gap && triggerBox.top >= menuHeight + gap) {
+          coverageMenu.setAttribute('data-position', 'above');
+        }
+        const items = coverageMenuItems();
+        focusCoverageMenuItem(edge === 'last' ? items.at(-1) : items[0]);
+      }
+      function closeCoverageMenu(returnFocus = false) {
+        coverageMenu.hidden = true;
+        coverageMenuTrigger.setAttribute('aria-expanded', 'false');
+        for (const item of coverageMenuItems()) item.tabIndex = -1;
+        if (returnFocus) coverageMenuTrigger.focus();
+      }
+      coverageMenuTrigger.addEventListener('click', () => {
+        if (coverageMenu.hidden) openCoverageMenu();
+        else closeCoverageMenu();
+      });
+      coverageMenuTrigger.addEventListener('keydown', event => {
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          openCoverageMenu(event.key === 'ArrowUp' ? 'last' : 'first');
+        }
+      });
+      coverageMenu.addEventListener('keydown', event => {
+        const items = coverageMenuItems();
+        const index = items.indexOf(document.activeElement);
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          const direction = event.key === 'ArrowDown' ? 1 : -1;
+          focusCoverageMenuItem(items[(index + direction + items.length) % items.length]);
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          focusCoverageMenuItem(items[0]);
+        } else if (event.key === 'End') {
+          event.preventDefault();
+          focusCoverageMenuItem(items.at(-1));
+        } else if (event.key === 'Escape') {
+          event.preventDefault();
+          closeCoverageMenu(true);
+        } else if (event.key === 'Tab') {
+          event.preventDefault();
+          closeCoverageMenu(true);
+        }
+      });
+      document.addEventListener('pointerdown', event => {
+        if (!coverageMenu.hidden && !coverageMenuWrap.contains(event.target)) closeCoverageMenu();
+      });
+      for (const item of coverageMenuItems()) {
+        item.addEventListener('click', () => {
+          document.querySelector('#coverage-menu-result').textContent = `Preview action: ${item.textContent.trim()}.`;
+          closeCoverageMenu(true);
+        });
+      }
+
+      // The native dialog supplies modal semantics and Escape; this preview owns focus return.
+      const coverageDialog = document.querySelector('#coverage-dialog');
+      const coverageDialogTrigger = document.querySelector('#coverage-dialog-trigger');
+      const coverageDialogCancel = document.querySelector('#coverage-dialog-cancel');
+      coverageDialogTrigger.addEventListener('click', () => {
+        coverageDialog.showModal();
+        coverageDialogCancel.focus();
+      });
+      coverageDialog.addEventListener('close', () => coverageDialogTrigger.focus());
+      for (const button of coverageDialog.querySelectorAll('button')) {
+        button.addEventListener('click', () => coverageDialog.close());
+      }
+
+      // This example controls visibility; RDK does not set a timer or queue.
+      const coverageToastToggle = document.querySelector('#coverage-toast-toggle');
+      const coverageToastHost = document.querySelector('#coverage-toast-host');
+      coverageToastToggle.addEventListener('click', () => {
+        const open = coverageToastHost.hidden;
+        coverageToastHost.hidden = !open;
+        coverageToastToggle.setAttribute('aria-expanded', String(open));
+        coverageToastToggle.textContent = open ? 'Hide stack' : 'Preview stack';
+      });
+    </script>
+  </body>
+</html>

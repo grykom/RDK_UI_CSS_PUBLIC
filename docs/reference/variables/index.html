@@ -1,0 +1,116 @@
+<!doctype html><html lang="en" data-rdk-theme="czarek-os"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#303737"><title>CSS variables — RDK Retro UI</title><meta name="description" content="CSS variables in the RDK Retro UI documentation"><script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"czarek-os","label":"Czarek OS","status":"alpha","default":true,"public":true,"source":"src/themes/czarek-os.css","docsRoute":"reference/themes/czarek-os/","nativeShowcase":"showcase/czarek-os/","description":"Slate-led, content-first bakery workspace with compact editable controls, semantic status colors, and calm density.","lifecycle":"active","role":"universal / content / productivity"},{"id":"terminal-os","label":"Terminal OS","status":"alpha","default":false,"public":true,"source":"src/themes/terminal-os.css","docsRoute":"reference/themes/terminal-os/","nativeShowcase":"showcase/terminal-os/","description":"Compact neutral-black terminal interface with graphite surfaces. Green signals prompts, success and actions.","lifecycle":"active","role":"compact / mobile / terminal-inspired"},{"id":"console-94","label":"Console 94","status":"stable","default":false,"public":true,"source":"src/themes/console-94.css","docsRoute":"archive/console-94/","nativeShowcase":"showcase/console-94/","description":"Warm equipment surfaces, IBM Plex typography, subtle bevels and LCD readouts.","lifecycle":"archived","role":"legacy / historical RDK theme"},{"id":"dark-horse","label":"Dark Horse","status":"alpha","lifecycle":"active","role":"control / monitoring / operational interfaces","default":false,"public":true,"source":"src/themes/dark-horse.css","docsRoute":"reference/themes/dark-horse/","nativeShowcase":"showcase/dark-horse/","description":"A dark operational UI theme for control surfaces, monitoring, dashboards and focused utility applications."}],"basePath":"../../","forcedTheme":""}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
+(function () {
+  "use strict";
+  const configNode = document.getElementById("rdk-theme-config");
+  if (!configNode) throw new Error("RDK theme configuration is missing");
+  const config = JSON.parse(configNode.textContent);
+  const publicThemes = config.themes.filter((theme) => theme.public && theme.lifecycle === "active" && ["stable", "alpha"].includes(theme.status));
+  const forcedArchived = config.themes.find((theme) => theme.public && theme.lifecycle === "archived" && theme.id === config.forcedTheme);
+  const testTheme = window.__RDK_THEME_TEST__;
+  const themes = testTheme && testTheme.status === "fixture" && testTheme.public === false
+    ? [...publicThemes, testTheme] : publicThemes;
+  const defaultTheme = publicThemes.find((theme) => theme.default);
+  if (!defaultTheme) throw new Error("RDK default theme is missing");
+  const storageKey = config.storageKey;
+  const isValidTheme = (id) => themes.some((theme) => theme.id === id) || forcedArchived?.id === id;
+  const getThemeRegistry = () => themes.map((theme) => ({ ...theme }));
+  const getDefaultTheme = () => ({ ...defaultTheme });
+  function getStoredTheme() {
+    try { return localStorage.getItem(storageKey); }
+    catch { return null; }
+  }
+  function storeTheme(id) {
+    try { localStorage.setItem(storageKey, id); } catch { /* storage may be blocked */ }
+  }
+  function clearStoredTheme() {
+    try { localStorage.removeItem(storageKey); } catch { /* storage may be blocked */ }
+  }
+  function syncSelects(id) {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach((select) => { select.value = themes.some((theme) => theme.id === id) ? id : defaultTheme.id; });
+  }
+  function syncTokenValues() {
+    const style = getComputedStyle(document.documentElement);
+    document.querySelectorAll("[data-theme-token]").forEach((node) => {
+      node.textContent = style.getPropertyValue(node.dataset.themeToken).trim() || "—";
+    });
+  }
+  function routeUrl(route) {
+    return new URL(config.basePath + route, location.href).href;
+  }
+  function syncThemeContext(id) {
+    document.querySelectorAll("[data-rdk-theme-context]").forEach((node) => {
+      node.hidden = node.dataset.rdkThemeContext !== id;
+    });
+    document.querySelectorAll("[data-rdk-theme-support-list]").forEach((list) => {
+      const active = [...list.children].find((item) => item.dataset.theme === id);
+      if (active) list.prepend(active);
+      [...list.children].forEach((item) => {
+        if (item.dataset.theme) item.dataset.activeTheme = String(item === active);
+      });
+    });
+    document.querySelectorAll("[data-rdk-active-theme-label]").forEach((node) => {
+      node.textContent = themes.find((theme) => theme.id === id)?.label || id;
+    });
+  }
+  function applyTheme(id, persist = true) {
+    const resolved = isValidTheme(id) ? id : defaultTheme.id;
+    document.documentElement.setAttribute("data-rdk-theme", resolved);
+    if (persist) storeTheme(resolved);
+    syncSelects(resolved);
+    if (document.readyState !== "loading") { syncTokenValues(); syncThemeContext(resolved); }
+    document.dispatchEvent(new CustomEvent("rdk-theme-change", { detail: { id: resolved } }));
+    return resolved;
+  }
+  function populateThemeSelect(select) {
+    select.replaceChildren(...themes.map((theme) => {
+      const option = document.createElement("option");
+      option.value = theme.id;
+      option.textContent = theme.label;
+      return option;
+    }));
+    select.value = themes.some((theme) => theme.id === document.documentElement.getAttribute("data-rdk-theme"))
+      ? document.documentElement.getAttribute("data-rdk-theme") : defaultTheme.id;
+    select.addEventListener("change", () => {
+      const id = applyTheme(select.value);
+      const theme = publicThemes.find((item) => item.id === id);
+      if (document.body?.hasAttribute("data-rdk-archive-page") && theme) location.assign(routeUrl(""));
+      else if (document.body?.hasAttribute("data-rdk-theme-page") && theme?.docsRoute) location.assign(routeUrl(theme.docsRoute));
+      else if (document.body?.hasAttribute("data-rdk-native-showcase") && theme?.nativeShowcase) location.assign(routeUrl(theme.nativeShowcase));
+    });
+  }
+  const stored = getStoredTheme();
+  if (stored && !isValidTheme(stored)) clearStoredTheme();
+  applyTheme(config.forcedTheme || stored || defaultTheme.id, Boolean(config.forcedTheme) && !forcedArchived);
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach(populateThemeSelect);
+    syncTokenValues();
+    syncThemeContext(document.documentElement.getAttribute("data-rdk-theme"));
+    if (document.querySelector("[data-site-version]")) {
+      fetch(routeUrl("site-meta.json"))
+        .then((response) => {
+          if (!response.ok) throw new Error("Site metadata unavailable");
+          return response.json();
+        })
+        .then(({ version }) => {
+          document.querySelectorAll("[data-site-version]").forEach((node) => {
+            node.textContent = version;
+          });
+        })
+        .catch((error) => console.error(error));
+    }
+    if (document.body?.hasAttribute("data-rdk-showcase-landing")) {
+      const theme = publicThemes.find((item) => item.id === document.documentElement.getAttribute("data-rdk-theme"));
+      if (theme?.nativeShowcase) location.replace(routeUrl(theme.nativeShowcase));
+    }
+  }, { once: true });
+  window.RDKTheme = Object.freeze({
+    getThemeRegistry, getDefaultTheme, isValidTheme, getStoredTheme,
+    applyTheme, storeTheme, populateThemeSelect
+  });
+})();
+
+</script><link rel="icon" type="image/svg+xml" href="../../assets/favicon-JmUTfrMJ.svg">  <script type="module" crossorigin src="../../assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="../../assets/main-D7Z9A8PG.js"></script>
+  <script type="module" crossorigin src="../../assets/phase3-Djk6Hn-P.js"></script>
+  <link rel="stylesheet" crossorigin href="../../assets/app-BSYqXKSo.css">
+</head><body class="docs-body"><div class="docs-shell docs-public-shell min-h-screen lg:grid lg:grid-cols-[16rem_minmax(0,1fr)]"><aside class="docs-sidebar p-5 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto lg:p-7" aria-label="Documentation navigation"><a class="docs-wordmark block" href="../../">RDK<span> / </span>RETRO UI</a><div class="docs-theme-control"><label class="rdk-label" for="docs-theme-select">Theme</label><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="czarek-os">Czarek OS</option><option value="terminal-os">Terminal OS</option><option value="dark-horse">Dark Horse</option></select></div><div class="rdk-vent mt-5 h-4 w-24" aria-hidden="true"></div><p class="docs-shell-caption mt-6 text-xs leading-5">Visual CSS for interfaces built with Tailwind.</p><nav class="mt-7 grid gap-6 text-sm" aria-label="Documentation"><a href="../../" class="docs-nav-head">Overview</a><a href="../../installation/" class="docs-nav-head">Installation</a><a href="../../showcase/czarek-os/" class="docs-nav-head" data-rdk-demo-link>Demo</a><a href="../../colors/" class="docs-nav-head">Colors</a><a href="../../components/" class="docs-nav-head">Components</a><a href="../../patterns/" class="docs-nav-head">Patterns</a><a href="../../css-classes/" class="docs-nav-head">CSS Classes</a></nav></aside><main id="top" class="docs-main mx-auto w-full max-w-[83rem] px-5 pb-20 pt-6 sm:px-9 lg:px-12 lg:pt-10" data-doc-route="reference/variables/"><div class="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-[#aaa99f] pb-4"><span class="docs-eyebrow">RDK / Reference</span><span class="docs-meta">RDK-UI // <span data-site-version></span></span></div><header><span class="docs-eyebrow">Reference / Themes</span><h1 class="docs-heading mt-3">Token contract</h1><p class="docs-copy mt-4 max-w-3xl">Required tokens come from the formal theme contract. Values reflect the selected theme. <code>--_rdk-*</code> tokens are required for theme authors but are not part of the public application API.</p></header><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">01 / THEME CONTRACT</div><h2 class="docs-section-title mt-5">Surfaces</h2><div class="mt-5 overflow-x-auto"><table class="rdk-table min-w-[38rem] w-full text-sm"><thead><tr><th scope="col">Token</th><th scope="col">Role</th><th scope="col">Active theme value</th></tr></thead><tbody><tr><th scope="row"><code>--rdk-case</code></th><td>Surfaces</td><td><output data-theme-token="--rdk-case">#f5f6f8</output></td></tr><tr><th scope="row"><code>--rdk-surface</code></th><td>Surfaces</td><td><output data-theme-token="--rdk-surface">#fff</output></td></tr><tr><th scope="row"><code>--rdk-surface-raised</code></th><td>Surfaces</td><td><output data-theme-token="--rdk-surface-raised">#fff</output></td></tr><tr><th scope="row"><code>--rdk-surface-recessed</code></th><td>Surfaces</td><td><output data-theme-token="--rdk-surface-recessed">#f1f5f9</output></td></tr><tr><th scope="row"><code>--rdk-structure</code></th><td>Surfaces</td><td><output data-theme-token="--rdk-structure">#202b3d</output></td></tr><tr><th scope="row"><code>--rdk-field</code></th><td>Surfaces</td><td><output data-theme-token="--rdk-field">#fff</output></td></tr></tbody></table></div></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">02 / THEME CONTRACT</div><h2 class="docs-section-title mt-5">Text</h2><div class="mt-5 overflow-x-auto"><table class="rdk-table min-w-[38rem] w-full text-sm"><thead><tr><th scope="col">Token</th><th scope="col">Role</th><th scope="col">Active theme value</th></tr></thead><tbody><tr><th scope="row"><code>--rdk-text</code></th><td>Text</td><td><output data-theme-token="--rdk-text">#1c2128</output></td></tr><tr><th scope="row"><code>--rdk-text-muted</code></th><td>Text</td><td><output data-theme-token="--rdk-text-muted">#5f6875</output></td></tr><tr><th scope="row"><code>--rdk-placeholder</code></th><td>Text</td><td><output data-theme-token="--rdk-placeholder">#717c88</output></td></tr></tbody></table></div></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">03 / THEME CONTRACT</div><h2 class="docs-section-title mt-5">Borders and focus</h2><div class="mt-5 overflow-x-auto"><table class="rdk-table min-w-[38rem] w-full text-sm"><thead><tr><th scope="col">Token</th><th scope="col">Role</th><th scope="col">Active theme value</th></tr></thead><tbody><tr><th scope="row"><code>--rdk-border</code></th><td>Borders and focus</td><td><output data-theme-token="--rdk-border">#d4d8de</output></td></tr><tr><th scope="row"><code>--rdk-border-dark</code></th><td>Borders and focus</td><td><output data-theme-token="--rdk-border-dark">#aeb5be</output></td></tr><tr><th scope="row"><code>--rdk-highlight</code></th><td>Borders and focus</td><td><output data-theme-token="--rdk-highlight">#e2e8f0</output></td></tr><tr><th scope="row"><code>--rdk-shadow</code></th><td>Borders and focus</td><td><output data-theme-token="--rdk-shadow">#bdc6d1</output></td></tr><tr><th scope="row"><code>--rdk-focus</code></th><td>Borders and focus</td><td><output data-theme-token="--rdk-focus">#475569</output></td></tr></tbody></table></div></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">04 / THEME CONTRACT</div><h2 class="docs-section-title mt-5">Accents</h2><div class="mt-5 overflow-x-auto"><table class="rdk-table min-w-[38rem] w-full text-sm"><thead><tr><th scope="col">Token</th><th scope="col">Role</th><th scope="col">Active theme value</th></tr></thead><tbody><tr><th scope="row"><code>--rdk-accent-green</code></th><td>Accents</td><td><output data-theme-token="--rdk-accent-green">#047857</output></td></tr><tr><th scope="row"><code>--rdk-accent-red</code></th><td>Accents</td><td><output data-theme-token="--rdk-accent-red">#b42330</output></td></tr><tr><th scope="row"><code>--rdk-accent-blue</code></th><td>Accents</td><td><output data-theme-token="--rdk-accent-blue">#475569</output></td></tr><tr><th scope="row"><code>--rdk-accent-pink</code></th><td>Accents</td><td><output data-theme-token="--rdk-accent-pink">#805a76</output></td></tr><tr><th scope="row"><code>--rdk-accent-amber</code></th><td>Accents</td><td><output data-theme-token="--rdk-accent-amber">#b45309</output></td></tr><tr><th scope="row"><code>--rdk-accent-orange</code></th><td>Accents</td><td><output data-theme-token="--rdk-accent-orange">#c2410c</output></td></tr><tr><th scope="row"><code>--rdk-accent-violet</code></th><td>Accents</td><td><output data-theme-token="--rdk-accent-violet">#6b5b8c</output></td></tr><tr><th scope="row"><code>--rdk-accent-cyan</code></th><td>Accents</td><td><output data-theme-token="--rdk-accent-cyan">#526b79</output></td></tr></tbody></table></div></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">05 / THEME CONTRACT</div><h2 class="docs-section-title mt-5">Display</h2><div class="mt-5 overflow-x-auto"><table class="rdk-table min-w-[38rem] w-full text-sm"><thead><tr><th scope="col">Token</th><th scope="col">Role</th><th scope="col">Active theme value</th></tr></thead><tbody><tr><th scope="row"><code>--rdk-lcd</code></th><td>Display</td><td><output data-theme-token="--rdk-lcd">#f1f5f9</output></td></tr><tr><th scope="row"><code>--rdk-lcd-ink</code></th><td>Display</td><td><output data-theme-token="--rdk-lcd-ink">#334155</output></td></tr><tr><th scope="row"><code>--rdk-lcd-off</code></th><td>Display</td><td><output data-theme-token="--rdk-lcd-off">#64748b</output></td></tr><tr><th scope="row"><code>--rdk-lcd-off-surface</code></th><td>Display</td><td><output data-theme-token="--rdk-lcd-off-surface">#e2e8f0</output></td></tr><tr><th scope="row"><code>--rdk-lcd-border</code></th><td>Display</td><td><output data-theme-token="--rdk-lcd-border">#cbd5e1</output></td></tr><tr><th scope="row"><code>--rdk-lcd-border-dark</code></th><td>Display</td><td><output data-theme-token="--rdk-lcd-border-dark">#94a3b8</output></td></tr></tbody></table></div></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">06 / THEME CONTRACT</div><h2 class="docs-section-title mt-5">Radius and typography</h2><div class="mt-5 overflow-x-auto"><table class="rdk-table min-w-[38rem] w-full text-sm"><thead><tr><th scope="col">Token</th><th scope="col">Role</th><th scope="col">Active theme value</th></tr></thead><tbody><tr><th scope="row"><code>--rdk-radius</code></th><td>Radius and typography</td><td><output data-theme-token="--rdk-radius">.42rem</output></td></tr><tr><th scope="row"><code>--rdk-font-ui</code></th><td>Radius and typography</td><td><output data-theme-token="--rdk-font-ui">&quot;RDK Source Sans 3&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif</output></td></tr><tr><th scope="row"><code>--rdk-font-display</code></th><td>Radius and typography</td><td><output data-theme-token="--rdk-font-display">&quot;RDK Source Sans 3&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif</output></td></tr><tr><th scope="row"><code>--rdk-font-mono</code></th><td>Radius and typography</td><td><output data-theme-token="--rdk-font-mono">Consolas, &quot;Courier New&quot;, monospace</output></td></tr></tbody></table></div></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">07 / THEME CONTRACT</div><h2 class="docs-section-title mt-5">Internal light and shadow primitives</h2><div class="mt-5 overflow-x-auto"><table class="rdk-table min-w-[38rem] w-full text-sm"><thead><tr><th scope="col">Token</th><th scope="col">Role</th><th scope="col">Active theme value</th></tr></thead><tbody><tr><th scope="row"><code>--_rdk-glint-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-glint-rgb">255 255 255</output></td></tr><tr><th scope="row"><code>--_rdk-inset-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-inset-rgb">15 23 42</output></td></tr><tr><th scope="row"><code>--_rdk-press-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-press-rgb">15 23 42</output></td></tr><tr><th scope="row"><code>--_rdk-cast-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-cast-rgb">51 65 85</output></td></tr><tr><th scope="row"><code>--_rdk-deep-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-deep-rgb">15 23 42</output></td></tr><tr><th scope="row"><code>--_rdk-backdrop-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-backdrop-rgb">15 23 42</output></td></tr><tr><th scope="row"><code>--_rdk-plastic-shade-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-plastic-shade-rgb">51 65 85</output></td></tr><tr><th scope="row"><code>--_rdk-lcd-scan-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-lcd-scan-rgb">51 65 85</output></td></tr><tr><th scope="row"><code>--_rdk-lcd-inset-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-lcd-inset-rgb">51 65 85</output></td></tr><tr><th scope="row"><code>--_rdk-solid-press-rgb</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-solid-press-rgb">15 23 42</output></td></tr><tr><th scope="row"><code>--_rdk-accent-mix-dark</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-accent-mix-dark">#1e293b</output></td></tr><tr><th scope="row"><code>--_rdk-accent-mix-light</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-accent-mix-light">#fff</output></td></tr><tr><th scope="row"><code>--_rdk-accent-shadow</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-accent-shadow">#334155</output></td></tr><tr><th scope="row"><code>--_rdk-accent-on</code></th><td>Internal effect color</td><td><output data-theme-token="--_rdk-accent-on">#fff</output></td></tr></tbody></table></div></section><footer class="docs-rule docs-copy mt-20 flex flex-wrap justify-between gap-3 pt-5 text-xs"><span>RDK RETRO UI · <span data-site-version></span></span></footer></main></div></body></html>

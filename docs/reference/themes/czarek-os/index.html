@@ -1,0 +1,149 @@
+<!doctype html><html lang="en" data-rdk-theme="czarek-os"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#303737"><title>Czarek OS — RDK Retro UI</title><meta name="description" content="Czarek OS in the RDK Retro UI documentation"><script type="application/json" id="rdk-theme-config">{"storageKey":"rdk-theme","themes":[{"id":"czarek-os","label":"Czarek OS","status":"alpha","default":true,"public":true,"source":"src/themes/czarek-os.css","docsRoute":"reference/themes/czarek-os/","nativeShowcase":"showcase/czarek-os/","description":"Slate-led, content-first bakery workspace with compact editable controls, semantic status colors, and calm density.","lifecycle":"active","role":"universal / content / productivity"},{"id":"terminal-os","label":"Terminal OS","status":"alpha","default":false,"public":true,"source":"src/themes/terminal-os.css","docsRoute":"reference/themes/terminal-os/","nativeShowcase":"showcase/terminal-os/","description":"Compact neutral-black terminal interface with graphite surfaces. Green signals prompts, success and actions.","lifecycle":"active","role":"compact / mobile / terminal-inspired"},{"id":"console-94","label":"Console 94","status":"stable","default":false,"public":true,"source":"src/themes/console-94.css","docsRoute":"archive/console-94/","nativeShowcase":"showcase/console-94/","description":"Warm equipment surfaces, IBM Plex typography, subtle bevels and LCD readouts.","lifecycle":"archived","role":"legacy / historical RDK theme"},{"id":"dark-horse","label":"Dark Horse","status":"alpha","lifecycle":"active","role":"control / monitoring / operational interfaces","default":false,"public":true,"source":"src/themes/dark-horse.css","docsRoute":"reference/themes/dark-horse/","nativeShowcase":"showcase/dark-horse/","description":"A dark operational UI theme for control surfaces, monitoring, dashboards and focused utility applications."}],"basePath":"../../../","forcedTheme":"czarek-os"}</script><script>/* Shared, synchronous theme bootstrap for every generated documentation page. */
+(function () {
+  "use strict";
+  const configNode = document.getElementById("rdk-theme-config");
+  if (!configNode) throw new Error("RDK theme configuration is missing");
+  const config = JSON.parse(configNode.textContent);
+  const publicThemes = config.themes.filter((theme) => theme.public && theme.lifecycle === "active" && ["stable", "alpha"].includes(theme.status));
+  const forcedArchived = config.themes.find((theme) => theme.public && theme.lifecycle === "archived" && theme.id === config.forcedTheme);
+  const testTheme = window.__RDK_THEME_TEST__;
+  const themes = testTheme && testTheme.status === "fixture" && testTheme.public === false
+    ? [...publicThemes, testTheme] : publicThemes;
+  const defaultTheme = publicThemes.find((theme) => theme.default);
+  if (!defaultTheme) throw new Error("RDK default theme is missing");
+  const storageKey = config.storageKey;
+  const isValidTheme = (id) => themes.some((theme) => theme.id === id) || forcedArchived?.id === id;
+  const getThemeRegistry = () => themes.map((theme) => ({ ...theme }));
+  const getDefaultTheme = () => ({ ...defaultTheme });
+  function getStoredTheme() {
+    try { return localStorage.getItem(storageKey); }
+    catch { return null; }
+  }
+  function storeTheme(id) {
+    try { localStorage.setItem(storageKey, id); } catch { /* storage may be blocked */ }
+  }
+  function clearStoredTheme() {
+    try { localStorage.removeItem(storageKey); } catch { /* storage may be blocked */ }
+  }
+  function syncSelects(id) {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach((select) => { select.value = themes.some((theme) => theme.id === id) ? id : defaultTheme.id; });
+  }
+  function syncTokenValues() {
+    const style = getComputedStyle(document.documentElement);
+    document.querySelectorAll("[data-theme-token]").forEach((node) => {
+      node.textContent = style.getPropertyValue(node.dataset.themeToken).trim() || "—";
+    });
+  }
+  function routeUrl(route) {
+    return new URL(config.basePath + route, location.href).href;
+  }
+  function syncThemeContext(id) {
+    document.querySelectorAll("[data-rdk-theme-context]").forEach((node) => {
+      node.hidden = node.dataset.rdkThemeContext !== id;
+    });
+    document.querySelectorAll("[data-rdk-theme-support-list]").forEach((list) => {
+      const active = [...list.children].find((item) => item.dataset.theme === id);
+      if (active) list.prepend(active);
+      [...list.children].forEach((item) => {
+        if (item.dataset.theme) item.dataset.activeTheme = String(item === active);
+      });
+    });
+    document.querySelectorAll("[data-rdk-active-theme-label]").forEach((node) => {
+      node.textContent = themes.find((theme) => theme.id === id)?.label || id;
+    });
+  }
+  function applyTheme(id, persist = true) {
+    const resolved = isValidTheme(id) ? id : defaultTheme.id;
+    document.documentElement.setAttribute("data-rdk-theme", resolved);
+    if (persist) storeTheme(resolved);
+    syncSelects(resolved);
+    if (document.readyState !== "loading") { syncTokenValues(); syncThemeContext(resolved); }
+    document.dispatchEvent(new CustomEvent("rdk-theme-change", { detail: { id: resolved } }));
+    return resolved;
+  }
+  function populateThemeSelect(select) {
+    select.replaceChildren(...themes.map((theme) => {
+      const option = document.createElement("option");
+      option.value = theme.id;
+      option.textContent = theme.label;
+      return option;
+    }));
+    select.value = themes.some((theme) => theme.id === document.documentElement.getAttribute("data-rdk-theme"))
+      ? document.documentElement.getAttribute("data-rdk-theme") : defaultTheme.id;
+    select.addEventListener("change", () => {
+      const id = applyTheme(select.value);
+      const theme = publicThemes.find((item) => item.id === id);
+      if (document.body?.hasAttribute("data-rdk-archive-page") && theme) location.assign(routeUrl(""));
+      else if (document.body?.hasAttribute("data-rdk-theme-page") && theme?.docsRoute) location.assign(routeUrl(theme.docsRoute));
+      else if (document.body?.hasAttribute("data-rdk-native-showcase") && theme?.nativeShowcase) location.assign(routeUrl(theme.nativeShowcase));
+    });
+  }
+  const stored = getStoredTheme();
+  if (stored && !isValidTheme(stored)) clearStoredTheme();
+  applyTheme(config.forcedTheme || stored || defaultTheme.id, Boolean(config.forcedTheme) && !forcedArchived);
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-rdk-theme-select]").forEach(populateThemeSelect);
+    syncTokenValues();
+    syncThemeContext(document.documentElement.getAttribute("data-rdk-theme"));
+    if (document.querySelector("[data-site-version]")) {
+      fetch(routeUrl("site-meta.json"))
+        .then((response) => {
+          if (!response.ok) throw new Error("Site metadata unavailable");
+          return response.json();
+        })
+        .then(({ version }) => {
+          document.querySelectorAll("[data-site-version]").forEach((node) => {
+            node.textContent = version;
+          });
+        })
+        .catch((error) => console.error(error));
+    }
+    if (document.body?.hasAttribute("data-rdk-showcase-landing")) {
+      const theme = publicThemes.find((item) => item.id === document.documentElement.getAttribute("data-rdk-theme"));
+      if (theme?.nativeShowcase) location.replace(routeUrl(theme.nativeShowcase));
+    }
+  }, { once: true });
+  window.RDKTheme = Object.freeze({
+    getThemeRegistry, getDefaultTheme, isValidTheme, getStoredTheme,
+    applyTheme, storeTheme, populateThemeSelect
+  });
+})();
+
+</script><link rel="icon" type="image/svg+xml" href="../../../assets/favicon-JmUTfrMJ.svg">  <script type="module" crossorigin src="../../../assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="../../../assets/main-D7Z9A8PG.js"></script>
+  <script type="module" crossorigin src="../../../assets/phase3-Djk6Hn-P.js"></script>
+  <link rel="stylesheet" crossorigin href="../../../assets/app-BSYqXKSo.css">
+</head><body class="docs-body" data-rdk-theme-page><div class="docs-shell docs-public-shell min-h-screen lg:grid lg:grid-cols-[16rem_minmax(0,1fr)]"><aside class="docs-sidebar p-5 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto lg:p-7" aria-label="Documentation navigation"><a class="docs-wordmark block" href="../../../">RDK<span> / </span>RETRO UI</a><div class="docs-theme-control"><label class="rdk-label" for="docs-theme-select">Theme</label><select id="docs-theme-select" class="rdk-select" data-rdk-theme-select><option value="czarek-os">Czarek OS</option><option value="terminal-os">Terminal OS</option><option value="dark-horse">Dark Horse</option></select></div><div class="rdk-vent mt-5 h-4 w-24" aria-hidden="true"></div><p class="docs-shell-caption mt-6 text-xs leading-5">Visual CSS for interfaces built with Tailwind.</p><nav class="mt-7 grid gap-6 text-sm" aria-label="Documentation"><a href="../../../" class="docs-nav-head">Overview</a><a href="../../../installation/" class="docs-nav-head">Installation</a><a href="../../../showcase/czarek-os/" class="docs-nav-head" data-rdk-demo-link>Demo</a><a href="../../../colors/" class="docs-nav-head">Colors</a><a href="../../../components/" class="docs-nav-head">Components</a><a href="../../../patterns/" class="docs-nav-head">Patterns</a><a href="../../../css-classes/" class="docs-nav-head">CSS Classes</a></nav></aside><main id="top" class="docs-main mx-auto w-full max-w-[83rem] px-5 pb-20 pt-6 sm:px-9 lg:px-12 lg:pt-10" data-doc-route="reference/themes/czarek-os/"><div class="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-[#aaa99f] pb-4"><span class="docs-eyebrow">RDK / Themes</span><span class="docs-meta">RDK-UI // <span data-site-version></span></span></div><header><span class="docs-eyebrow">Themes / Czarek OS</span><h1 class="docs-heading mt-3">Czarek OS</h1><p class="docs-copy mt-4">Slate-led, content-first bakery workspace with compact editable controls, semantic status colors, and calm density.</p><p class="docs-copy mt-3">Viewport profile: responsive-workspace. Primary: 1440–768 px; secondary: 414 px; wide compatibility: 390 px.</p></header><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">01 / CAPABILITY</div><h2 class="docs-section-title mt-5">Shared component support</h2><p class="docs-copy mt-3">16 supported / 6 fallback / 3 unsupported.</p><ul class="mt-4 grid gap-2 sm:grid-cols-2"><li><a class="" href="../../../components/button/">Button</a>: SUPPORTED</li><li><a class="" href="../../../components/nav-item/">Navigation Item</a>: SUPPORTED</li><li><a class="" href="../../../components/panel/">Panel</a>: SUPPORTED</li><li><a class="" href="../../../components/input/">Input</a>: SUPPORTED</li><li><a class="" href="../../../components/select/">Select</a>: SUPPORTED</li><li><a class="" href="../../../components/textarea/">Textarea</a>: SUPPORTED</li><li><a class="" href="../../../components/checkbox/">Checkbox</a>: SUPPORTED</li><li><a class="" href="../../../components/radio/">Radio</a>: SUPPORTED</li><li><a class="" href="../../../components/toggle/">Toggle</a>: FALLBACK</li><li><a class="" href="../../../components/badge/">Badge</a>: SUPPORTED</li><li><a class="" href="../../../components/card/">Card</a>: SUPPORTED</li><li><a class="" href="../../../components/tabs/">Tabs</a>: SUPPORTED</li><li><a class="" href="../../../components/progress/">Progress</a>: FALLBACK</li><li><a class="" href="../../../components/disclosure/">Disclosure</a>: SUPPORTED</li><li><a class="" href="../../../components/range/">Range</a>: FALLBACK</li><li><a class="" href="../../../components/breadcrumbs/">Breadcrumbs</a>: SUPPORTED</li><li><a class="" href="../../../components/segments/">Segments</a>: UNSUPPORTED</li><li><a class="" href="../../../components/table/">Table</a>: SUPPORTED</li><li><a class="" href="../../../components/lcd/">LCD</a>: UNSUPPORTED</li><li><a class="" href="../../../components/status-led/">Status LED</a>: UNSUPPORTED</li><li><a class="" href="../../../overlays/menu/">Menu</a>: FALLBACK</li><li><a class="" href="../../../overlays/dialog/">Dialog</a>: FALLBACK</li><li><a class="" href="../../../overlays/tooltip/">Tooltip</a>: FALLBACK</li><li><a class="" href="../../../feedback/notice/">Notice</a>: SUPPORTED</li><li><a class="" href="../../../feedback/toast/">Toast</a>: SUPPORTED</li></ul><p class="mt-4"><a class="" href="../../../support/">Full Support Matrix</a></p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">02 / NATIVE</div><h2 class="docs-section-title mt-5">Native Showcase</h2><p class="docs-copy mt-3">The <a class="" href="../../../showcase/czarek-os/">Native Showcase</a> is the canonical visual presentation of this theme. It may include theme patterns without changing shared component status.</p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">03 / PATTERNS</div><h2 class="docs-section-title mt-5">Theme-specific patterns</h2><p class="docs-copy mt-3">These reusable visual patterns are specific to Czarek OS and do not imply cross-theme support. Application CSS owns their layout and application code owns behavior.</p><article class="mt-4"><h3 class="text-lg font-bold">Warning status recipe</h3><p class="docs-copy mt-2">Czarek OS-only amber/orange treatment on an existing Badge, Notice, or Toast. Use for attention and unsaved review, not deletion or hard failure.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;span class=&quot;rdk-badge cz-status-warning&quot;&gt;Needs review&lt;/span&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Leading icon and busy button recipe</h3><p class="docs-copy mt-2">Czarek OS-only icon sizing and CSS spinner. Application JavaScript sets aria-busy and disabled, then restores both when the action finishes. Supply an accessible name for icon-only buttons.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;button class=&quot;rdk-btn rdk-btn-primary&quot; type=&quot;button&quot; aria-busy=&quot;false&quot;&gt;
+&lt;svg class=&quot;cz-btn-icon cz-btn-leading&quot; aria-hidden=&quot;true&quot;&gt;...&lt;/svg&gt;
+&lt;svg class=&quot;cz-btn-icon cz-btn-loader&quot; aria-hidden=&quot;true&quot;&gt;...&lt;/svg&gt;
+&lt;span&gt;Save draft&lt;/span&gt;
+&lt;/button&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Enhanced Select</h3><p class="docs-copy mt-2">Czarek OS alpha visual primitive for an application-owned combobox/listbox. Use aria-selected for selection and data-active for keyboard highlight. Dirty means unsaved; aria-invalid visually wins over dirty. The application owns keys, focus, value, form synchronization and popup placement.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;div class=&quot;cz-select&quot;&gt;
+&lt;button type=&quot;button&quot; class=&quot;cz-select-trigger&quot; role=&quot;combobox&quot; aria-haspopup=&quot;listbox&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;mode-options&quot;&gt;
+&lt;span class=&quot;cz-select-value&quot;&gt;Automatic (DHCP)&lt;/span&gt;
+&lt;svg class=&quot;cz-select-chevron&quot; aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+&lt;path d=&quot;m7 10 5 5 5-5&quot;/&gt;
+&lt;/svg&gt;
+&lt;/button&gt;
+&lt;div id=&quot;mode-options&quot; class=&quot;cz-select-menu&quot; role=&quot;listbox&quot; hidden&gt;
+&lt;button type=&quot;button&quot; class=&quot;cz-select-option&quot; role=&quot;option&quot; aria-selected=&quot;true&quot;&gt;
+&lt;span&gt;Automatic (DHCP)&lt;/span&gt;
+&lt;span class=&quot;cz-select-option-check&quot; aria-hidden=&quot;true&quot;&gt;&amp;#10003;&lt;/span&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Measurement Readout</h3><p class="docs-copy mt-2">Czarek OS alpha technical value surface with mono tabular numbers and a secondary unit. Use shared Badge or Notice for alarm meaning; this is not an LCD.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;div class=&quot;cz-readout&quot;&gt;
+&lt;span class=&quot;cz-readout-value&quot;&gt;4.1234&lt;/span&gt;
+&lt;span class=&quot;cz-readout-unit&quot;&gt;V&lt;/span&gt;
+&lt;/div&gt;</code></pre></div></article><article class="mt-4"><h3 class="text-lg font-bold">Section Icon</h3><p class="docs-copy mt-2">Czarek OS alpha decorative icon surface for an ordinary section heading. The application supplies the SVG and heading layout; the icon is not an action.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;h3&gt;
+&lt;span class=&quot;cz-section-icon&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot;&gt;
+&lt;path d=&quot;M4 7h16M4 17h16&quot;/&gt;
+&lt;/svg&gt;
+&lt;/span&gt; Device settings&lt;/h3&gt;</code></pre></div></article></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">04 / MATURITY</div><h2 class="docs-section-title mt-5">Release status and QA</h2><p class="docs-copy mt-3">Status: alpha. Verified in Chrome and Firefox on Windows at 1440, 768, 414, and 390 px; native Showcase and candidate QA. Android Chrome, iOS Safari, and Safari desktop remain untested.</p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">05 / DESIGN</div><h2 class="docs-section-title mt-5">Slate, typography and density</h2><p class="docs-copy mt-3">Czarek OS is a content-first workspace theme. Slate grounds the application, white panels carry content, and dark slate navigation gives the page structure. Success uses emerald, attention and dirty values use amber/orange, information uses slate, and destructive or hard failure uses red. The local Source Sans 3 font is bundled with its OFL notice; Helvetica Neue and Arial are fallbacks. Controls stay compact but readable at desktop and mobile widths.</p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">06 / CONTROLS</div><h2 class="docs-section-title mt-5">Editable and action states</h2><p class="docs-copy mt-3">Editable Input, native Select, Textarea and enabled Button receive a restrained theme shadow. Static Panel and Card remain flat. Enabled buttons grow subtly on hover without shifting layout; disabled buttons do not. Reduced-motion preferences suppress the motion and spinner animation. An unsaved form value may use <code>data-dirty="true"</code> on a Czarek OS field for amber/orange styling. This is a theme-scoped recipe, not a shared state contract; keep <code>aria-invalid="true"</code> for validation and add visible helper/error text.</p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">07 / RECIPES</div><h2 class="docs-section-title mt-5">Buttons, icons and busy state</h2><p class="docs-copy mt-3">A leading 16-18 px Lucide-style SVG can use <code>cz-btn-icon</code> inside <code>rdk-btn</code>. Lucide is recommended, not a runtime dependency. Give an icon-only button an accessible name. For a busy action, keep the label stable, replace the leading icon with <code>cz-btn-loader</code>, set <code>aria-busy="true"</code>, and disable repeat activation in application JavaScript. Restore both states after completion.</p><div class="code-example mt-5"><div class="docs-code-toolbar flex items-center justify-between px-4 py-2"><span>HTML</span><button type="button" class="docs-copy-button px-2 py-1" data-copy>Copy</button></div><pre class="docs-code p-4"><code>&lt;button type=&quot;button&quot; class=&quot;rdk-btn rdk-btn-primary&quot; aria-busy=&quot;false&quot;&gt;
+&lt;svg class=&quot;cz-btn-icon cz-btn-leading&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;use href=&quot;#save&quot;/&gt;
+&lt;/svg&gt;
+&lt;svg class=&quot;cz-btn-icon cz-btn-loader&quot; aria-hidden=&quot;true&quot;&gt;
+&lt;use href=&quot;#loader&quot;/&gt;
+&lt;/svg&gt;
+&lt;span&gt;Save draft&lt;/span&gt;
+&lt;/button&gt;</code></pre></div></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">08 / CHOICES</div><h2 class="docs-section-title mt-5">Native Select and Czarek primitives</h2><p class="docs-copy mt-3">The shared <code>rdk-select</code> is native: its closed state aligns with other fields, while the opened option popup belongs to the browser. An exact popup match needs an application-owned accessible listbox and JavaScript. Enhanced Select is a Czarek OS alpha visual primitive with application-owned listbox behavior, while editable Combobox remains a candidate. Measurement Readout and Section Icon are also Czarek-only primitives. Stat Tile and Field with Unit remain Patterns; Field Group remains an application composition: join a labelled editable input to a read-only prefix or suffix with one outer border, grouped focus and a unit description. The Native Showcase shows a currency prefix using &amp;euro; and a quantity suffix. The Native Showcase exercises Enhanced Select demo keyboard behavior; editable Combobox remains an unregistered candidate.</p></section><section class="mt-12 scroll-mt-8"><div class="docs-kicker pb-3">09 / REFERENCE</div><h2 class="docs-section-title mt-5">Native workspace and support</h2><p class="docs-copy mt-3">Use the <a class="" href="../../../showcase/czarek-os/">Czarek OS Native Showcase</a> as the canonical visual presentation. Its first part consolidates the approved Stage A visual language, followed by a focused Czarek OS primitive and Pattern section. The final part is the compact bakery workspace with responsive navigation, catalog filters, a dense Table, Tabs, status Badges, Notice, Toast, and editable settings. Check the <a class="" href="../../../support/">Support Matrix</a> before using a shared component. The tested layout covers 1440, 768, 430 and 390 px in Windows Chrome and Firefox; real mobile devices and Safari remain pending.</p></section><footer class="docs-rule docs-copy mt-20 flex flex-wrap justify-between gap-3 pt-5 text-xs"><span>RDK RETRO UI · <span data-site-version></span></span></footer></main></div></body></html>

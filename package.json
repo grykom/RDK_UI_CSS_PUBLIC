@@ -1,6 +1,6 @@
 {
   "name": "@rdk/retro-ui",
-  "version": "0.2.0-alpha.1",
+  "version": "0.2.0-alpha.2",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -19,6 +19,10 @@
     "./compat.min.css": "./dist/rdk-retro-ui.compat.min.css",
     "./fonts/*": "./dist/fonts/*",
     "./package.json": "./package.json",
-    "./themes/*.css": "./dist/rdk-retro-ui.*.css"
+    "./themes/*.css": "./dist/rdk-retro-ui.*.css",
+    "./dark-horse.css": "./dist/rdk-retro-ui.dark-horse.css",
+    "./dark-horse.min.css": "./dist/rdk-retro-ui.dark-horse.min.css",
+    "./dark-horse.compat.css": "./dist/rdk-retro-ui.dark-horse.compat.css",
+    "./dark-horse.compat.min.css": "./dist/rdk-retro-ui.dark-horse.compat.min.css"
   }
 }

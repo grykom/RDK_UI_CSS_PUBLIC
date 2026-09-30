@@ -1,0 +1,796 @@
+/* Dark Horse alpha theme: dark, precise surfaces with selective amber emphasis. */
+[data-rdk-theme="dark-horse"] {
+  color-scheme: dark;
+
+  /* Level 0 / viewport, Level 1 / panel, Level 2 / control and raised surface. */
+  --rdk-case: #0d1115;
+  --rdk-structure: #090d11;
+  --rdk-surface: #151b21;
+  --rdk-surface-raised: #1d252d;
+  --rdk-surface-recessed: #11171c;
+  --rdk-field: #10161b;
+
+  --rdk-text: #edf1f4;
+  --rdk-text-muted: #b1bac3;
+  --rdk-placeholder: #929eaa;
+  --rdk-border: #3b4651;
+  --rdk-border-dark: #5b6874;
+  --rdk-highlight: #252e37;
+  --rdk-shadow: #080b0e;
+  --rdk-focus: #ffd17b;
+
+  /* High-chroma signal roles stay small against the unchanged graphite surfaces. */
+  --_dh-signal-neutral: var(--rdk-lcd-off);
+  --_dh-signal-active: #ffb640;
+  --_dh-signal-active-hover: #ffc455;
+  --_dh-signal-active-pressed: #e58f1f;
+  --_dh-signal-success: #2ed889;
+  --_dh-signal-info: #36bdf4;
+  --_dh-signal-warning: #ff7f3d;
+  --_dh-signal-danger: #ff5262;
+  --_dh-accent-muted: color-mix(in srgb, var(--_dh-signal-active) 8%, var(--rdk-surface-raised));
+
+
+  /* Shared semantic roles inherit the Dark Horse signal palette within this theme only. */
+  --rdk-accent-green: var(--_dh-signal-success);
+  --rdk-accent-red: var(--_dh-signal-danger);
+  --rdk-accent-blue: var(--_dh-signal-info);
+  --rdk-accent-pink: #d8a0c3;
+  --rdk-accent-amber: var(--_dh-signal-active);
+  --rdk-accent-orange: var(--_dh-signal-warning);
+  --rdk-accent-violet: #b0a1dc;
+  --rdk-accent-cyan: var(--_dh-signal-info);
+
+  --rdk-lcd: #11171c;
+  --rdk-lcd-ink: #d5dce2;
+  --rdk-lcd-off: #87939e;
+  --rdk-lcd-off-surface: #202830;
+  --rdk-lcd-border: #3b4651;
+  --rdk-lcd-border-dark: #53616c;
+
+  --rdk-radius: 0.34rem;
+  --rdk-font-ui: "RDK Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --rdk-font-display: "RDK Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --rdk-font-mono: "RDK IBM Plex Mono", Consolas, "Courier New", monospace;
+
+  --_rdk-glint-rgb: 255 255 255;
+  --_rdk-inset-rgb: 0 0 0;
+  --_rdk-press-rgb: 0 0 0;
+  --_rdk-cast-rgb: 0 0 0;
+  --_rdk-deep-rgb: 0 0 0;
+  --_rdk-backdrop-rgb: 0 0 0;
+  --_rdk-plastic-shade-rgb: 0 0 0;
+  --_rdk-lcd-scan-rgb: 0 0 0;
+  --_rdk-lcd-inset-rgb: 0 0 0;
+  --_rdk-solid-press-rgb: 24 18 9;
+  --_rdk-accent-mix-dark: #33230f;
+  --_rdk-accent-mix-light: #ffe0a0;
+  --_rdk-accent-shadow: #75430d;
+  --_rdk-accent-on: #21190d;
+
+  /* Theme-specific operational rhythm and emphasis roles. */
+  --_dh-space-1: 0.25rem;
+  --_dh-space-2: 0.5rem;
+  --_dh-space-3: 0.75rem;
+  --_dh-radius-tag: 0.24rem;
+  --_dh-active-edge: var(--_dh-signal-active);
+  --_dh-instrument-surface: var(--rdk-lcd);
+  --_dh-state-neutral: var(--_dh-signal-neutral);
+  --_dh-state-success: var(--_dh-signal-success);
+  --_dh-state-info: var(--_dh-signal-info);
+  --_dh-state-warning: var(--_dh-signal-warning);
+  --_dh-state-danger: var(--_dh-signal-danger);
+}
+
+/* Shared accent controls default to amber here; explicit data-accent values still work. */
+[data-rdk-theme="dark-horse"] :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range):not([data-accent]),
+[data-rdk-theme="dark-horse"] :where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="amber"] {
+  --_rdk-accent: var(--_dh-signal-active);
+  --_rdk-accent-ink: #21190d;
+  --_rdk-accent-hover: var(--_dh-signal-active-hover);
+}
+
+/* Inactive navigation stays graphite; amber is reserved for the current location. */
+[data-rdk-theme="dark-horse"] .rdk-nav-item::before {
+  background: transparent;
+  box-shadow: none;
+}
+[data-rdk-theme="dark-horse"] .rdk-nav-item:is([aria-current="page"], [aria-pressed="true"])::before {
+  background: var(--_dh-active-edge);
+  box-shadow: none;
+}
+[data-rdk-theme="dark-horse"] .rdk-nav-item:is([aria-current="page"], [aria-pressed="true"]) {
+  border-color: var(--_dh-active-edge);
+  background: var(--_dh-accent-muted);
+  box-shadow: none;
+}
+
+/* Form/view selection uses active amber; informational cyan remains semantic info. */
+[data-rdk-theme="dark-horse"] .rdk-radio:checked:not(:disabled) {
+  color: var(--_dh-active-edge);
+}
+[data-rdk-theme="dark-horse"] .rdk-tab[aria-selected="true"]:not(:disabled) {
+  border-bottom-color: var(--_dh-active-edge);
+}
+
+/* Keep the native disclosure affordance visible against Dark Horse graphite. */
+[data-rdk-theme="dark-horse"] .rdk-disclosure-summary::before {
+  border-inline-start-color: var(--_dh-signal-active);
+}
+
+/* A compact raised tray keeps the Menu quiet while preserving its shared item contract. */
+[data-rdk-theme="dark-horse"] .rdk-menu {
+  border-color: var(--rdk-border-dark);
+  border-top-color: var(--rdk-border-dark);
+  border-left-color: var(--rdk-border-dark);
+  border-radius: var(--_dh-radius-tag);
+  background: var(--rdk-surface-raised);
+  box-shadow: 0 5px 12px rgb(var(--_rdk-deep-rgb) / 26%);
+}
+[data-rdk-theme="dark-horse"] .rdk-menu-item:hover:not(:disabled),
+[data-rdk-theme="dark-horse"] .rdk-menu-item:focus-visible {
+  border-color: var(--rdk-border);
+  background: var(--rdk-surface-recessed);
+}
+[data-rdk-theme="dark-horse"] .rdk-menu-item[data-tone="danger"]:focus-visible {
+  outline-color: var(--rdk-text);
+}
+
+/* The shared Tooltip's default ink is too dark on Dark Horse's structure surface. */
+[data-rdk-theme="dark-horse"] .rdk-tooltip {
+  border-color: var(--rdk-border-dark);
+  background: var(--rdk-surface-raised);
+  color: var(--rdk-text);
+}
+
+/* Amber keeps its accent meaning; semantic warning hooks use the separate orange signal. */
+[data-rdk-theme="dark-horse"] .rdk-badge-warning { --_rdk-badge-accent: var(--_dh-signal-warning); }
+[data-rdk-theme="dark-horse"] .rdk-table tbody tr[data-state="warning"] > :first-child {
+  border-left-color: var(--_dh-signal-warning);
+}
+[data-rdk-theme="dark-horse"] .rdk-notice-warning { --_rdk-notice-accent: var(--_dh-signal-warning); }
+[data-rdk-theme="dark-horse"] .rdk-toast-warning { --_rdk-toast-accent: var(--_dh-signal-warning); }
+
+/* Compact operational detail remains subordinate to the native Disclosure summary. */
+[data-rdk-theme="dark-horse"] .rdk-disclosure-body {
+  padding: 0.48rem 0.72rem 0.52rem;
+  font-size: 0.76rem;
+  line-height: 1.38;
+}
+[data-rdk-theme="dark-horse"] .rdk-disclosure-body > :first-child { margin-block-start: 0; }
+[data-rdk-theme="dark-horse"] .rdk-disclosure-body > :last-child { margin-block-end: 0; }
+
+/* Theme-specific accent LCD composition retains the shared on/off state and recessed surface. */
+[data-rdk-theme="dark-horse"] .rdk-lcd[data-dh-signal-role="accent"] {
+  border-left-color: var(--_dh-signal-active);
+  color: var(--_dh-signal-active);
+}
+
+/* A Status LED is a small physical emitter; keep its bezel and any halo local to the dot. */
+[data-rdk-theme="dark-horse"] .rdk-status-led {
+  --_dh-led-core: var(--_dh-signal-success);
+  box-sizing: border-box;
+  width: 0.76rem;
+  height: 0.76rem;
+  border: 1px solid var(--rdk-structure);
+  background: var(--_dh-led-core);
+  box-shadow:
+    inset 1px 1px 1px rgb(var(--_rdk-glint-rgb) / 30%),
+    inset -1px -1px 2px rgb(var(--_rdk-deep-rgb) / 36%),
+    0 0 0 2px var(--rdk-surface-recessed),
+    0 0 0 3px var(--rdk-border),
+    0 0 3px 1px color-mix(in srgb, var(--_dh-led-core) 21%, transparent);
+}
+[data-rdk-theme="dark-horse"] .rdk-status-led[data-state="off"] {
+  --_dh-led-core: var(--_dh-signal-neutral);
+  box-shadow:
+    inset 1px 1px 2px rgb(var(--_rdk-deep-rgb) / 35%),
+    0 0 0 2px var(--rdk-surface-recessed),
+    0 0 0 3px var(--rdk-border);
+}
+[data-rdk-theme="dark-horse"] .rdk-status-led[data-color="amber"] { --_dh-led-core: var(--_dh-signal-active); }
+[data-rdk-theme="dark-horse"] .rdk-status-led[data-color="blue"] { --_dh-led-core: var(--_dh-signal-info); }
+[data-rdk-theme="dark-horse"] .rdk-status-led[data-color="red"] { --_dh-led-core: var(--_dh-signal-danger); }
+[data-rdk-theme="dark-horse"] .rdk-status-led[data-dh-signal-role="warning"] { --_dh-led-core: var(--_dh-signal-warning); }
+
+/* Theme-specific signal reference and Notice accent composition preserve the shared variant API. */
+[data-rdk-theme="dark-horse"] .rdk-notice[data-dh-signal-role="accent"] {
+  --_rdk-notice-accent: var(--_dh-signal-active);
+}
+[data-rdk-theme="dark-horse"] .dh-signal-swatch[data-signal-role="neutral"] { background: var(--_dh-signal-neutral); }
+[data-rdk-theme="dark-horse"] .dh-signal-swatch[data-signal-role="accent"] { background: var(--_dh-signal-active); }
+[data-rdk-theme="dark-horse"] .dh-signal-swatch[data-signal-role="success"] { background: var(--_dh-signal-success); }
+[data-rdk-theme="dark-horse"] .dh-signal-swatch[data-signal-role="info"] { background: var(--_dh-signal-info); }
+[data-rdk-theme="dark-horse"] .dh-signal-swatch[data-signal-role="warning"] { background: var(--_dh-signal-warning); }
+[data-rdk-theme="dark-horse"] .dh-signal-swatch[data-signal-role="danger"] { background: var(--_dh-signal-danger); }
+
+/* The theme uses flat, precise edges instead of Console 94 equipment treatments. */
+[data-rdk-theme="dark-horse"] :is(.rdk-plastic, .rdk-recessed, .rdk-bevel, .rdk-bevel-pressed, .rdk-vent) {
+  background-image: none;
+  box-shadow: none;
+}
+
+[data-rdk-theme="dark-horse"] .rdk-panel,
+[data-rdk-theme="dark-horse"] .rdk-card {
+  border: 1px solid var(--rdk-border);
+  border-radius: var(--rdk-radius);
+  background: var(--rdk-surface);
+  box-shadow: 0 5px 14px rgb(var(--_rdk-cast-rgb) / 18%);
+}
+[data-rdk-theme="dark-horse"] .rdk-panel-recessed { background: var(--rdk-surface-recessed); box-shadow: inset 0 1px 2px rgb(var(--_rdk-inset-rgb) / 24%); }
+[data-rdk-theme="dark-horse"] .rdk-card { background: var(--rdk-surface-raised); }
+[data-rdk-theme="dark-horse"] .rdk-card-interactive:hover:not(:disabled) { border-color: var(--rdk-border-dark); background: var(--rdk-surface-raised); }
+[data-rdk-theme="dark-horse"] .rdk-card-interactive:active:not(:disabled) { background: var(--rdk-surface-recessed); box-shadow: inset 0 1px 3px rgb(var(--_rdk-inset-rgb) / 26%); }
+[data-rdk-theme="dark-horse"] .rdk-card-interactive:is([aria-pressed="true"], [aria-current="true"]) {
+  border-color: var(--_dh-active-edge);
+  background: var(--_dh-accent-muted);
+  box-shadow: inset 0 0 0 1px var(--_dh-active-edge);
+}
+
+[data-rdk-theme="dark-horse"] .rdk-btn {
+  min-height: 2.5rem;
+  gap: 0.5rem;
+  border: 1px solid var(--rdk-border-dark);
+  border-radius: var(--rdk-radius);
+  padding: 0.58rem 0.82rem;
+  background: var(--rdk-surface-raised);
+  box-shadow: none;
+  color: var(--rdk-text);
+  font: 600 0.94rem/1.15 var(--rdk-font-ui);
+  letter-spacing: 0;
+  transform: none;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+[data-rdk-theme="dark-horse"] .rdk-btn::before,
+[data-rdk-theme="dark-horse"] .rdk-btn::after { content: none; display: none; }
+[data-rdk-theme="dark-horse"] .rdk-btn:hover:not(:disabled) { border-color: #74818c; background: #29333d; transform: none; }
+[data-rdk-theme="dark-horse"] .rdk-btn:active:not(:disabled),
+[data-rdk-theme="dark-horse"] .rdk-btn[aria-pressed="true"] { border-color: var(--rdk-border-dark); background: #12181d; box-shadow: inset 0 1px 3px rgb(var(--_rdk-inset-rgb) / 30%); transform: none; }
+[data-rdk-theme="dark-horse"] .rdk-btn:is(.rdk-btn-primary, .rdk-btn-solid:not([data-accent])) {
+  border-color: var(--_dh-signal-active-pressed);
+  background: var(--_dh-signal-active);
+  color: #21190d;
+  font-weight: 700;
+}
+[data-rdk-theme="dark-horse"] .rdk-btn:is(.rdk-btn-primary, .rdk-btn-solid:not([data-accent])):hover:not(:disabled) {
+  border-color: var(--_dh-signal-active-hover);
+  background: var(--_dh-signal-active-hover);
+  color: #21190d;
+}
+[data-rdk-theme="dark-horse"] .rdk-btn:is(.rdk-btn-primary, .rdk-btn-solid:not([data-accent])):active:not(:disabled) {
+  border-color: var(--_dh-signal-active-pressed);
+  background: var(--_dh-signal-active-pressed);
+}
+[data-rdk-theme="dark-horse"] .rdk-btn:disabled { opacity: 0.56; box-shadow: none; }
+
+[data-rdk-theme="dark-horse"] :is(.rdk-input, .rdk-select, .rdk-textarea) {
+  border-color: var(--rdk-border-dark);
+  border-radius: calc(var(--rdk-radius) - 0.04rem);
+  background-color: var(--rdk-field);
+  box-shadow: inset 0 1px 2px rgb(var(--_rdk-inset-rgb) / 24%);
+  color: var(--rdk-text);
+}
+[data-rdk-theme="dark-horse"] :is(.rdk-input, .rdk-select, .rdk-textarea):hover:not(:disabled) { border-color: #71808c; }
+[data-rdk-theme="dark-horse"] :is(.rdk-input, .rdk-select, .rdk-textarea):disabled { background-color: var(--rdk-surface-recessed); box-shadow: none; }
+[data-rdk-theme="dark-horse"] .rdk-textarea[aria-invalid="true"]:not(:disabled),
+[data-rdk-theme="dark-horse"] .rdk-textarea:invalid:not(:placeholder-shown):not(:disabled) {
+  border-color: var(--rdk-accent-red);
+  box-shadow: inset 0 1px 2px rgb(var(--_rdk-inset-rgb) / 24%), 0 0 0 1px var(--rdk-accent-red);
+}
+[data-rdk-theme="dark-horse"] .rdk-select { background-image: linear-gradient(45deg, transparent 50%, var(--rdk-text-muted) 50%), linear-gradient(135deg, var(--rdk-text-muted) 50%, transparent 50%); }
+
+[data-rdk-theme="dark-horse"] .rdk-toggle {
+  border-color: var(--rdk-border-dark);
+  border-radius: 0.42rem;
+  background: #11171c;
+  box-shadow: inset 0 1px 2px rgb(var(--_rdk-inset-rgb) / 25%);
+}
+[data-rdk-theme="dark-horse"] .rdk-toggle::before {
+  border-color: #687581;
+  border-radius: 0.25rem;
+  background: #bdc6ce;
+  box-shadow: none;
+}
+[data-rdk-theme="dark-horse"] .rdk-toggle:checked { background: var(--_dh-signal-active); }
+[data-rdk-theme="dark-horse"] .rdk-toggle:checked::before { background: #21190d; }
+[data-rdk-theme="dark-horse"] .rdk-toggle:checked:disabled { background: var(--rdk-border); }
+
+[data-rdk-theme="dark-horse"] .rdk-checkbox {
+  border-color: var(--rdk-border-dark);
+  border-radius: 0.22rem;
+  background: var(--rdk-field);
+  box-shadow: none;
+  color: var(--_dh-signal-active);
+}
+[data-rdk-theme="dark-horse"] .rdk-checkbox:checked { background: var(--_dh-accent-muted); }
+
+[data-rdk-theme="dark-horse"] :focus-visible { outline-color: var(--rdk-focus); }
+[data-rdk-theme="dark-horse"] .rdk-label { color: var(--rdk-text-muted); letter-spacing: 0.12em; }
+[data-rdk-theme="dark-horse"] .rdk-badge,
+[data-rdk-theme="dark-horse"] .rdk-notice { border-radius: calc(var(--rdk-radius) - 0.03rem); }
+
+/* Compact Badge composition for short operational state labels. */
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-micro-status {
+  --_dh-micro-status-edge: var(--_dh-state-neutral);
+  box-sizing: border-box;
+  min-height: 1.45rem;
+  padding: 0.18rem var(--_dh-space-2);
+  border: 1px solid var(--rdk-border);
+  border-left: 2px solid var(--_dh-micro-status-edge);
+  border-radius: var(--_dh-radius-tag);
+  background: var(--rdk-surface-recessed);
+  color: var(--rdk-text);
+  font: 650 0.68rem/1.2 var(--rdk-font-ui);
+  white-space: nowrap;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-micro-status[data-state="neutral"] { --_dh-micro-status-edge: var(--_dh-state-neutral); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-micro-status[data-state="active"] { --_dh-micro-status-edge: var(--_dh-signal-active); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-micro-status[data-state="success"] { --_dh-micro-status-edge: var(--_dh-state-success); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-micro-status[data-state="info"] { --_dh-micro-status-edge: var(--_dh-state-info); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-micro-status[data-state="warning"] { --_dh-micro-status-edge: var(--_dh-state-warning); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-micro-status[data-state="danger"] { --_dh-micro-status-edge: var(--_dh-state-danger); }
+
+/* Optional focused utility shell; applications control its placement in their viewport. */
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-window {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 35rem;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--rdk-border);
+  border-radius: calc(var(--rdk-radius) + 0.16rem);
+  background: var(--rdk-surface);
+  box-shadow: 0 16px 38px rgb(var(--_rdk-cast-rgb) / 34%);
+  color: var(--rdk-text);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-window > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--rdk-border);
+  background: var(--rdk-surface-raised);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-window > :not(header) { min-width: 0; }
+
+/* Medium shell for related controls that still belong to one contained application. */
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-control-panel {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 70rem;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--rdk-border);
+  border-radius: calc(var(--rdk-radius) + 0.12rem);
+  background: var(--rdk-surface);
+  box-shadow: 0 12px 30px rgb(var(--_rdk-cast-rgb) / 25%);
+  color: var(--rdk-text);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-control-panel > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--rdk-border);
+  background: var(--rdk-surface-raised);
+}
+
+/* Wide structural shell. Applications still own the navigation and workspace geometry. */
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-workspace {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 90rem;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--rdk-border);
+  border-radius: calc(var(--rdk-radius) + 0.12rem);
+  background: var(--rdk-surface);
+  box-shadow: 0 12px 30px rgb(var(--_rdk-cast-rgb) / 25%);
+  color: var(--rdk-text);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-workspace > header {
+  border-bottom: 1px solid var(--rdk-border);
+  background: var(--rdk-surface-raised);
+}
+
+/* The compact selected fill is neutral; an edge and explicit check remain as separate cues. */
+[data-rdk-theme="dark-horse"] .rdk-card-interactive:is([aria-pressed="true"], [aria-current="true"]) {
+  background: var(--_dh-accent-muted);
+}
+
+/* Theme-specific operational patterns compose shared primitives without adding shared components. */
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-metric {
+  display: grid;
+  align-content: start;
+  gap: var(--_dh-space-1);
+  min-width: 0;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-metric-label {
+  color: var(--rdk-text-muted);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-metric-value-line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--_dh-space-1);
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-metric-value {
+  color: var(--rdk-text);
+  font: 650 1.2rem/1.1 var(--rdk-font-ui);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-metric-unit {
+  color: var(--rdk-text-muted);
+  font: 500 0.76rem/1.2 var(--rdk-font-ui);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-metric-meta {
+  color: var(--rdk-text-muted);
+  font-size: 0.73rem;
+  line-height: 1.35;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-meter {
+  width: 100%;
+  height: 0.34rem;
+  margin-top: var(--_dh-space-1);
+  border-radius: 99px;
+  box-shadow: none;
+}
+
+/* Recessed readout for compact operational values; variants only change emphasis. */
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument {
+  --_dh-instrument-edge: var(--_dh-state-neutral);
+  --_dh-instrument-value: var(--rdk-lcd-ink);
+  display: grid;
+  gap: var(--_dh-space-2);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 0.72rem 0.78rem;
+  border: 1px solid var(--rdk-lcd-border-dark);
+  border-left: 3px solid var(--_dh-instrument-edge);
+  border-radius: var(--rdk-radius);
+  background: var(--_dh-instrument-surface);
+  box-shadow: inset 0 0 0 1px rgb(var(--_rdk-glint-rgb) / 3%);
+  color: var(--rdk-text);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument[data-variant="accent"] {
+  --_dh-instrument-edge: var(--_dh-active-edge);
+  --_dh-instrument-value: var(--_dh-active-edge);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument[data-variant="success"] {
+  --_dh-instrument-edge: var(--_dh-state-success);
+  --_dh-instrument-value: var(--_dh-state-success);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument[data-variant="warning"] {
+  --_dh-instrument-edge: var(--_dh-state-warning);
+  --_dh-instrument-value: var(--_dh-state-warning);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--_dh-space-2);
+  min-width: 0;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-title {
+  min-width: 0;
+  color: var(--rdk-text-muted);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-mark {
+  flex: none;
+  width: 0.48rem;
+  height: 0.48rem;
+  border: 1px solid var(--_dh-instrument-edge);
+  border-radius: 50%;
+  background: var(--_dh-instrument-edge);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-readings {
+  display: grid;
+  grid-template-columns: repeat(var(--_dh-instrument-columns, 1), minmax(0, 1fr));
+  gap: var(--_dh-space-3);
+  min-width: 0;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument[data-columns="3"] {
+  --_dh-instrument-columns: 3;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-channel {
+  display: grid;
+  align-content: start;
+  gap: var(--_dh-space-1);
+  min-width: 0;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-channel + .rdk-dark-horse-instrument-channel {
+  padding-left: var(--_dh-space-3);
+  border-left: 1px solid var(--rdk-lcd-border);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-label {
+  color: var(--rdk-text-muted);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-value-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.24rem;
+  min-width: 0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-value {
+  min-width: 0;
+  color: var(--_dh-instrument-value);
+  font: 600 1.08rem/1.15 var(--rdk-font-mono);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-unit {
+  color: var(--rdk-lcd-ink);
+  font: 500 0.7rem/1.2 var(--rdk-font-mono);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument-meta {
+  color: var(--rdk-text-muted);
+  font: 0.64rem/1.3 var(--rdk-font-mono);
+  overflow-wrap: anywhere;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument--compact {
+  gap: 0.35rem;
+  padding: 0.55rem 0.68rem;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument--compact .rdk-dark-horse-instrument-readings {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.25rem 0.65rem;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument--compact .rdk-dark-horse-instrument-channel {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.2rem 0.65rem;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument--compact .rdk-dark-horse-instrument-label {
+  grid-column: 1;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument--compact .rdk-dark-horse-instrument-value-line {
+  grid-column: 1;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument--compact .rdk-dark-horse-instrument-meta {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  text-align: right;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-instrument--compact .rdk-dark-horse-instrument-channel + .rdk-dark-horse-instrument-channel {
+  padding-left: 0;
+  border-left: 0;
+}
+
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status {
+  --_dh-status-color: var(--rdk-border-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--_dh-space-2);
+  min-width: 0;
+  color: var(--rdk-text-muted);
+  font-size: 0.77rem;
+  line-height: 1.3;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status[data-state="success"] { --_dh-status-color: var(--_dh-state-success); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status[data-state="active"] { --_dh-status-color: var(--_dh-signal-active); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status[data-state="warning"] { --_dh-status-color: var(--_dh-state-warning); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status[data-state="danger"] { --_dh-status-color: var(--_dh-state-danger); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status[data-state="info"] { --_dh-status-color: var(--_dh-state-info); }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status-mark {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid var(--_dh-status-color);
+  border-radius: 50%;
+  background: var(--_dh-status-color);
+  box-shadow: 0 0 0 2px var(--rdk-surface-recessed);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status-name { min-width: 0; overflow-wrap: anywhere; }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-status-value {
+  color: var(--rdk-text);
+  font-weight: 650;
+}
+
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--_dh-space-1) var(--_dh-space-3);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: var(--_dh-space-2) var(--_dh-space-3);
+  color: var(--rdk-text);
+  font: inherit;
+  text-align: left;
+}
+[data-rdk-theme="dark-horse"] button.rdk-dark-horse-device-tile { cursor: pointer; }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile:hover:not(:disabled):not([aria-pressed="true"]) {
+  border-color: var(--rdk-border-dark);
+  background: var(--rdk-highlight);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile:active:not(:disabled):not([aria-pressed="true"]) {
+  border-color: var(--rdk-border-dark);
+  background: var(--rdk-surface-recessed);
+  box-shadow: inset 0 1px 3px rgb(var(--_rdk-inset-rgb) / 26%);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile:focus-visible { outline-offset: 3px; }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile[aria-pressed="true"]:focus-visible {
+  outline-color: var(--rdk-text);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile-copy {
+  display: grid;
+  gap: var(--_dh-space-1);
+  min-width: 0;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile-name {
+  overflow-wrap: anywhere;
+  color: var(--rdk-text);
+  font-size: 0.86rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile-meta {
+  color: var(--rdk-text-muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile-state {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--_dh-space-2);
+  justify-self: end;
+  color: var(--rdk-text-muted);
+  font-size: 0.7rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile-marker {
+  display: grid;
+  place-items: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1px solid var(--rdk-border-dark);
+  border-radius: 50%;
+  color: transparent;
+  font-size: 0.68rem;
+  line-height: 1;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile[aria-pressed="true"] {
+  border-color: var(--_dh-active-edge);
+  background: var(--_dh-accent-muted);
+  box-shadow: none;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile[aria-pressed="true"]:is(:hover, :active) {
+  border-color: var(--_dh-active-edge);
+  background: var(--_dh-accent-muted);
+  box-shadow: none;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile[aria-pressed="true"] .rdk-dark-horse-device-tile-state {
+  color: var(--rdk-text);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile[aria-pressed="true"] .rdk-dark-horse-device-tile-marker {
+  border-color: var(--_dh-active-edge);
+  background: var(--_dh-active-edge);
+  color: #21190d;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile:disabled {
+  border-color: var(--rdk-border);
+  background: var(--rdk-surface-recessed);
+  color: var(--rdk-text-muted);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile:disabled .rdk-dark-horse-device-tile-name,
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile:disabled .rdk-dark-horse-device-tile-meta,
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile:disabled .rdk-dark-horse-device-tile-state {
+  color: var(--rdk-text-muted);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-device-tile:disabled .rdk-dark-horse-device-tile-marker {
+  border-color: var(--rdk-border);
+  background: transparent;
+}
+
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-telemetry-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--_dh-space-1) var(--_dh-space-3);
+  min-width: 0;
+  padding: var(--_dh-space-2) 0;
+  border-bottom: 1px solid var(--rdk-border);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-telemetry-row:last-child { border-bottom: 0; }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-telemetry-label {
+  min-width: 0;
+  color: var(--rdk-text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  line-height: 1.3;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-telemetry-value {
+  color: var(--rdk-text);
+  font: 500 0.76rem/1.3 var(--rdk-font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-telemetry-state {
+  color: var(--rdk-text-muted);
+  font-size: 0.68rem;
+  font-weight: 650;
+  text-align: right;
+  white-space: nowrap;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-telemetry-meter {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 0.3rem;
+  border-radius: 99px;
+  align-self: center;
+  box-shadow: none;
+}
+
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-event-row {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--_dh-space-1) var(--_dh-space-3);
+  min-width: 0;
+  padding: var(--_dh-space-2) 0;
+  border-bottom: 1px solid var(--rdk-border);
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-event-row:last-child { border-bottom: 0; }
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-event-time {
+  padding-top: 0.08rem;
+  color: var(--rdk-text-muted);
+  font: 0.65rem/1.35 var(--rdk-font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-event-copy {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 0;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-event-title {
+  color: var(--rdk-text);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-event-detail {
+  color: var(--rdk-text-muted);
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+[data-rdk-theme="dark-horse"] .rdk-dark-horse-event-state {
+  align-self: start;
+  margin-top: 0.08rem;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-rdk-theme="dark-horse"] .rdk-btn,
+  [data-rdk-theme="dark-horse"] .rdk-toggle,
+  [data-rdk-theme="dark-horse"] .rdk-toggle::before { transition: none; animation: none; }
+}

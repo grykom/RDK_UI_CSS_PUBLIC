@@ -1,7 +1,7 @@
 /* Import after Tailwind in consuming applications. */
-@import "./themes/console-94.css";
-@import "./themes/terminal-os.css";
 @import "./themes/czarek-os.css";
+@import "./themes/terminal-os.css";
+@import "./themes/dark-horse.css";
 @import "./core/tailwind-theme.css";
 @import "./core/base.css" layer(base);
 @import "./core/overlay-depth.css" layer(base);
