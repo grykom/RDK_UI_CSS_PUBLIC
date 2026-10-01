@@ -8,8 +8,10 @@ RDK themes load their fonts locally through `src/index.css`. IBM Plex supports a
 
 The WOFF2 Sans file was converted from the bundled TTF without changing its character map or variable axes. The original IBM Plex TTF sources are unmodified and distributed under the [SIL Open Font License 1.1](OFL.txt), Copyright © 2017 IBM Corp., with Reserved Font Name “Plex”. `npm run build:css` copies the font files and licence to `dist/fonts/`, next to the built CSS. Polish glyph coverage is checked by `scripts/visual_qa_1_2.py`.
 
-## Czarek OS
+## Czarek OS and Dark Horse
 
-`SourceSans3-variable.ttf` is the unmodified upright variable font from [Google Fonts / Source Sans 3](https://github.com/google/fonts/tree/main/ofl/sourcesans3). Adobe's [SIL OFL 1.1 notice](SourceSans3-OFL.txt) is retained separately. Czarek OS loads it locally through `src/index.css`, with Helvetica Neue, Arial, and sans-serif fallbacks. The build copies both font formats and the notice to `dist/fonts/`.
+`SourceSans3-variable.ttf` is the unmodified upright variable font from [Google Fonts / Source Sans 3](https://github.com/google/fonts/tree/main/ofl/sourcesans3). Adobe's [SIL OFL 1.1 notice](SourceSans3-OFL.txt) is retained separately. Czarek OS and Dark Horse use Source Sans 3 as their primary UI/display typography. Czarek OS adds Helvetica Neue, Arial, and sans-serif fallbacks. The build copies both font formats and the notice to `dist/fonts/`.
 
 The Source Sans 3 WOFF2 was converted from the bundled TTF, preserving its character map and variable weight axis. Both WOFF2 files are preferred by the browser; TTF remains as fallback. All corresponding OFL notices ship with the source, package, and public mirror.
+
+Dark Horse also uses IBM Plex Mono for operational and readout typography; its font files remain covered by the IBM Plex OFL notice above.
