@@ -34,7 +34,7 @@
   --rdk-accent-amber: var(--_dh-signal-active);
   --rdk-accent-orange: var(--_dh-signal-warning);
   --rdk-accent-violet: #b0a1dc;
-  --rdk-accent-cyan: var(--_dh-signal-info);
+  --rdk-accent-cyan: #55d6d2;
   --rdk-lcd: #11171c;
   --rdk-lcd-ink: #d5dce2;
   --rdk-lcd-off: #87939e;
@@ -267,6 +267,70 @@
 [data-rdk-theme="dark-horse"] .rdk-btn:is(.rdk-btn-primary, .rdk-btn-solid:not([data-accent])):active:not(:disabled) {
   border-color: var(--_dh-signal-active-pressed);
   background: var(--_dh-signal-active-pressed);
+}
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-solid[data-accent] {
+  --_rdk-accent-hover: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 88%, var(--rdk-shadow));
+  }
+  border-color: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-color: color-mix(in srgb, var(--_rdk-accent) 70%, var(--rdk-shadow));
+  }
+  border-top-color: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-top-color: color-mix(in srgb, var(--_rdk-accent) 82%, var(--rdk-highlight));
+  }
+  border-left-color: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-left-color: color-mix(in srgb, var(--_rdk-accent) 82%, var(--rdk-highlight));
+  }
+  background: var(--_rdk-accent);
+  color: var(--_rdk-accent-ink);
+}
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-solid[data-accent]:hover:not(:disabled) {
+  border-color: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-color: color-mix(in srgb, var(--_rdk-accent) 82%, var(--rdk-shadow));
+  }
+  background: var(--_rdk-accent-hover);
+  color: var(--_rdk-accent-ink);
+}
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-solid[data-accent]:active:not(:disabled), [data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-solid[data-accent][aria-pressed="true"] {
+  border-color: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-color: color-mix(in srgb, var(--_rdk-accent) 72%, var(--rdk-shadow));
+  }
+  background: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    background: color-mix(in srgb, var(--_rdk-accent) 80%, var(--rdk-shadow));
+  }
+  color: var(--_rdk-accent-ink);
+}
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-outline[data-accent] {
+  --_rdk-accent-hover: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 88%, var(--rdk-shadow));
+  }
+  border-color: var(--_rdk-accent);
+  background: var(--rdk-surface-raised);
+  color: var(--_rdk-accent);
+}
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-outline[data-accent]:hover:not(:disabled) {
+  border-color: var(--_rdk-accent);
+  background: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    background: color-mix(in srgb, var(--_rdk-accent) 12%, var(--rdk-surface-raised));
+  }
+  color: var(--_rdk-accent);
+}
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-outline[data-accent]:active:not(:disabled), [data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-outline[data-accent][aria-pressed="true"] {
+  border-color: var(--_rdk-accent);
+  background: var(--_rdk-accent);
+  @supports (color: color-mix(in lab, red, red)) {
+    background: color-mix(in srgb, var(--_rdk-accent) 18%, var(--rdk-surface-raised));
+  }
+  color: var(--_rdk-accent);
 }
 [data-rdk-theme="dark-horse"] .rdk-btn:disabled {
   opacity: 0.56;

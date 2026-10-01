@@ -96,6 +96,41 @@
 [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-success:hover:not(:disabled) { border-color: #34d399; background: #d1fae5; }
 [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline:not([data-accent]) { border-color: #aeb5be; background: #f8fafc; color: #334155; }
 [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline:not([data-accent]):hover:not(:disabled) { border-color: #64748b; background: #e2e8f0; }
+/* Theme button defaults are unlayered, so explicitly retain the shared accent variants here. */
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent] {
+  border-color: color-mix(in srgb, var(--_rdk-accent) 66%, var(--_rdk-accent-mix-dark));
+  border-top-color: color-mix(in srgb, var(--_rdk-accent) 68%, var(--_rdk-accent-mix-light));
+  border-left-color: color-mix(in srgb, var(--_rdk-accent) 68%, var(--_rdk-accent-mix-light));
+  background: var(--_rdk-accent);
+  color: var(--_rdk-accent-ink);
+}
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent]:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--_rdk-accent) 78%, var(--_rdk-accent-mix-dark));
+  background: var(--_rdk-accent-hover);
+  color: var(--_rdk-accent-ink);
+}
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent]:active:not(:disabled),
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent][aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--_rdk-accent) 58%, var(--_rdk-accent-mix-dark));
+  background: color-mix(in srgb, var(--_rdk-accent) 88%, var(--_rdk-accent-mix-dark));
+  color: var(--_rdk-accent-ink);
+}
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent] {
+  border-color: var(--_rdk-accent);
+  background: #f8fafc;
+  color: var(--_rdk-accent);
+}
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent]:hover:not(:disabled) {
+  border-color: var(--_rdk-accent);
+  background: color-mix(in srgb, var(--_rdk-accent) 9%, #f8fafc);
+  color: var(--_rdk-accent);
+}
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent]:active:not(:disabled),
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent][aria-pressed="true"] {
+  border-color: var(--_rdk-accent);
+  background: color-mix(in srgb, var(--_rdk-accent) 14%, #f8fafc);
+  color: var(--_rdk-accent);
+}
 [data-rdk-theme="czarek-os"] .rdk-btn:disabled,
 [data-rdk-theme="czarek-os"] .rdk-btn[aria-busy="true"]:disabled { transform: none; box-shadow: none; }
 [data-rdk-theme="czarek-os"] .rdk-btn:disabled { border-color: #e0e4e8; background: #f1f3f5; opacity: 1; color: #89939f; }
