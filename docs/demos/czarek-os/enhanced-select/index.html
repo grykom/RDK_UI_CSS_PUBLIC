@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-rdk-theme="czarek-os">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Czarek OS / Enhanced Select reference</title>
+  <link rel="stylesheet" href="../../../dist/rdk-retro-ui.czarek-os.min.css">
+  <link rel="stylesheet" href="./example.css">
+  <script src="./czarek-select.js" defer></script>
+</head>
+<body>
+  <main>
+    <section class="rdk-panel example-panel" aria-labelledby="page-title">
+      <p class="rdk-label">Czarek OS / reference implementation</p>
+      <h1 id="page-title">Enhanced Select</h1>
+      <p>The native select supplies the value. The application script adds a Czarek OS combobox and listbox.</p>
+      <form class="example-form">
+        <div>
+          <label class="rdk-label" for="profile">Configuration profile</label>
+          <select id="profile" name="profile" class="rdk-select" data-cz-select aria-describedby="profile-help">
+            <option value="standard">Standard</option>
+            <option value="focused">Focused work</option>
+            <option value="review">Review queue</option>
+            <option value="legacy" disabled>Legacy profile unavailable</option>
+          </select>
+          <p id="profile-help">Arrow keys, Home/End, Enter/Space and Escape work on the enhanced trigger. The native select remains available if the script does not run.</p>
+        </div>
+        <button type="submit" class="rdk-btn rdk-btn-primary">Apply profile</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

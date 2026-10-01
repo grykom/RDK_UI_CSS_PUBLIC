@@ -1,0 +1,16 @@
+/* Application geometry for the standalone reference; RDK supplies appearance. */
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; padding: clamp(1rem, 5vw, 3rem); background: var(--rdk-case); color: var(--rdk-text); }
+main { width: min(100%, 36rem); margin: 0 auto; }
+.example-panel { padding: clamp(1rem, 4vw, 2rem); }
+.example-panel h1 { margin: .5rem 0; }
+.example-panel p { max-width: 55ch; }
+.example-form { display: grid; gap: 1.25rem; margin-top: 1.5rem; }
+.example-form .rdk-label { display: block; margin-bottom: .45rem; }
+.example-form .rdk-select { width: 100%; }
+.example-form > button { justify-self: start; }
+.example-form p { margin: .5rem 0 0; color: var(--rdk-text-muted); font-size: .85rem; }
+.cz-select { position: relative; }
+.cz-select-trigger, .cz-select-option { width: 100%; }
+.cz-select-menu { position: absolute; z-index: 20; top: calc(100% + .25rem); left: 0; width: 100%; max-height: 16rem; overflow-y: auto; }
+.cz-select-option-text { min-width: 0; flex: 1; }
