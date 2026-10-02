@@ -674,4 +674,16 @@ dialog.querySelector(&quot;form&quot;).addEventListener(&quot;submit&quot;, (eve
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/section&gt;
-&lt;/div&gt;</code></pre></details><p class="mt-4"><a data-rdk-demo-link class="rdk-btn min-h-10 px-4 text-sm" href="../showcase/czarek-os/">Open in Native Showcase</a></p></section></div><footer class="docs-rule docs-copy mt-20 flex flex-wrap justify-between gap-3 pt-5 text-xs"><span>RDK RETRO UI · <span data-site-version></span></span></footer></main></div></body></html>
+&lt;/div&gt;</code></pre></details><p class="mt-4"><a data-rdk-demo-link class="rdk-btn min-h-10 px-4 text-sm" href="../showcase/czarek-os/">Open in Native Showcase</a></p></section></div><script data-pattern-demo="mobile-form-dialog-czarek">const trigger = document.querySelector("#cz-mobile-form-open");
+const dialog = document.querySelector("#cz-mobile-form-dialog");
+
+trigger.addEventListener("click", () => dialog.showModal());
+document.querySelector("#cz-mobile-form-close").addEventListener("click", () => dialog.close());
+document.querySelector("#cz-mobile-form-cancel").addEventListener("click", () => dialog.close());
+dialog.addEventListener("close", () => trigger.focus());
+
+dialog.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  // Validate and save in application code, then close the dialog.
+  dialog.close("saved");
+});</script><footer class="docs-rule docs-copy mt-20 flex flex-wrap justify-between gap-3 pt-5 text-xs"><span>RDK RETRO UI · <span data-site-version></span></span></footer></main></div></body></html>
