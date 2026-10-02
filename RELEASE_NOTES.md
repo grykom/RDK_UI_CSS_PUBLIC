@@ -4,6 +4,8 @@ Czarek OS now follows the original author's compact form density, neutral-first 
 
 The author micro-fix adds the opt-in `cz-number-no-spin` appearance helper for native number inputs. Czarek OS warning Badge, Notice and Toast foregrounds use the author's dark red `#991b1b` on their light-amber surfaces; native spinners remain the default without the helper.
 
+The fidelity follow-up seals Outline soft elevation against shared retro shadows in compatibility CSS, restores calm dirty/invalid hover and 1px focus, aligns Enhanced Select state appearance with native fields while retaining state backgrounds on hover, restores the Tooltip pointer for below-anchor placement, and adds the reusable `cz-status-pill` large status/readout helper.
+
 # RDK UI 0.2.0-alpha.2
 
 Dark Horse is the first public alpha for control, monitoring, dashboards, and focused utility applications. Its Native Showcase presents Control Window, Control Panel, Workspace, and Operational Components, including the Instrument Display and the final neutral, accent, success, info, warning, and danger signal roles. The shared Support Matrix lists 24 supported components and Tooltip as fallback. Dark Horse is included in the active combined stylesheet and has normal, minified, and Tailwind 3.4 compatibility standalone bundles. Console 94 remains archived and outside the combined CSS.

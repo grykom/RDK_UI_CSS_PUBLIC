@@ -91,12 +91,12 @@
   content: none;
   display: none;
 }
-[data-rdk-theme="czarek-os"] .rdk-btn:hover:not(:disabled) {
+[data-rdk-theme="czarek-os"] .rdk-btn:hover:not(:disabled):not([aria-disabled="true"]) {
   border-color: #64748b;
   background: #e2e8f0;
   transform: scale(1.05);
 }
-[data-rdk-theme="czarek-os"] .rdk-btn:active:not(:disabled) {
+[data-rdk-theme="czarek-os"] .rdk-btn:active:not(:disabled):not([aria-disabled="true"]) {
   transform: scale(.98);
   box-shadow: 0 1px 3px rgb(15 23 42 / 14%);
 }
@@ -109,7 +109,7 @@
   background: #334155;
   color: #fff;
 }
-[data-rdk-theme="czarek-os"] .rdk-btn:is(.rdk-btn-primary, .rdk-btn-solid:not([data-accent])):hover:not(:disabled) {
+[data-rdk-theme="czarek-os"] .rdk-btn:is(.rdk-btn-primary, .rdk-btn-solid:not([data-accent])):hover:not(:disabled):not([aria-disabled="true"]) {
   border-color: #0f172a;
   background: #1e293b;
   color: #fff;
@@ -119,7 +119,7 @@
   background: #f8fafc;
   color: #991b1b;
 }
-[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-danger:hover:not(:disabled) {
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-danger:hover:not(:disabled):not([aria-disabled="true"]) {
   border-color: #ef4444;
   background: #fee2e2;
 }
@@ -128,16 +128,17 @@
   background: #ecfdf5;
   color: #065f46;
 }
-[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-success:hover:not(:disabled) {
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-success:hover:not(:disabled):not([aria-disabled="true"]) {
   border-color: #34d399;
   background: #d1fae5;
 }
 [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline:not([data-accent]) {
   border-color: #aeb5be;
   background: #f8fafc;
+  box-shadow: var(--cz-elevation);
   color: #334155;
 }
-[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline:not([data-accent]):hover:not(:disabled) {
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline:not([data-accent]):hover:not(:disabled):not([aria-disabled="true"]) {
   border-color: #64748b;
   background: #e2e8f0;
 }
@@ -157,7 +158,7 @@
   background: var(--_rdk-accent);
   color: var(--_rdk-accent-ink);
 }
-[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent]:hover:not(:disabled) {
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent]:hover:not(:disabled):not([aria-disabled="true"]) {
   border-color: var(--_rdk-accent);
   @supports (color: color-mix(in lab, red, red)) {
     border-color: color-mix(in srgb, var(--_rdk-accent) 78%, var(--_rdk-accent-mix-dark));
@@ -165,7 +166,7 @@
   background: var(--_rdk-accent-hover);
   color: var(--_rdk-accent-ink);
 }
-[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent]:active:not(:disabled), [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent][aria-pressed="true"] {
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent]:active:not(:disabled):not([aria-disabled="true"]), [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-solid[data-accent][aria-pressed="true"]:not(:disabled):not([aria-disabled="true"]) {
   border-color: var(--_rdk-accent);
   @supports (color: color-mix(in lab, red, red)) {
     border-color: color-mix(in srgb, var(--_rdk-accent) 58%, var(--_rdk-accent-mix-dark));
@@ -177,11 +178,12 @@
   color: var(--_rdk-accent-ink);
 }
 [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent] {
+  box-shadow: var(--cz-elevation);
   border-color: var(--_rdk-accent);
   background: #f8fafc;
   color: var(--_rdk-accent);
 }
-[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent]:hover:not(:disabled) {
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent]:hover:not(:disabled):not([aria-disabled="true"]) {
   border-color: var(--_rdk-accent);
   background: var(--_rdk-accent);
   @supports (color: color-mix(in lab, red, red)) {
@@ -189,7 +191,7 @@
   }
   color: var(--_rdk-accent);
 }
-[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent]:active:not(:disabled), [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent][aria-pressed="true"] {
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent]:active:not(:disabled):not([aria-disabled="true"]), [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[data-accent][aria-pressed="true"]:not(:disabled):not([aria-disabled="true"]) {
   border-color: var(--_rdk-accent);
   background: var(--_rdk-accent);
   @supports (color: color-mix(in lab, red, red)) {
@@ -211,6 +213,23 @@
   border-color: #e0e4e8;
   background: #f1f3f5;
   color: #89939f;
+}
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline:active:not(:disabled):not([aria-disabled="true"]), [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline[aria-pressed="true"]:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: 0 1px 3px rgb(15 23 42 / 14%);
+}
+[data-rdk-theme="czarek-os"] .rdk-btn:is(:disabled, [aria-disabled="true"]) {
+  transform: none;
+  box-shadow: none;
+}
+[data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline:is(:disabled, [aria-disabled="true"]), [data-rdk-theme="czarek-os"] .rdk-btn.rdk-btn-outline:is(:disabled, [aria-disabled="true"])[aria-pressed="true"] {
+  box-shadow: none;
+}
+[data-rdk-theme="czarek-os"] .rdk-btn[aria-disabled="true"], [data-rdk-theme="czarek-os"] .rdk-btn:is(.rdk-btn-outline, .rdk-btn-solid, .rdk-btn-primary)[aria-disabled="true"], [data-rdk-theme="czarek-os"] .rdk-btn[aria-disabled="true"]:is(:hover, :active), [data-rdk-theme="czarek-os"] .rdk-btn:is(.rdk-btn-outline, .rdk-btn-solid)[aria-disabled="true"]:is(:hover, :active) {
+  border-color: #e0e4e8;
+  background: #f1f3f5;
+  color: #89939f;
+  transform: none;
+  box-shadow: none;
 }
 [data-rdk-theme="czarek-os"] .cz-btn-icon {
   width: 1.1rem;
@@ -252,7 +271,7 @@
   color: var(--rdk-text);
   font: 400 13px/1.42 var(--rdk-font-ui);
 }
-[data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea):hover:not(:disabled) {
+[data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea):hover:not(:focus-visible):not(:disabled):not([aria-disabled="true"]) {
   border-color: var(--rdk-border-dark);
 }
 [data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea):focus-visible {
@@ -290,16 +309,17 @@
   box-shadow: var(--cz-elevation);
   color: #1e293b;
 }
-[data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea)[data-dirty="true"]:not([aria-invalid="true"]):hover:not(:disabled) {
-  border-color: #fb923c;
+[data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea)[data-dirty="true"]:not([aria-invalid="true"]):hover:not(:focus-visible):not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--rdk-border-dark);
 }
-[data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea)[aria-invalid="true"]:hover:not(:disabled) {
-  border-color: #334155;
+[data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea)[aria-invalid="true"]:hover:not(:focus-visible):not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--rdk-border-dark);
 }
 [data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea):is([data-dirty="true"], [aria-invalid="true"]):focus-visible {
   border-color: var(--rdk-focus);
-  outline: 2px solid var(--rdk-focus);
-  outline-offset: 1px;
+  outline: 1px solid var(--rdk-focus);
+  outline-offset: 0;
+  box-shadow: var(--cz-elevation);
 }
 [data-rdk-theme="czarek-os"] :is(.rdk-input, .rdk-select, .rdk-textarea):disabled {
   border-color: #e0e4e8;
@@ -388,6 +408,13 @@
   background: #f1f5f9;
   color: #475569;
   font: 600 .78rem/1.2 var(--rdk-font-ui);
+}
+[data-rdk-theme="czarek-os"] .rdk-badge.cz-status-pill {
+  min-height: 2.4rem;
+  padding: .48rem .8rem;
+  font-size: .9rem;
+  line-height: 1.1;
+  font-weight: 600;
 }
 [data-rdk-theme="czarek-os"] .rdk-badge-success {
   border-color: #10b981;
@@ -484,6 +511,19 @@
   background: #334155;
   color: #fff;
 }
+[data-rdk-theme="czarek-os"] .rdk-tooltip::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 16px;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-top: 1px solid #1e293b;
+  border-left: 1px solid #1e293b;
+  background: #334155;
+  pointer-events: none;
+}
 [data-rdk-theme="czarek-os"] .rdk-menu-item:hover:not(:disabled) {
   background: #f1f5f9;
 }
@@ -518,7 +558,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  [data-rdk-theme="czarek-os"] .rdk-btn:hover:not(:disabled), [data-rdk-theme="czarek-os"] .rdk-btn:active:not(:disabled) {
+  [data-rdk-theme="czarek-os"] .rdk-btn:hover:not(:disabled):not([aria-disabled="true"]), [data-rdk-theme="czarek-os"] .rdk-btn:active:not(:disabled):not([aria-disabled="true"]) {
     transform: none;
   }
   [data-rdk-theme="czarek-os"] .rdk-btn[aria-busy="true"] .cz-btn-loader {
@@ -559,9 +599,8 @@
   color: var(--rdk-text-muted);
   transition: transform .14s ease;
 }
-[data-rdk-theme="czarek-os"] .cz-select-trigger:hover:not(:disabled):not([aria-disabled="true"]) {
+[data-rdk-theme="czarek-os"] .cz-select-trigger:hover:not(:focus-visible):not(:disabled):not([aria-disabled="true"]) {
   border-color: var(--rdk-border-dark);
-  background: var(--rdk-surface-raised);
 }
 [data-rdk-theme="czarek-os"] .cz-select-trigger:focus-visible {
   border-color: var(--rdk-focus);
@@ -584,16 +623,17 @@
   background: #cbd5e1;
   color: #1e293b;
 }
-[data-rdk-theme="czarek-os"] .cz-select-trigger[data-dirty="true"]:not([aria-invalid="true"]):hover:not(:disabled):not([aria-disabled="true"]) {
-  border-color: #fb923c;
+[data-rdk-theme="czarek-os"] .cz-select-trigger[data-dirty="true"]:not([aria-invalid="true"]):hover:not(:focus-visible):not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--rdk-border-dark);
 }
-[data-rdk-theme="czarek-os"] .cz-select-trigger[aria-invalid="true"]:hover:not(:disabled):not([aria-disabled="true"]) {
-  border-color: #334155;
+[data-rdk-theme="czarek-os"] .cz-select-trigger[aria-invalid="true"]:hover:not(:focus-visible):not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--rdk-border-dark);
 }
 [data-rdk-theme="czarek-os"] .cz-select-trigger:is([data-dirty="true"], [aria-invalid="true"]):focus-visible {
   border-color: var(--rdk-focus);
-  outline: 2px solid var(--rdk-focus);
-  outline-offset: 1px;
+  outline: 1px solid var(--rdk-focus);
+  outline-offset: 0;
+  box-shadow: var(--cz-elevation);
 }
 [data-rdk-theme="czarek-os"] .cz-select-trigger:is(:disabled, [aria-disabled="true"]) {
   border-color: var(--rdk-border);
