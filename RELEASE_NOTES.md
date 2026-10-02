@@ -4,17 +4,17 @@ Czarek OS now follows the original author's compact form density, neutral-first 
 
 The author micro-fix adds the opt-in `cz-number-no-spin` appearance helper for native number inputs. Czarek OS warning Badge, Notice and Toast foregrounds use the author's dark red `#991b1b` on their light-amber surfaces; native spinners remain the default without the helper.
 
-# RDK Retro UI 0.2.0-alpha.2
+# RDK UI 0.2.0-alpha.2
 
 Dark Horse is the first public alpha for control, monitoring, dashboards, and focused utility applications. Its Native Showcase presents Control Window, Control Panel, Workspace, and Operational Components, including the Instrument Display and the final neutral, accent, success, info, warning, and danger signal roles. The shared Support Matrix lists 24 supported components and Tooltip as fallback. Dark Horse is included in the active combined stylesheet and has normal, minified, and Tailwind 3.4 compatibility standalone bundles. Console 94 remains archived and outside the combined CSS.
 
-# RDK Retro UI 0.2.0-alpha.1
+# RDK UI 0.2.0-alpha.1
 
 This release adds complete standalone CSS bundles for Console 94, Terminal OS, and Czarek OS. The existing combined CSS remains the default for simple installation and runtime theme switching. Single-theme consumers can load a smaller standalone normal or minified file; Tailwind 3.4 Preflight consumers can use a matching unlayered compatibility file. Every standalone bundle includes the shared RDK core, components, effects, and font declarations, with only its selected theme. Keep dist/fonts/ beside copied CSS. Public theme metadata drives generation.
 
 ---
 
-# RDK Retro UI 0.1.0-alpha.8
+# RDK UI 0.1.0-alpha.8
 
 This release promotes the Czarek OS Enhanced Select appearance to an alpha theme-specific CSS primitive and adds Measurement Readout and Section Icon. Select keyboard and value behavior remain application-owned; the Native Showcase JavaScript is example code. The shared native Select is unchanged. Dirty means unsaved, invalid means an error, and invalid styling wins when both states are present.
 
@@ -22,7 +22,7 @@ Stat Tile / Stat Grid and Field with Unit / Prefix / Suffix are documented Patte
 
 ---
 
-# RDK Retro UI 0.1.0-alpha.7
+# RDK UI 0.1.0-alpha.7
 
 This release adds a generated unlayered compatibility stylesheet for Tailwind 3.4 with default Preflight. The standard built CSS remains layered. In a Tailwind 3 app, load the compiled Tailwind CSS first, then rdk-retro-ui.compat.min.css, and keep the sibling fonts/ directory beside it. Browser checks cover the green Console 94 solid button, hover, keyboard focus, and representative form controls.
 
@@ -30,7 +30,7 @@ IBM Plex Sans and Source Sans 3 now ship preferred WOFF2 files with their origin
 
 ---
 
-# RDK Retro UI 0.1.0-alpha.6
+# RDK UI 0.1.0-alpha.6
 
 This release keeps the visual and component contracts of alpha.5. Routine browser and package checks run without writing screenshots. Historical phase visual scripts remain available for manual verification.
 
@@ -38,7 +38,7 @@ The legacy IBM Plex Mono Regular file remains available for consumers that need 
 
 ---
 
-# RDK Retro UI 0.1.0-alpha.5
+# RDK UI 0.1.0-alpha.5
 
 Terminal OS now uses a neutral black and graphite base, a self-hosted IBM Plex Mono variable font with real weights 400, 600, and 700, and a mono-first theme root. The font is shipped as WOFF2 with TTF fallback. Terminal Marker explicitly supports neutral and adds amber progress alongside cyan info. Notice and Toast have intrinsic padding for built-CSS consumers, and the Vanilla example includes a Terminal OS fixture.
 
@@ -48,7 +48,7 @@ CSS-generated button brackets are included in accessible names in Chrome and Fir
 
 ---
 
-# RDK Retro UI 0.1.0-alpha.4
+# RDK UI 0.1.0-alpha.4
 
 Czarek OS is the third public theme. It brings a slate-led, content-first visual system for dense administration and production workspaces. Editable fields and enabled buttons have restrained elevation; actions use subtle hover scale with reduced-motion support. Success, warning, neutral, and destructive states have distinct colors.
 
@@ -58,7 +58,7 @@ The documentation shell now follows the selected theme: Console 94 keeps its war
 
 ---
 
-# RDK Retro UI 0.1.0-alpha.3
+# RDK UI 0.1.0-alpha.3
 
 Terminal OS joins Console 94 as the second official alpha theme. The release adds a generated per-theme Support Matrix and component Theme support sections. Terminal OS has 17 supported, 5 fallback, and 3 unsupported shared components. Terminal Window is the first public theme-specific primitive. The Terminal OS Native Showcase is its canonical composition; the Shared Showcase remains a compatibility view. Multi-theme documentation and the consumer agent guide now describe this split.
 

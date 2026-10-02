@@ -1,4 +1,4 @@
-# RDK Retro UI 0.2.0-alpha.2
+# RDK UI 0.2.0-alpha.2
 
 Consumer CSS guide. Choose a theme in the docs; Demo opens its native showcase.
 

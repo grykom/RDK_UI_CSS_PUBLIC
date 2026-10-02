@@ -1,4 +1,4 @@
-# Self-hosted fonts for RDK Retro UI themes
+# Self-hosted fonts for RDK UI themes
 
 RDK themes load their fonts locally through `src/index.css`. IBM Plex supports archived Console 94 and Terminal OS typography, as well as Dark Horse readouts:
 

@@ -1,4 +1,4 @@
-﻿# Adding a theme to RDK Retro UI
+﻿# Adding a theme to RDK UI
 
 This file documents the canonical theme-development workflow. Do not develop themes directly in `RDK_UI_CSS_PUBLIC`; that public repository is a generated consumer mirror.
 

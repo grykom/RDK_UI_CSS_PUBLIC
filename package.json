@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "description": "RDK Retro UI consumer snapshot",
+  "description": "RDK UI consumer snapshot",
   "files": [
     "RDK_AGENT_GUIDE.md",
     "src/",

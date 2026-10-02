@@ -1,6 +1,6 @@
-# RDK Retro UI
+# RDK UI
 
-Consumer distribution mirror for **RDK Retro UI 0.2.0-alpha.2**, a framework-agnostic CSS visual layer. Czarek OS, Terminal OS and Dark Horse are active public alpha themes. Czarek OS serves general content and productivity, Terminal OS compact terminal interfaces, and Dark Horse control, monitoring, dashboards, and focused utility applications. Console 94 is archived but remains available as standalone legacy CSS. Development happens in a separate canonical repository.
+Consumer distribution mirror for **RDK UI 0.2.0-alpha.2**, a framework-agnostic CSS visual layer. Czarek OS, Terminal OS and Dark Horse are active public alpha themes. Czarek OS serves general content and productivity, Terminal OS compact terminal interfaces, and Dark Horse control, monitoring, dashboards, and focused utility applications. Console 94 is archived but remains available as standalone legacy CSS. Development happens in a separate canonical repository.
 
 **Tailwind or application CSS controls geometry. RDK controls visual identity.**
 
@@ -35,4 +35,4 @@ The documentation selector lists active themes and persists the selection. Dark 
 
 ## License
 
-RDK Retro UI code is available under the [MIT License](LICENSE). IBM Plex, Source Sans 3, and Barlow font files retain their own OFL notices in src/fonts/, dist/fonts/, and docs/.
+RDK UI code is available under the [MIT License](LICENSE). IBM Plex, Source Sans 3, and Barlow font files retain their own OFL notices in src/fonts/, dist/fonts/, and docs/.

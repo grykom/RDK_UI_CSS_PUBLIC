@@ -1,6 +1,6 @@
-# RDK Retro UI — Agent Guide
+# RDK UI — Agent Guide
 
-Read this file before building UI with RDK Retro UI. Czarek OS, Terminal OS, and Dark Horse are active; Console 94 is archived. It describes the consumer contract for RDK source CSS, built CSS, and the `@rdk/retro-ui` package archive. RDK is CSS; your application supplies layout, state, and behavior.
+Read this file before building UI with RDK UI. Czarek OS, Terminal OS, and Dark Horse are active; Console 94 is archived. It describes the consumer contract for RDK source CSS, built CSS, and the `@rdk/retro-ui` package archive. RDK is CSS; your application supplies layout, state, and behavior.
 
 ## TL;DR - Start here
 
