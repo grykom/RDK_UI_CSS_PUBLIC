@@ -78,3 +78,14 @@
   opacity: 0.58;
   box-shadow: none;
 }
+
+/* Optional size modifiers. Utilities override them here; themes restate them in their own (unlayered) rules. */
+.rdk-btn-sm { min-height: 2rem; padding: 0.44rem 0.625rem; font-size: 0.75rem; }
+.rdk-btn-lg { min-height: 2.85rem; padding: 0.62rem 1.05rem; font-size: 1rem; }
+
+/* Ghost has no surface until hover; Icon is a square, label-free button (give it aria-label). */
+.rdk-btn-ghost { border-color: transparent; background: transparent; box-shadow: none; }
+.rdk-btn-ghost:hover:not(:disabled) { border-color: var(--rdk-border); background: var(--rdk-surface-recessed); }
+.rdk-btn-ghost::before,
+.rdk-btn-icon::before { display: none; }
+.rdk-btn-icon { aspect-ratio: 1; padding-inline: 0; }

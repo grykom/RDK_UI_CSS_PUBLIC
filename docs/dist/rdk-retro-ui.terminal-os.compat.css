@@ -159,6 +159,32 @@
 [data-rdk-theme="terminal-os"] .rdk-btn:disabled {
   opacity: .45;
 }
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-sm {
+  min-height: 2rem;
+  padding: .3em .55em;
+  font-size: .75rem;
+}
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-lg {
+  min-height: 2.85rem;
+  padding: .6em .95em;
+  font-size: .95rem;
+}
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-icon {
+  width: 2.4rem;
+  padding: 0;
+}
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-icon.rdk-btn-sm {
+  width: 2rem;
+}
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-icon.rdk-btn-lg {
+  width: 2.85rem;
+}
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-ghost::before {
+  display: inline;
+}
+[data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-icon::before, [data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-icon::after {
+  content: none;
+}
 [data-rdk-theme="terminal-os"] .showcase-nav, [data-rdk-theme="terminal-os"] [data-nav-group] {
   counter-reset: rdk-nav;
 }
@@ -303,6 +329,7 @@
 }
 [data-rdk-theme="terminal-os"] .rdk-badge {
   border: 0;
+  padding: 0 .2em;
   border-radius: 0;
   background: transparent;
   color: var(--_rdk-badge-accent);
@@ -391,6 +418,12 @@
 @media (max-width: 500px) {
   [data-rdk-theme="terminal-os"] .rdk-btn, [data-rdk-theme="terminal-os"] .rdk-nav-item, [data-rdk-theme="terminal-os"] .rdk-tab {
     min-height: 2.75rem;
+  }
+  [data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-sm {
+    min-height: 2.75rem;
+  }
+  [data-rdk-theme="terminal-os"] .rdk-btn.rdk-btn-icon {
+    width: 2.75rem;
   }
 }
 [data-rdk-theme="terminal-os"] .rdk-terminal-window {
@@ -545,7 +578,7 @@
     letter-spacing: -0.045em;
     line-height: 0.98;
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range) {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range) {
     --_rdk-accent: var(--rdk-accent-blue);
     --_rdk-accent-ink: var(--_rdk-accent-on);
     --_rdk-accent-hover: var(--_rdk-accent);
@@ -553,19 +586,19 @@
       --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, var(--_rdk-accent-mix-dark));
     }
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="green"] {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="green"] {
     --_rdk-accent: var(--rdk-accent-green);
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="red"] {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="red"] {
     --_rdk-accent: var(--rdk-accent-red);
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="blue"] {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="blue"] {
     --_rdk-accent: var(--rdk-accent-blue);
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="pink"] {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="pink"] {
     --_rdk-accent: var(--rdk-accent-pink);
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="amber"] {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="amber"] {
     --_rdk-accent: var(--rdk-accent-amber);
     --_rdk-accent-ink: var(--rdk-text);
     --_rdk-accent-hover: var(--_rdk-accent);
@@ -573,13 +606,13 @@
       --_rdk-accent-hover: color-mix(in srgb, var(--_rdk-accent) 90%, var(--_rdk-accent-mix-light));
     }
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="orange"] {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="orange"] {
     --_rdk-accent: var(--rdk-accent-orange);
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="violet"] {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="violet"] {
     --_rdk-accent: var(--rdk-accent-violet);
   }
-:where(.rdk-nav-item, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="cyan"] {
+:where(.rdk-nav-item, .rdk-badge, .rdk-btn-solid, .rdk-btn-outline, .rdk-progress, .rdk-segments, .rdk-range)[data-accent="cyan"] {
     --_rdk-accent: var(--rdk-accent-cyan);
   }
 .rdk-bevel {
@@ -760,6 +793,32 @@
     cursor: not-allowed;
     opacity: 0.58;
     box-shadow: none;
+  }
+.rdk-btn-sm {
+    min-height: 2rem;
+    padding: 0.44rem 0.625rem;
+    font-size: 0.75rem;
+  }
+.rdk-btn-lg {
+    min-height: 2.85rem;
+    padding: 0.62rem 1.05rem;
+    font-size: 1rem;
+  }
+.rdk-btn-ghost {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+  }
+.rdk-btn-ghost:hover:not(:disabled) {
+    border-color: var(--rdk-border);
+    background: var(--rdk-surface-recessed);
+  }
+.rdk-btn-ghost::before, .rdk-btn-icon::before {
+    display: none;
+  }
+.rdk-btn-icon {
+    aspect-ratio: 1;
+    padding-inline: 0;
   }
 .rdk-nav-item {
     appearance: none;
@@ -1088,6 +1147,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45em;
+    padding: 0.25em 0.6em;
     border: 1px solid var(--rdk-border);
     border-left: 3px solid var(--_rdk-badge-accent);
     border-radius: calc(var(--rdk-radius) - 0.1rem);
@@ -1096,6 +1156,7 @@
     font-family: var(--rdk-font-display);
     font-weight: 700;
     line-height: 1.2;
+    white-space: nowrap;
   }
 .rdk-badge-neutral {
     --_rdk-badge-accent: var(--rdk-border-dark);
@@ -1114,6 +1175,9 @@
   }
 .rdk-badge-special {
     --_rdk-badge-accent: var(--rdk-accent-pink);
+  }
+.rdk-badge[data-accent] {
+    --_rdk-badge-accent: var(--_rdk-accent);
   }
 .rdk-card {
     border: 1px solid var(--rdk-border);

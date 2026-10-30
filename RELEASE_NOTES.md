@@ -1,10 +1,39 @@
-# Unreleased — Czarek OS author alignment
+# RDK UI 0.3.0
 
-Czarek OS now follows the original author's compact form density, neutral-first action surfaces, slate-led invalid fields, calmer status palette, and continuous diagnostic disclosure treatment. The public Patterns documentation covers Field with Unit, Section Header, Status Pill / Status Readout, and Diagnostic / Expandable Record. An optional Enhanced Select reference implementation is available under `examples/czarek-os/enhanced-select/`; RDK remains CSS-first with no required JavaScript runtime. The package version remains `0.2.0-alpha.2` until an owner release decision.
+RDK UI 0.3.0 brings shared Button size/ghost/icon modifiers, Badge padding and `data-accent` support in every theme, a refreshed Czarek OS palette, buttons, forms and feedback, accessibility contrast fixes, and a richer Czarek OS Native Showcase. Themes keep their own lifecycle labels (Czarek OS, Terminal OS and Dark Horse remain public alpha themes); the package version is no longer a pre-release.
+
+## Upgrading from 0.2.0-alpha.2
+
+Checklist for projects that consume RDK (applications, Auto RDK, agents). Replace the CSS files and keep `fonts/` beside them; class names are unchanged and no markup change is required. Then review:
+
+1. **Badge padding.** `.rdk-badge` now has built-in padding (`0.25em 0.6em`) and `white-space: nowrap`. Remove local badge padding patches. Long labels no longer wrap; allow for this in narrow table cells.
+2. **Badge `data-accent`.** Badge accepts `data-accent` in every theme and it wins over the semantic class (`rdk-badge-warning`, Czarek `cz-status-warning`). Remove workarounds that forced accent colors on badges.
+3. **New button modifiers.** `rdk-btn-sm`, `rdk-btn-lg`, `rdk-btn-ghost` and `rdk-btn-icon` work in Czarek OS, Terminal OS and Dark Horse. Replace local size/ghost/icon CSS with them. An icon-only button needs `aria-label`. In Terminal OS small and icon buttons stay 44px tall on phones (≤500px).
+4. **Utilities vs. theme values.** Tailwind/application utilities override shared RDK defaults, but values set by a theme stylesheet (unlayered) win over utilities. Change such values in application CSS with a theme-scoped selector.
+5. **Accent palette.** Accents are exactly `green red blue pink amber orange violet cyan`. Czarek OS uses a new balanced palette; Czarek `amber` is a bright gold fill (`#e8c52c`) with dark text, outline amber uses `#776100` text. Amber in other themes is unchanged.
+6. **Czarek OS buttons.** No hover scaling, flatter elevation. `rdk-btn-danger`, `rdk-btn-success`, `rdk-btn-special` render as red/green/pink outline buttons. Outline text darkens on hover and press (contrast ≥ 4.5:1). Use `rdk-btn-outline` with `data-accent` for colored outlines.
+7. **Czarek OS forms.** Invalid fields (`aria-invalid="true"`) are blue-tinted with a blue border (previously slate); dirty fields (`data-dirty="true"`) are light amber with an amber-ink border. Keep error message text in the normal text color; the field carries the state.
+8. **Czarek OS feedback.** Notice and Toast success/danger/info (Notice also special) use green/red/blue/pink; warning keeps the author look (dark red `#991b1b` on light amber). The first child (usually `<strong>`) carries the tone and following text is neutral. Single-line notices without child elements keep the tone on all text.
+9. **Czarek OS badges and tables.** Badge radius is `.3rem` (`cz-status-pill` keeps `.6rem`); success/danger/info/special use green/red/blue/pink. Table rows with `data-state="warning"` get a 3px amber-ink left marker; set `--cz-row-marker` to another accent token to change it.
+10. **Terminal OS badge** padding is `0 .2em` (theme value).
+
+When converting an application to Czarek OS, follow the new "Czarek OS composition guidelines" in RDK_AGENT_GUIDE.md (icons in buttons, Slim vs. Standard tables, small typography, Native Showcase elements first, status words, forms, density, feedback, page structure).
+
+Visual QA after upgrading: check badges in tables and narrow layouts, Czarek invalid/dirty fields, Notice/Toast text, and any locally restyled buttons.
+
+## Details
+
+Czarek OS now follows the original author's compact form density, neutral-first action surfaces, calmer status palette, and continuous diagnostic disclosure treatment. The public Patterns documentation covers Field with Unit, Section Header, Status Pill / Status Readout, and Diagnostic / Expandable Record. An optional Enhanced Select reference implementation is available under `examples/czarek-os/enhanced-select/`; RDK remains CSS-first with no required JavaScript runtime.
 
 The author micro-fix adds the opt-in `cz-number-no-spin` appearance helper for native number inputs. Czarek OS warning Badge, Notice and Toast foregrounds use the author's dark red `#991b1b` on their light-amber surfaces; native spinners remain the default without the helper.
 
 The fidelity follow-up seals Outline soft elevation against shared retro shadows in compatibility CSS, restores calm dirty/invalid hover and 1px focus, aligns Enhanced Select state appearance with native fields while retaining state backgrounds on hover, restores the Tooltip pointer for below-anchor placement, and adds the reusable `cz-status-pill` large status/readout helper.
+
+Buttons gain shared `rdk-btn-sm` / `rdk-btn-lg` size modifiers, `rdk-btn-ghost` (no surface until hover) and `rdk-btn-icon` (square) in every active theme. Utilities override these shared defaults; values set by a theme stylesheet win over utilities and are changed in application CSS. Czarek OS buttons no longer scale on hover, use flatter elevation, and render `rdk-btn-danger`, `rdk-btn-success` and `rdk-btn-special` as red, green and pink outline buttons. Czarek OS accents use one balanced palette; Czarek amber is now a bright gold fill (`#e8c52c`) with dark text, and outline amber keeps the darker `#776100` text in every state. Amber in other themes is unchanged.
+
+Badge now has built-in padding (`0.25em 0.6em`) and does not wrap. It accepts `data-accent` in every theme; the attribute takes precedence over the semantic class. In Czarek OS accent badges match outline buttons, success/danger/info/special use green/red/blue/pink, warning keeps the author status look, and the badge radius is smaller (`cz-status-pill` keeps its larger radius). Migration: local badge padding patches can be removed; utilities override the shared default padding (not the Terminal OS theme padding), but custom padding rules that lose to `.rdk-badge` in the cascade no longer apply.
+
+Czarek OS forms and feedback: invalid fields use a lightly tinted blue surface with a blue border, dirty fields a light amber surface; Notice and Toast success, danger, info (and Notice special) use the same green, red, blue and pink colors as Badge, while warning keeps the author palette. Notice and Toast titles carry the tone while body text stays neutral; the warning table-row marker is a 3px amber line (`--cz-row-marker` changes it); disabled navigation items are more legible. Outline buttons, semantic buttons and accent badges darken their text on hover and press to keep 4.5:1 contrast. The Native Showcase adds interactive table examples, summary cards, an accent preview and a sticky section index; these remain application examples, not new APIs.
 
 # RDK UI 0.2.0-alpha.2
 

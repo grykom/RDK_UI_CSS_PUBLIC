@@ -1,6 +1,6 @@
 # RDK UI
 
-Consumer distribution mirror for **RDK UI 0.2.0-alpha.2**, a framework-agnostic CSS visual layer. Czarek OS, Terminal OS and Dark Horse are active public alpha themes. Czarek OS serves general content and productivity, Terminal OS compact terminal interfaces, and Dark Horse control, monitoring, dashboards, and focused utility applications. Console 94 is archived but remains available as standalone legacy CSS. Development happens in a separate canonical repository.
+Consumer distribution mirror for **RDK UI 0.3.0**, a framework-agnostic CSS visual layer. Czarek OS, Terminal OS and Dark Horse are active public alpha themes. Czarek OS serves general content and productivity, Terminal OS compact terminal interfaces, and Dark Horse control, monitoring, dashboards, and focused utility applications. Console 94 is archived but remains available as standalone legacy CSS. Development happens in a separate canonical repository.
 
 **Tailwind or application CSS controls geometry. RDK controls visual identity.**
 
@@ -25,7 +25,7 @@ For Tailwind 3.4 with default Preflight, load your app's compiled Tailwind CSS f
 
 The [combined CSS](dist/rdk-retro-ui.min.css) supports switching between active Czarek OS, Terminal OS, and Dark Horse. For one fixed active theme, use [Czarek OS](dist/rdk-retro-ui.czarek-os.min.css), [Terminal OS](dist/rdk-retro-ui.terminal-os.min.css), or [Dark Horse](dist/rdk-retro-ui.dark-horse.min.css) alone with sibling fonts. [Console 94](dist/rdk-retro-ui.console-94.min.css) is an archived standalone option; see its [archive reference](docs/archive/console-94/). Each standalone file includes the full shared styling; do not load the combined CSS alongside it. Switching to another theme requires the combined CSS or that theme's additional bundle. Tailwind 3.4 Preflight users can choose the matching .compat.min.css file.
 
-Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract and [release notes](RELEASE_NOTES.md) for 0.2.0-alpha.2. Explore the [Dark Horse Native Showcase](docs/showcase/dark-horse/), [Vanilla example](examples/vanilla/README.md), [Terminal OS built-CSS example](examples/vanilla/terminal-os.html), and [Tailwind example](examples/tailwind/README.md).
+Read [the agent guide](RDK_AGENT_GUIDE.md) for the full API contract and [release notes](RELEASE_NOTES.md) for 0.3.0. Explore the [Dark Horse Native Showcase](docs/showcase/dark-horse/), [Vanilla example](examples/vanilla/README.md), [Terminal OS built-CSS example](examples/vanilla/terminal-os.html), and [Tailwind example](examples/tailwind/README.md).
 
 ## Documentation and demos
 

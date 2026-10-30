@@ -144,7 +144,7 @@
 }
 
 /* Amber keeps its accent meaning; semantic warning hooks use the separate orange signal. */
-[data-rdk-theme="dark-horse"] .rdk-badge-warning { --_rdk-badge-accent: var(--_dh-signal-warning); }
+[data-rdk-theme="dark-horse"] .rdk-badge-warning:not([data-accent]) { --_rdk-badge-accent: var(--_dh-signal-warning); }
 [data-rdk-theme="dark-horse"] .rdk-table tbody tr[data-state="warning"] > :first-child {
   border-left-color: var(--_dh-signal-warning);
 }
@@ -299,6 +299,15 @@
   color: var(--_rdk-accent);
 }
 [data-rdk-theme="dark-horse"] .rdk-btn:disabled { opacity: 0.56; box-shadow: none; }
+/* Shared size, ghost and icon modifiers restated here because theme rules are unlayered. */
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-sm { min-height: 2rem; padding: 0.38rem 0.62rem; font-size: 0.8rem; }
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-lg { min-height: 2.9rem; padding: 0.72rem 1.05rem; font-size: 1rem; }
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-ghost { border-color: transparent; background: transparent; }
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-ghost:hover:not(:disabled) { border-color: transparent; background: #29333d; }
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-ghost:active:not(:disabled) { border-color: transparent; background: #12181d; }
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-icon { width: 2.5rem; padding: 0; }
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-icon.rdk-btn-sm { width: 2rem; }
+[data-rdk-theme="dark-horse"] .rdk-btn.rdk-btn-icon.rdk-btn-lg { width: 2.9rem; }
 
 [data-rdk-theme="dark-horse"] :is(.rdk-input, .rdk-select, .rdk-textarea) {
   border-color: var(--rdk-border-dark);
