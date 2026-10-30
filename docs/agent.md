@@ -378,7 +378,7 @@ Czarek OS controls preserve dirty amber and invalid blue backgrounds on hover; i
 
 ### Czarek OS composition guidelines
 
-Owner recommendations for building or converting applications to Czarek OS. Follow them by default; depart only with a reason that fits the screen.
+Owner recommendations, not requirements, for building or converting applications to Czarek OS. They apply to appearance and component choice. They never require replacing an application's established layout or shell (for example a desktop with windows and a taskbar); keep the existing structure and apply Czarek OS colors, components and density within it. Use the recommendations where they fit and skip those that would change the application's character.
 
 1. **Icons in buttons, with judgment.** Use a leading Lucide-style outline icon (`cz-btn-icon`) for actions with a clear meaning: save, add, delete, edit, send, refresh, export. Skip icons on secondary actions such as Cancel or Back. Within one button group, use icons on all buttons or none. Use icon-only buttons (`rdk-btn-icon`) only in tight places such as table row actions, always with `aria-label`.
 2. **Tables.** Use the Slim table for few columns (about five or fewer) and simple values. Use the Standard table for many columns or two-line cells (name with a code below). Use a full-width table with a details dialog when a record has more data than a row can show. Right-align numbers; show status as a Badge, not colored text.
@@ -388,5 +388,5 @@ Owner recommendations for building or converting applications to Czarek OS. Foll
 6. **Forms.** Mark unsaved changes with `data-dirty="true"` and errors with `aria-invalid="true"` plus a message below the field. Put units inside the field (Field with Unit Pattern) instead of separate columns. Labels above fields; two fields per row on desktop, one per row on phones.
 7. **Density.** Keep the compact spacing of the Native Showcase. Panels and cards stay flat; only interactive or editable elements carry elevation.
 8. **Feedback.** Use Notice for a state that must stay visible (for example "Review needed" above a table) and Toast for a short confirmation after an action. A title plus one sentence.
-9. **Page structure.** Dark slate side navigation, breadcrumbs at the top, Section Header (icon, title, one-sentence description) for sections, and a sticky section index on long pages, as in the Native Showcase.
-10. **Check after converting.** Run the decision checklist in section 17, including its points 9–11.
+9. **Page structure (new applications only).** When an application has no established layout yet, a good default is a dark slate side navigation, breadcrumbs at the top, Section Header (icon, title, one-sentence description) for sections, and a sticky section index on long pages, as in the Native Showcase.
+10. **Check after converting.** These checks concern RDK usage, not layout: Run the decision checklist in section 17, including its points 9–11.
