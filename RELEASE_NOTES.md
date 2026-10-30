@@ -17,7 +17,7 @@ Checklist for projects that consume RDK (applications, Auto RDK, agents). Replac
 9. **Czarek OS badges and tables.** Badge radius is `.3rem` (`cz-status-pill` keeps `.6rem`); success/danger/info/special use green/red/blue/pink. Table rows with `data-state="warning"` get a 3px amber-ink left marker; set `--cz-row-marker` to another accent token to change it.
 10. **Terminal OS badge** padding is `0 .2em` (theme value).
 
-When converting an application to Czarek OS, consider the new "Czarek OS composition guidelines" (recommendations, not requirements; an existing layout such as a desktop with windows stays) in RDK_AGENT_GUIDE.md (icons in buttons, Slim vs. Standard tables, small typography, Native Showcase elements first, status words, forms, density, feedback, page structure).
+When converting an application to Czarek OS, consider the new "Czarek OS composition guidelines" (recommendations, not requirements; an existing layout such as a desktop with windows stays) in RDK_AGENT_GUIDE.md (icons in buttons, Slim vs. Standard tables, small typography, Native Showcase elements first, status words, forms, density, feedback).
 
 Visual QA after upgrading: check badges in tables and narrow layouts, Czarek invalid/dirty fields, Notice/Toast text, and any locally restyled buttons.
 

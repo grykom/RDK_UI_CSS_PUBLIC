@@ -300,7 +300,7 @@ Compose components according to meaning: a form groups labeled native fields and
 8. Am I overriding RDK appearance locally when I should reuse it?
 9. Is every status a Badge with a word (Ready, Needs review), never color or a dot alone?
 10. Does the table variant fit the data (see the theme guidelines; numbers right-aligned, status as Badge)?
-11. After converting a screen: no colors or shadows outside RDK tokens, one primary action per view, icon-only buttons have `aria-label`, nothing overflows at 390 px.
+11. After converting a screen: icon-only buttons have `aria-label` and nothing overflows at 390 px.
 
 ## 18. Where to find deeper documentation
 
@@ -378,15 +378,14 @@ Czarek OS controls preserve dirty amber and invalid blue backgrounds on hover; i
 
 ### Czarek OS composition guidelines
 
-Owner recommendations, not requirements, for building or converting applications to Czarek OS. They apply to appearance and component choice. They never require replacing an application's established layout or shell (for example a desktop with windows and a taskbar); keep the existing structure and apply Czarek OS colors, components and density within it. Use the recommendations where they fit and skip those that would change the application's character.
+Owner recommendations, not requirements, for building or converting applications to Czarek OS. They apply to appearance and component choice. They never require replacing an application's established layout or shell (for example a desktop with windows and a taskbar); keep the existing structure and apply Czarek OS colors, components and density within it. Use the recommendations where they fit and skip those that would change the application's character. Layout, composition and new ideas are left to the application and its author.
 
-1. **Icons in buttons, with judgment.** Use a leading Lucide-style outline icon (`cz-btn-icon`) for actions with a clear meaning: save, add, delete, edit, send, refresh, export. Skip icons on secondary actions such as Cancel or Back. Within one button group, use icons on all buttons or none. Use icon-only buttons (`rdk-btn-icon`) only in tight places such as table row actions, always with `aria-label`.
+1. **Icons in buttons, with judgment.** Use a leading Lucide-style outline icon (`cz-btn-icon`) for actions with a clear meaning: save, add, delete, edit, send, refresh, export. Skip icons on secondary actions such as Cancel or Back. Icon-only buttons (`rdk-btn-icon`) suit tight places such as table row actions and always need `aria-label`.
 2. **Tables.** Use the Slim table for few columns (about five or fewer) and simple values. Use the Standard table for many columns or two-line cells (name with a code below). Use a full-width table with a details dialog when a record has more data than a row can show. Right-align numbers; show status as a Badge, not colored text.
 3. **Small, subtle typography.** Keep the theme's built-in sizes; do not enlarge text. Headings stay moderate. Section labels use small uppercase letter-spaced text as in the Native Showcase. Use bold sparingly; helper text uses `--rdk-text-muted`.
-4. **Elements from the Native Showcase first.** Prefer components, primitives and Patterns shown in the Czarek OS Native Showcase and the Patterns page. Build a custom element only when nothing similar exists, and compose it from existing classes.
+4. **Elements from the Native Showcase first.** Reach first for components, primitives and Patterns shown in the Czarek OS Native Showcase and the Patterns page; new elements are welcome and look most at home when composed from existing classes.
 5. **Status in words.** Status is a Badge with text, never color or a dot alone. Warning keeps the author look (dark red on light amber).
-6. **Forms.** Mark unsaved changes with `data-dirty="true"` and errors with `aria-invalid="true"` plus a message below the field. Put units inside the field (Field with Unit Pattern) instead of separate columns. Labels above fields; two fields per row on desktop, one per row on phones.
+6. **Forms.** Mark unsaved changes with `data-dirty="true"` and errors with `aria-invalid="true"` plus a message below the field. Units fit well inside the field (Field with Unit Pattern).
 7. **Density.** Keep the compact spacing of the Native Showcase. Panels and cards stay flat; only interactive or editable elements carry elevation.
 8. **Feedback.** Use Notice for a state that must stay visible (for example "Review needed" above a table) and Toast for a short confirmation after an action. A title plus one sentence.
-9. **Page structure (new applications only).** When an application has no established layout yet, a good default is a dark slate side navigation, breadcrumbs at the top, Section Header (icon, title, one-sentence description) for sections, and a sticky section index on long pages, as in the Native Showcase.
-10. **Check after converting.** These checks concern RDK usage, not layout: Run the decision checklist in section 17, including its points 9–11.
+9. **Check after converting.** These checks concern RDK usage, not layout: run the decision checklist in section 17, including its points 9–11.
